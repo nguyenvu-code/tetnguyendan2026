@@ -4,6 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tết Nguyên Đán 2026 - Khởi Đầu An Khang Thịnh Vượng</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Khám phá Tết Nguyên Đán 2026 - Năm Bính Ngọ. Tìm hiểu phong tục, món ăn truyền thống, lời chúc Tết và nhiều công cụ hữu ích cho mùa xuân Việt Nam.">
+    <meta name="keywords" content="Tết 2026, Tết Nguyên Đán, Năm Bính Ngọ, phong tục Tết, món ăn Tết, lời chúc Tết, Việt Nam, Lunar New Year 2026">
+    <meta name="author" content="Nt Vu">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nguyenvu-code.github.io/tetnguyendan2026/">
+    <meta property="og:title" content="Tết Nguyên Đán 2026 - Khởi Đầu An Khang Thịnh Vượng">
+    <meta property="og:description" content="Khám phá Tết Việt 2026 - Năm Bính Ngọ với phong tục, món ăn truyền thống và lời chúc tốt đẹp!">
+    <meta property="og:image" content="https://nguyenvu-code.github.io/tetnguyendan2026/a1.png">
+    <meta property="og:locale" content="vi_VN">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tết Nguyên Đán 2026 - Khởi Đầu An Khang Thịnh Vượng">
+    <meta name="twitter:description" content="Khám phá Tết Việt 2026 - Năm Bính Ngọ với phong tục, món ăn truyền thống và lời chúc tốt đẹp!">
+    <meta name="twitter:image" content="https://nguyenvu-code.github.io/tetnguyendan2026/a1.png">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#D32F2F">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Tết 2026">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
@@ -57,9 +93,9 @@
                 <li><a href="#hero">Trang chủ</a></li>
                 <li><a href="#about">Giới thiệu</a></li>
                 <li><a href="#traditions">Phong tục</a></li>
-                <li><a href="#foods">Món ăn</a></li>
                 <li><a href="#events">Sự kiện</a></li>
                 <li><a href="#gallery">Hình ảnh</a></li>
+                <li><a href="#foods">Món ăn</a></li>
                 <li><a href="#tools">Công cụ</a></li>
             </ul>
             <div class="nav-audio-wrapper">
@@ -68,6 +104,7 @@
                 </button>
                 <span class="audio-tooltip">Tắt nhạc tại đây</span>
             </div>
+
         </div>
     </nav>
 
@@ -681,6 +718,24 @@
             </div>
             
             <div class="tools-grid">
+                <!-- Fortune Telling -->
+                <div class="tool-card fortune-card">
+                    <h3>🔮 Xem Quẻ Đầu Năm</h3>
+                    <p class="tool-desc">Rút một quẻ để xem vận may năm mới</p>
+                    <div class="fortune-container" id="fortuneContainer">
+                        <div class="fortune-sticks" id="fortuneSticks">
+                            <div class="stick" data-stick="1"></div>
+                            <div class="stick" data-stick="2"></div>
+                            <div class="stick" data-stick="3"></div>
+                            <div class="stick" data-stick="4"></div>
+                            <div class="stick" data-stick="5"></div>
+                        </div>
+                        <p class="fortune-hint">Chọn một que để xem quẻ</p>
+                    </div>
+                    <button class="btn btn-primary" id="drawFortune">🎋 Rút Quẻ</button>
+                    <div class="fortune-result" id="fortuneResult" style="display:none;"></div>
+                </div>
+
                 <!-- Lunar Calendar Widget -->
                 <div class="tool-card lunar-calendar">
                     <h3>📅 Lịch Âm Hôm Nay</h3>
@@ -809,28 +864,130 @@
                     <button class="btn btn-primary" id="startQuiz">Bắt Đầu Quiz</button>
                     <div class="quiz-result" id="quizResult" style="display:none;"></div>
                 </div>
-            </div>
 
-            <!-- Social Share -->
-            <div class="social-share">
-                <h3>Chia Sẻ Trang Web</h3>
-                <div class="share-buttons">
-                    <button class="share-btn facebook" id="shareFacebook">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-                        Facebook
-                    </button>
-                    <button class="share-btn zalo" id="shareZalo">
-                        <span class="zalo-icon">Z</span>
-                        Zalo
-                    </button>
-                    <button class="share-btn twitter" id="shareTwitter">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
-                        Twitter
-                    </button>
-                    <button class="share-btn copy" id="copyLink">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-                        Sao chép
-                    </button>
+                <!-- Lucky Money / Lì Xì -->
+                <div class="tool-card lixi-card">
+                    <h3>🧧 Rút Lì Xì May Mắn</h3>
+                    <p class="tool-desc">Thử vận may đầu năm - Rút bao lì xì xem được bao nhiêu!</p>
+                    <div class="lixi-container" id="lixiContainer">
+                        <div class="lixi-envelope" id="lixiEnvelope">
+                            <div class="envelope-front">
+                                <div class="envelope-decoration">福</div>
+                                <div class="envelope-text">LÌ XÌ</div>
+                            </div>
+                            <div class="envelope-flap"></div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="drawLixi">🎊 Rút Lì Xì</button>
+                    <div class="lixi-result" id="lixiResult" style="display:none;">
+                        <div class="lixi-money" id="lixiMoney"></div>
+                        <div class="lixi-message" id="lixiMessage"></div>
+                        <button class="btn btn-secondary" id="drawAgain">🔄 Rút Lại</button>
+                    </div>
+                </div>
+
+                <!-- Bầu Cua Game -->
+                <div class="tool-card baucua-card">
+                    <h3>🎲 Bầu Cua Tôm Cá</h3>
+                    <p class="tool-desc">Game truyền thống ngày Tết - Đặt cược và lắc xúc xắc!</p>
+                    
+                    <div class="baucua-game">
+                        <!-- Số xu hiện có -->
+                        <div class="baucua-balance">
+                            <span class="balance-icon">🪙</span>
+                            <span class="balance-amount" id="bcBalance">1000</span>
+                            <span class="balance-label">xu</span>
+                        </div>
+
+                        <!-- Bàn đặt cược -->
+                        <div class="baucua-board">
+                            <div class="bc-item" data-item="bau">
+                                <div class="bc-icon">🎃</div>
+                                <div class="bc-name">Bầu</div>
+                                <div class="bc-bet" id="bet-bau">0</div>
+                            </div>
+                            <div class="bc-item" data-item="cua">
+                                <div class="bc-icon">🦀</div>
+                                <div class="bc-name">Cua</div>
+                                <div class="bc-bet" id="bet-cua">0</div>
+                            </div>
+                            <div class="bc-item" data-item="tom">
+                                <div class="bc-icon">🦐</div>
+                                <div class="bc-name">Tôm</div>
+                                <div class="bc-bet" id="bet-tom">0</div>
+                            </div>
+                            <div class="bc-item" data-item="ca">
+                                <div class="bc-icon">🐟</div>
+                                <div class="bc-name">Cá</div>
+                                <div class="bc-bet" id="bet-ca">0</div>
+                            </div>
+                            <div class="bc-item" data-item="ga">
+                                <div class="bc-icon">🐓</div>
+                                <div class="bc-name">Gà</div>
+                                <div class="bc-bet" id="bet-ga">0</div>
+                            </div>
+                            <div class="bc-item" data-item="nai">
+                                <div class="bc-icon">🦌</div>
+                                <div class="bc-name">Nai</div>
+                                <div class="bc-bet" id="bet-nai">0</div>
+                            </div>
+                        </div>
+
+                        <!-- Chọn mức cược -->
+                        <div class="baucua-chips">
+                            <button class="bc-chip active" data-value="10">10</button>
+                            <button class="bc-chip" data-value="50">50</button>
+                            <button class="bc-chip" data-value="100">100</button>
+                            <button class="bc-chip" data-value="500">500</button>
+                        </div>
+
+                        <!-- 3 xúc xắc -->
+                        <div class="baucua-dice">
+                            <div class="bc-die" id="die1">❓</div>
+                            <div class="bc-die" id="die2">❓</div>
+                            <div class="bc-die" id="die3">❓</div>
+                        </div>
+
+                        <!-- Nút điều khiển -->
+                        <div class="baucua-controls">
+                            <button class="btn btn-secondary" id="bcClear">🗑️ Xóa Cược</button>
+                            <button class="btn btn-primary" id="bcRoll">🎲 Lắc!</button>
+                        </div>
+
+                        <!-- Kết quả -->
+                        <div class="baucua-result" id="bcResult"></div>
+                    </div>
+                </div>
+
+                <!-- Vòng Quay May Mắn -->
+                <div class="tool-card wheel-card">
+                    <h3>🎡 Vòng Quay May Mắn</h3>
+                    <p class="tool-desc">Quay và nhận lời chúc may mắn đầu năm!</p>
+                    
+                    <div class="wheel-game">
+                        <div class="wheel-container">
+                            <div class="wheel-pointer">▼</div>
+                            <div class="wheel" id="luckyWheel">
+                                <div class="wheel-inner">
+                                    <span class="wheel-icon">🧧</span>
+                                    <span class="wheel-icon">💰</span>
+                                    <span class="wheel-icon">❤️</span>
+                                    <span class="wheel-icon">✨</span>
+                                    <span class="wheel-icon">🎊</span>
+                                    <span class="wheel-icon">🌟</span>
+                                    <span class="wheel-icon">💕</span>
+                                    <span class="wheel-icon">🏆</span>
+                                </div>
+                            </div>
+                            <div class="wheel-center">
+                                <span>🏮</span>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary wheel-spin-btn" id="spinWheel">🎯 Quay Ngay!</button>
+                        
+                        <div class="wheel-result" id="wheelResult"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -886,17 +1043,25 @@
                     <div class="footer-social">
                         <h4>Kết nối với chúng tôi</h4>
                         <div class="social-icons">
-                            <a href="#" class="social-icon" aria-label="Facebook">
+                            <a href="https://www.facebook.com/nguyentruong.vu04/" target="_blank" class="social-icon" aria-label="Facebook">
                                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
                             </a>
-                            <a href="#" class="social-icon" aria-label="Instagram">
+                            <a href="https://www.instagram.com/_nvzu28_/" target="_blank" class="social-icon" aria-label="Instagram">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
                             </a>
-                            <a href="#" class="social-icon" aria-label="YouTube">
-                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.33z"/><polygon points="9.75,15.02 15.5,11.75 9.75,8.48" fill="#B71C1C"/></svg>
-                            </a>
-                            <a href="#" class="social-icon" aria-label="TikTok">
+                            <a href="https://www.tiktok.com/@_nvzu28_" target="_blank" class="social-icon" aria-label="TikTok">
                                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
+                            </a>
+                        </div>
+                        <div class="footer-contact">
+                            <h4>Liên hệ</h4>
+                            <a href="mailto:ntvu2803@gmail.com" class="contact-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+                                ntvu2803@gmail.com
+                            </a>
+                            <a href="tel:0349320542" class="contact-link">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                                0349 320 542
                             </a>
                         </div>
                     </div>

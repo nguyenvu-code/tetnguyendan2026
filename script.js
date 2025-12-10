@@ -782,6 +782,503 @@ function endQuiz() {
     document.getElementById('quizResult').style.display = 'block';
 }
 
+// ===== LUCKY MONEY / LÌ XÌ =====
+const lixiAmounts = [
+    { value: 500, label: '500đ', rarity: 'common' },
+    { value: 1000, label: '1.000đ', rarity: 'common' },
+    { value: 2000, label: '2.000đ', rarity: 'common' },
+    { value: 5000, label: '5.000đ', rarity: 'common' },
+    { value: 10000, label: '10.000đ', rarity: 'uncommon' },
+    { value: 20000, label: '20.000đ', rarity: 'uncommon' },
+    { value: 50000, label: '50.000đ', rarity: 'rare' },
+    { value: 100000, label: '100.000đ', rarity: 'rare' },
+    { value: 200000, label: '200.000đ', rarity: 'epic' },
+    { value: 500000, label: '500.000đ', rarity: 'legendary' }
+];
+
+const lixiMessages = [
+    // Câu chúc phúc
+    { text: "Chúc bạn năm mới Phúc - Lộc - Thọ đầy nhà! 🏮", type: "blessing" },
+    { text: "An Khang Thịnh Vượng, Vạn Sự Như Ý! ✨", type: "blessing" },
+    { text: "Tiền vào như nước, tiền ra nhỏ giọt! 💰", type: "blessing" },
+    { text: "Năm mới tấn tài tấn lộc, gia đình hạnh phúc! 🎊", type: "blessing" },
+    { text: "Sức khỏe dồi dào, công việc hanh thông! 🌟", type: "blessing" },
+    { text: "Xuân sang phú quý, Tết đến vinh hoa! 🌸", type: "blessing" },
+    { text: "Cung chúc tân xuân, mã đáo thành công! 🐴", type: "blessing" },
+    // Câu hài hước
+    { text: "Ít thôi nhưng tình cảm là chính! 😂", type: "funny" },
+    { text: "Của ít lòng nhiều, đừng chê nha! 🤭", type: "funny" },
+    { text: "Lì xì lấy hên, đừng tính tiền! 😜", type: "funny" },
+    { text: "Năm nay hên quá, sang năm rút tiếp! 🎰", type: "funny" },
+    { text: "Tiền này để dành mua trà sữa nha! 🧋", type: "funny" },
+    { text: "Giàu rồi nhớ cho tui vay! 💸", type: "funny" },
+    { text: "Đừng buồn, tiền chỉ là giấy thôi mà! 📄", type: "funny" },
+    { text: "Rút được bao nhiêu yêu bấy nhiêu! ❤️", type: "funny" },
+    { text: "Số này đẹp lắm, giữ lại làm kỷ niệm! 🎁", type: "funny" },
+    { text: "Ai bảo tham, rút 1 lần thôi chứ! 😏", type: "funny" },
+    { text: "Vận may đang đến, đừng vội nản! 🍀", type: "funny" },
+    { text: "Tiền ảo thôi, vui là chính! 🎮", type: "funny" }
+];
+
+function getRandomLixi() {
+    // Equal chance for all amounts
+    const randomIndex = Math.floor(Math.random() * lixiAmounts.length);
+    return lixiAmounts[randomIndex];
+}
+
+function getRandomMessage(amount) {
+    // Higher amounts get more blessing messages
+    const blessings = lixiMessages.filter(m => m.type === 'blessing');
+    const funny = lixiMessages.filter(m => m.type === 'funny');
+    
+    if (amount >= 100000) {
+        return blessings[Math.floor(Math.random() * blessings.length)].text;
+    } else if (amount <= 5000) {
+        return funny[Math.floor(Math.random() * funny.length)].text;
+    } else {
+        const all = [...blessings, ...funny];
+        return all[Math.floor(Math.random() * all.length)].text;
+    }
+}
+
+function drawLixi() {
+    const envelope = document.getElementById('lixiEnvelope');
+    const container = document.getElementById('lixiContainer');
+    const result = document.getElementById('lixiResult');
+    const drawBtn = document.getElementById('drawLixi');
+    
+    // Shake animation
+    envelope.classList.add('shake');
+    
+    setTimeout(() => {
+        envelope.classList.remove('shake');
+        envelope.classList.add('opened');
+        
+        // Get random amount and message
+        const lixi = getRandomLixi();
+        const message = getRandomMessage(lixi.value);
+        
+        // Hide envelope, show result
+        setTimeout(() => {
+            container.style.display = 'none';
+            drawBtn.style.display = 'none';
+            
+            document.getElementById('lixiMoney').textContent = `🧧 ${lixi.label}`;
+            document.getElementById('lixiMessage').textContent = message;
+            result.style.display = 'block';
+            
+            // Add effects based on amount
+            if (lixi.value === 500000) {
+                createJackpotEffect();
+            } else if (lixi.value >= 100000) {
+                createLixiConfetti();
+            }
+        }, 400);
+    }, 500);
+}
+
+function resetLixi() {
+    const envelope = document.getElementById('lixiEnvelope');
+    const container = document.getElementById('lixiContainer');
+    const result = document.getElementById('lixiResult');
+    const drawBtn = document.getElementById('drawLixi');
+    
+    envelope.classList.remove('opened');
+    container.style.display = 'flex';
+    drawBtn.style.display = 'inline-flex';
+    result.style.display = 'none';
+}
+
+function createLixiConfetti() {
+    const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7'];
+    const container = document.querySelector('.lixi-card');
+    
+    for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.cssText = `
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            left: ${Math.random() * 100}%;
+            top: 0;
+            opacity: 1;
+            border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+            animation: confettiFall ${1 + Math.random() * 2}s ease-out forwards;
+            z-index: 10;
+        `;
+        container.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
+    }
+}
+
+function createJackpotEffect() {
+    const container = document.querySelector('.lixi-card');
+    
+    // Massive confetti
+    const colors = ['#FFD700', '#FF6B6B', '#E53935', '#FFC107', '#FF9800', '#FFEB3B'];
+    for (let i = 0; i < 80; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.cssText = `
+            position: absolute;
+            width: ${8 + Math.random() * 12}px;
+            height: ${8 + Math.random() * 12}px;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            left: ${Math.random() * 100}%;
+            top: 0;
+            opacity: 1;
+            border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+            animation: confettiFall ${1.5 + Math.random() * 2}s ease-out forwards;
+            z-index: 10;
+        `;
+        container.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 4000);
+    }
+    
+    // Firework bursts
+    for (let burst = 0; burst < 3; burst++) {
+        setTimeout(() => {
+            createFireworkBurst(container, 20 + Math.random() * 60, 30 + Math.random() * 40);
+        }, burst * 400);
+    }
+    
+    // Golden glow effect
+    container.style.boxShadow = '0 0 60px rgba(255, 215, 0, 0.8), 0 0 100px rgba(255, 215, 0, 0.5)';
+    setTimeout(() => {
+        container.style.boxShadow = '';
+    }, 3000);
+    
+    // Jackpot text animation
+    const moneyEl = document.getElementById('lixiMoney');
+    moneyEl.innerHTML = '🎉 JACKPOT! 🎉<br>🧧 500.000đ 🧧';
+    moneyEl.style.animation = 'jackpotPulse 0.5s ease infinite';
+    setTimeout(() => {
+        moneyEl.style.animation = '';
+    }, 3000);
+}
+
+function createFireworkBurst(container, x, y) {
+    const colors = ['#FFD700', '#FF6B6B', '#00E676', '#2196F3', '#E91E63', '#9C27B0'];
+    const particles = 20;
+    
+    for (let i = 0; i < particles; i++) {
+        const particle = document.createElement('div');
+        const angle = (i / particles) * Math.PI * 2;
+        const velocity = 50 + Math.random() * 50;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        particle.style.cssText = `
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: ${color};
+            border-radius: 50%;
+            left: ${x}%;
+            top: ${y}%;
+            box-shadow: 0 0 6px ${color};
+            animation: fireworkParticle 1s ease-out forwards;
+            --tx: ${Math.cos(angle) * velocity}px;
+            --ty: ${Math.sin(angle) * velocity}px;
+            z-index: 20;
+        `;
+        container.appendChild(particle);
+        setTimeout(() => particle.remove(), 1000);
+    }
+}
+
+document.getElementById('drawLixi')?.addEventListener('click', drawLixi);
+document.getElementById('drawAgain')?.addEventListener('click', resetLixi);
+
+// ===== BẦU CUA GAME =====
+const bcItems = ['bau', 'cua', 'tom', 'ca', 'ga', 'nai'];
+const bcIcons = {
+    bau: '🎃',
+    cua: '🦀',
+    tom: '🦐',
+    ca: '🐟',
+    ga: '🐓',
+    nai: '🦌'
+};
+
+let bcBalance = 1000;
+let bcBets = { bau: 0, cua: 0, tom: 0, ca: 0, ga: 0, nai: 0 };
+let bcCurrentChip = 10;
+let bcIsRolling = false;
+
+// Chọn chip cược
+document.querySelectorAll('.bc-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+        document.querySelectorAll('.bc-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        bcCurrentChip = parseInt(chip.dataset.value);
+    });
+});
+
+// Đặt cược vào ô
+document.querySelectorAll('.bc-item').forEach(item => {
+    item.addEventListener('click', () => {
+        if (bcIsRolling) return;
+        
+        const itemName = item.dataset.item;
+        if (bcBalance >= bcCurrentChip) {
+            bcBets[itemName] += bcCurrentChip;
+            bcBalance -= bcCurrentChip;
+            updateBCDisplay();
+            item.classList.add('selected');
+            
+            // Hiệu ứng đặt chip
+            item.style.transform = 'scale(0.95)';
+            setTimeout(() => item.style.transform = '', 150);
+        } else {
+            showBCMessage('Không đủ xu! 😢', 'lose');
+        }
+    });
+});
+
+// Xóa cược
+document.getElementById('bcClear')?.addEventListener('click', () => {
+    if (bcIsRolling) return;
+    
+    // Hoàn lại xu
+    const totalBet = Object.values(bcBets).reduce((a, b) => a + b, 0);
+    bcBalance += totalBet;
+    
+    // Reset cược
+    bcBets = { bau: 0, cua: 0, tom: 0, ca: 0, ga: 0, nai: 0 };
+    updateBCDisplay();
+    
+    document.querySelectorAll('.bc-item').forEach(item => {
+        item.classList.remove('selected', 'winner');
+    });
+    document.getElementById('bcResult').textContent = '';
+    document.getElementById('bcResult').className = 'baucua-result';
+});
+
+// Lắc xúc xắc
+document.getElementById('bcRoll')?.addEventListener('click', () => {
+    if (bcIsRolling) return;
+    
+    const totalBet = Object.values(bcBets).reduce((a, b) => a + b, 0);
+    if (totalBet === 0) {
+        showBCMessage('Đặt cược trước đã! 🎯', 'lose');
+        return;
+    }
+    
+    bcIsRolling = true;
+    
+    // Xóa trạng thái winner cũ
+    document.querySelectorAll('.bc-item').forEach(item => {
+        item.classList.remove('winner');
+    });
+    
+    // Animation lắc xúc xắc
+    const dice = [
+        document.getElementById('die1'),
+        document.getElementById('die2'),
+        document.getElementById('die3')
+    ];
+    
+    dice.forEach(die => die.classList.add('rolling'));
+    
+    // Random kết quả trong khi lắc
+    let rollCount = 0;
+    const rollInterval = setInterval(() => {
+        dice.forEach(die => {
+            const randomItem = bcItems[Math.floor(Math.random() * bcItems.length)];
+            die.textContent = bcIcons[randomItem];
+        });
+        rollCount++;
+        if (rollCount > 20) {
+            clearInterval(rollInterval);
+            
+            // Kết quả cuối cùng
+            const results = [];
+            dice.forEach(die => {
+                die.classList.remove('rolling');
+                const result = bcItems[Math.floor(Math.random() * bcItems.length)];
+                die.textContent = bcIcons[result];
+                results.push(result);
+            });
+            
+            // Tính toán thắng thua
+            calculateBCResult(results);
+        }
+    }, 100);
+});
+
+function calculateBCResult(results) {
+    let totalWin = 0;
+    
+    // Đếm số lần xuất hiện của mỗi con
+    const counts = {};
+    results.forEach(r => {
+        counts[r] = (counts[r] || 0) + 1;
+    });
+    
+    // Tính tiền thắng
+    bcItems.forEach(item => {
+        if (bcBets[item] > 0 && counts[item]) {
+            totalWin += bcBets[item] * (counts[item] + 1); // Cược + thắng x số lần xuất hiện
+            
+            // Highlight ô thắng
+            document.querySelector(`.bc-item[data-item="${item}"]`).classList.add('winner');
+        }
+    });
+    
+    // Cập nhật số dư
+    bcBalance += totalWin;
+    
+    // Hiển thị kết quả
+    const totalBet = Object.values(bcBets).reduce((a, b) => a + b, 0);
+    const profit = totalWin - totalBet;
+    
+    if (profit > 0) {
+        showBCMessage(`🎉 Thắng ${profit} xu! Tổng: +${totalWin} xu`, 'win');
+        createBCConfetti();
+    } else if (profit === 0) {
+        showBCMessage(`😌 Hòa! Lấy lại ${totalWin} xu`, 'win');
+    } else {
+        showBCMessage(`😢 Thua ${totalBet} xu! Chúc may mắn lần sau~`, 'lose');
+    }
+    
+    // Reset cược
+    bcBets = { bau: 0, cua: 0, tom: 0, ca: 0, ga: 0, nai: 0 };
+    updateBCDisplay();
+    
+    setTimeout(() => {
+        document.querySelectorAll('.bc-item').forEach(item => {
+            item.classList.remove('selected');
+        });
+        bcIsRolling = false;
+    }, 2000);
+}
+
+function updateBCDisplay() {
+    document.getElementById('bcBalance').textContent = bcBalance;
+    bcItems.forEach(item => {
+        document.getElementById(`bet-${item}`).textContent = bcBets[item];
+    });
+}
+
+function showBCMessage(msg, type) {
+    const result = document.getElementById('bcResult');
+    result.textContent = msg;
+    result.className = `baucua-result ${type}`;
+}
+
+function createBCConfetti() {
+    const container = document.querySelector('.baucua-card');
+    const emojis = ['🎉', '✨', '🪙', '💰', '🎊'];
+    
+    for (let i = 0; i < 20; i++) {
+        const confetti = document.createElement('div');
+        confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        confetti.style.cssText = `
+            position: absolute;
+            font-size: ${16 + Math.random() * 16}px;
+            left: ${Math.random() * 100}%;
+            top: 0;
+            animation: confettiFall ${1 + Math.random() * 2}s ease-out forwards;
+            z-index: 10;
+            pointer-events: none;
+        `;
+        container.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
+    }
+}
+
+// ===== VÒNG QUAY MAY MẮN =====
+const wheelPrizes = [
+    { icon: '🧧', name: '100 Xu', message: 'Thêm 100 xu vào túi! Lộc nhỏ nhưng có tâm~', type: 'xu' },
+    { icon: '💰', name: 'Tài Lộc', message: 'Năm mới tiền vào như nước, tiền ra nhỏ giọt!', type: 'blessing' },
+    { icon: '❤️', name: 'Sức Khỏe', message: 'Sức khỏe dồi dào, bách niên giai lão!', type: 'blessing' },
+    { icon: '✨', name: 'May Mắn', message: 'Vận may đang đến, mọi việc hanh thông!', type: 'blessing' },
+    { icon: '🎊', name: '500 Xu', message: 'WOW! 500 xu! Hên quá đi thôi!', type: 'xu' },
+    { icon: '🌟', name: 'Thành Công', message: 'Công thành danh toại, vạn sự như ý!', type: 'blessing' },
+    { icon: '💕', name: 'Hạnh Phúc', message: 'Gia đình hạnh phúc, tình yêu viên mãn!', type: 'blessing' },
+    { icon: '🏆', name: 'JACKPOT', message: '🎉 JACKPOT! Đại cát đại lợi! Năm nay phát tài lớn!', type: 'jackpot' }
+];
+
+let wheelSpinning = false;
+let wheelRotation = 0;
+
+document.getElementById('spinWheel')?.addEventListener('click', () => {
+    if (wheelSpinning) return;
+    
+    wheelSpinning = true;
+    const wheel = document.getElementById('luckyWheel');
+    const spinBtn = document.getElementById('spinWheel');
+    const resultDiv = document.getElementById('wheelResult');
+    
+    spinBtn.disabled = true;
+    spinBtn.textContent = '🎰 Đang quay...';
+    resultDiv.innerHTML = '';
+    
+    // Random prize (JACKPOT có tỷ lệ thấp hơn)
+    let prizeIndex;
+    const rand = Math.random();
+    if (rand < 0.05) {
+        prizeIndex = 7; // 5% JACKPOT
+    } else {
+        prizeIndex = Math.floor(Math.random() * 7); // 95% các giải khác
+    }
+    
+    // Tính góc quay
+    const segmentAngle = 360 / 8;
+    const targetAngle = 360 - (prizeIndex * segmentAngle) - (segmentAngle / 2);
+    const spins = 5 + Math.floor(Math.random() * 3); // 5-7 vòng
+    const totalRotation = spins * 360 + targetAngle;
+    
+    wheelRotation += totalRotation;
+    wheel.style.transform = `rotate(${wheelRotation}deg)`;
+    
+    // Hiển thị kết quả sau khi quay xong
+    setTimeout(() => {
+        const prize = wheelPrizes[prizeIndex];
+        
+        resultDiv.innerHTML = `
+            <div class="prize-icon">${prize.icon}</div>
+            <div class="prize-text">${prize.name}</div>
+            <div class="prize-message">${prize.message}</div>
+        `;
+        
+        // Hiệu ứng đặc biệt cho JACKPOT
+        if (prize.type === 'jackpot') {
+            createWheelConfetti();
+            resultDiv.style.background = 'linear-gradient(135deg, rgba(255,215,0,0.3) 0%, rgba(255,165,0,0.3) 100%)';
+            resultDiv.style.border = '2px solid var(--color-gold)';
+        } else {
+            resultDiv.style.background = 'rgba(255, 255, 255, 0.1)';
+            resultDiv.style.border = 'none';
+        }
+        
+        spinBtn.disabled = false;
+        spinBtn.textContent = '🎯 Quay Lại!';
+        wheelSpinning = false;
+    }, 4000);
+});
+
+function createWheelConfetti() {
+    const container = document.querySelector('.wheel-card');
+    const emojis = ['🎉', '✨', '🏆', '💰', '🎊', '⭐', '🌟'];
+    
+    for (let i = 0; i < 40; i++) {
+        const confetti = document.createElement('div');
+        confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        confetti.style.cssText = `
+            position: absolute;
+            font-size: ${16 + Math.random() * 20}px;
+            left: ${Math.random() * 100}%;
+            top: 0;
+            animation: confettiFall ${1.5 + Math.random() * 2}s ease-out forwards;
+            z-index: 10;
+            pointer-events: none;
+        `;
+        container.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 4000);
+    }
+}
+
 // ===== SOCIAL SHARE =====
 const pageUrl = encodeURIComponent(window.location.href);
 const pageTitle = encodeURIComponent('Tết Nguyên Đán 2026 - Khởi Đầu An Khang Thịnh Vượng');
@@ -906,3 +1403,168 @@ audioToggle?.addEventListener('click', () => {
         isPlaying = true;
     }
 });
+
+
+// ===== SERVICE WORKER REGISTRATION (PWA) =====
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then(registration => {
+                console.log('SW registered:', registration.scope);
+            })
+            .catch(error => {
+                console.log('SW registration failed:', error);
+            });
+    });
+}
+
+// ===== LAZY LOADING IMAGES =====
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                observer.unobserve(img);
+            }
+        });
+    }, { rootMargin: '50px' });
+    
+    images.forEach(img => imageObserver.observe(img));
+});
+
+
+
+
+// ===== FORTUNE TELLING =====
+const fortunes = [
+    {
+        number: 1,
+        title: "Thượng Thượng - Đại Cát",
+        poem: "Rồng bay phượng múa trời xuân đẹp\nVạn sự hanh thông phúc lộc đầy\nCông danh sự nghiệp lên như diều\nGia đạo bình an tựa núi mây",
+        meaning: "Quẻ cực tốt! Năm nay mọi việc đều thuận lợi, tài lộc dồi dào, gia đình hạnh phúc.",
+        luck: "excellent",
+        luckText: "⭐ Cực Tốt"
+    },
+    {
+        number: 2,
+        title: "Thượng Cát - May Mắn",
+        poem: "Xuân về hoa nở khắp muôn nơi\nPhúc đức ông bà phù hộ đời\nLàm ăn thuận lợi tiền vào túi\nSức khỏe bình an sống thảnh thơi",
+        meaning: "Quẻ tốt! Công việc suôn sẻ, có quý nhân phù trợ, tài chính ổn định.",
+        luck: "good",
+        luckText: "🌟 Tốt"
+    },
+    {
+        number: 3,
+        title: "Trung Cát - Bình An",
+        poem: "Đường đời bằng phẳng bước thong dong\nChớ vội chớ vàng giữ tấm lòng\nKiên nhẫn chờ thời cơ hội đến\nMùa xuân hoa nở rộ thành công",
+        meaning: "Quẻ trung bình khá! Cần kiên nhẫn, không nên vội vàng, cuối năm sẽ gặp may.",
+        luck: "average",
+        luckText: "✨ Khá"
+    },
+    {
+        number: 4,
+        title: "Trung Bình - Cẩn Thận",
+        poem: "Mây che mặt nguyệt tạm thời thôi\nGiữ vững niềm tin chớ ngậm ngùi\nQua cơn mưa trời lại sáng\nPhúc lành sẽ đến với người ơi",
+        meaning: "Quẻ trung bình! Đầu năm có chút trắc trở, cần cẩn thận trong giao tiếp và tài chính.",
+        luck: "average",
+        luckText: "💫 Trung Bình"
+    },
+    {
+        number: 5,
+        title: "Hạ Cát - Vượt Khó",
+        poem: "Gian nan rèn luyện chí anh hùng\nVượt qua sóng gió đến thành công\nChớ nản lòng khi đường còn khó\nCuối năm vận đổi sẽ hanh thông",
+        meaning: "Quẻ thử thách! Năm nay cần nỗ lực nhiều hơn, nhưng kiên trì sẽ được đền đáp.",
+        luck: "challenging",
+        luckText: "🔥 Cần Cố Gắng"
+    },
+    {
+        number: 6,
+        title: "Thượng Cát - Tài Lộc",
+        poem: "Tiền tài như nước chảy vào nhà\nBuôn bán làm ăn thật thịnh đa\nGia đình sum họp vui xuân mới\nPhúc lộc song toàn đẹp mặn mà",
+        meaning: "Quẻ tài lộc! Năm nay thuận lợi về tài chính, kinh doanh phát đạt.",
+        luck: "excellent",
+        luckText: "💰 Tài Lộc"
+    },
+    {
+        number: 7,
+        title: "Trung Thượng - Tình Duyên",
+        poem: "Duyên lành kết nối tự trời xanh\nĐôi lứa sum vầy nghĩa trọn tình\nNgười độc thân sẽ gặp người ý\nGia đình hạnh phúc mãi an lành",
+        meaning: "Quẻ tình duyên! Người độc thân có cơ hội gặp người phù hợp, người có đôi thêm gắn bó.",
+        luck: "good",
+        luckText: "💕 Tình Duyên"
+    },
+    {
+        number: 8,
+        title: "Thượng Cát - Sức Khỏe",
+        poem: "Thân thể khỏe mạnh tinh thần vui\nBệnh tật tiêu tan chẳng ngại ngùi\nTập luyện đều đặn thêm sức sống\nSống lâu trăm tuổi hưởng xuân tươi",
+        meaning: "Quẻ sức khỏe! Năm nay sức khỏe tốt, tinh thần sảng khoái, nên duy trì lối sống lành mạnh.",
+        luck: "good",
+        luckText: "💪 Sức Khỏe"
+    }
+];
+
+let fortuneDrawn = false;
+
+document.getElementById('drawFortune')?.addEventListener('click', () => {
+    if (fortuneDrawn) {
+        // Reset
+        document.getElementById('fortuneResult').style.display = 'none';
+        document.querySelectorAll('.stick').forEach(s => s.classList.remove('selected'));
+        document.getElementById('drawFortune').textContent = '🎋 Rút Quẻ';
+        fortuneDrawn = false;
+        return;
+    }
+    
+    // Animate sticks
+    const sticks = document.querySelectorAll('.stick');
+    sticks.forEach((stick, i) => {
+        setTimeout(() => {
+            stick.style.transform = `translateY(-${Math.random() * 20}px) rotate(${Math.random() * 10 - 5}deg)`;
+        }, i * 100);
+    });
+    
+    // Select random stick after animation
+    setTimeout(() => {
+        const randomIndex = Math.floor(Math.random() * sticks.length);
+        sticks[randomIndex].classList.add('selected');
+        
+        // Show fortune
+        const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+        showFortune(fortune);
+        
+        document.getElementById('drawFortune').textContent = '🔄 Rút Lại';
+        fortuneDrawn = true;
+    }, 600);
+});
+
+// Click on individual stick
+document.querySelectorAll('.stick').forEach(stick => {
+    stick.addEventListener('click', () => {
+        if (fortuneDrawn) return;
+        
+        document.querySelectorAll('.stick').forEach(s => s.classList.remove('selected'));
+        stick.classList.add('selected');
+        
+        const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+        showFortune(fortune);
+        
+        document.getElementById('drawFortune').textContent = '🔄 Rút Lại';
+        fortuneDrawn = true;
+    });
+});
+
+function showFortune(fortune) {
+    const resultDiv = document.getElementById('fortuneResult');
+    resultDiv.innerHTML = `
+        <div class="fortune-number">Quẻ số ${fortune.number}</div>
+        <div class="fortune-title">${fortune.title}</div>
+        <div class="fortune-poem">${fortune.poem.replace(/\n/g, '<br>')}</div>
+        <div class="fortune-meaning">${fortune.meaning}</div>
+        <span class="fortune-luck ${fortune.luck}">${fortune.luckText}</span>
+    `;
+    resultDiv.style.display = 'block';
+}
