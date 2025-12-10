@@ -1279,6 +1279,423 @@ function createWheelConfetti() {
     }
 }
 
+// ===== OẲN TÙ TÌ (KÉO BÚA BAO) =====
+const rpsChoices = {
+    rock: { emoji: '✊', name: 'Búa', beats: 'scissors' },
+    scissors: { emoji: '✌️', name: 'Kéo', beats: 'paper' },
+    paper: { emoji: '🖐️', name: 'Bao', beats: 'rock' }
+};
+
+let rpsScore = { win: 0, lose: 0, draw: 0 };
+let rpsPlaying = false;
+
+document.querySelectorAll('.rps-choice').forEach(btn => {
+    btn.addEventListener('click', () => {
+        if (rpsPlaying) return;
+        
+        const playerChoice = btn.dataset.choice;
+        playRPS(playerChoice);
+    });
+});
+
+function playRPS(playerChoice) {
+    rpsPlaying = true;
+    
+    const playerHand = document.getElementById('playerHand');
+    const computerHand = document.getElementById('computerHand');
+    const result = document.getElementById('rpsResult');
+    
+    // Reset classes
+    playerHand.className = 'rps-hand';
+    computerHand.className = 'rps-hand';
+    result.className = 'rps-result';
+    result.textContent = '';
+    
+    // Shake animation
+    playerHand.classList.add('shake');
+    computerHand.classList.add('shake');
+    playerHand.textContent = '✊';
+    computerHand.textContent = '✊';
+    
+    // Computer random choice
+    const choices = ['rock', 'scissors', 'paper'];
+    const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+    
+    // Show result after shake
+    setTimeout(() => {
+        playerHand.classList.remove('shake');
+        computerHand.classList.remove('shake');
+        
+        playerHand.textContent = rpsChoices[playerChoice].emoji;
+        computerHand.textContent = rpsChoices[computerChoice].emoji;
+        
+        // Determine winner
+        let resultText = '';
+        let resultClass = '';
+        
+        if (playerChoice === computerChoice) {
+            resultText = '🤝 Hòa! Đấu lại nào~';
+            resultClass = 'draw';
+            rpsScore.draw++;
+        } else if (rpsChoices[playerChoice].beats === computerChoice) {
+            resultText = '🎉 Bạn thắng! ' + rpsChoices[playerChoice].name + ' thắng ' + rpsChoices[computerChoice].name;
+            resultClass = 'win';
+            rpsScore.win++;
+            playerHand.classList.add('winner');
+            computerHand.classList.add('loser');
+            createRPSConfetti();
+        } else {
+            resultText = '😢 Bạn thua! ' + rpsChoices[computerChoice].name + ' thắng ' + rpsChoices[playerChoice].name;
+            resultClass = 'lose';
+            rpsScore.lose++;
+            computerHand.classList.add('winner');
+            playerHand.classList.add('loser');
+        }
+        
+        result.textContent = resultText;
+        result.classList.add(resultClass);
+        
+        // Update score
+        document.getElementById('rpsWin').textContent = rpsScore.win;
+        document.getElementById('rpsLose').textContent = rpsScore.lose;
+        document.getElementById('rpsDraw').textContent = rpsScore.draw;
+        
+        rpsPlaying = false;
+    }, 600);
+}
+
+function createRPSConfetti() {
+    const container = document.querySelector('.rps-card');
+    const emojis = ['🎉', '✨', '🏆', '⭐', '💫'];
+    
+    for (let i = 0; i < 15; i++) {
+        const confetti = document.createElement('div');
+        confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        confetti.style.cssText = `
+            position: absolute;
+            font-size: ${14 + Math.random() * 12}px;
+            left: ${Math.random() * 100}%;
+            top: 0;
+            animation: confettiFall ${1 + Math.random() * 1.5}s ease-out forwards;
+            z-index: 10;
+            pointer-events: none;
+        `;
+        container.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 2500);
+    }
+}
+
+// ===== TÍNH TUỔI ÂM LỊCH =====
+const zodiacAnimals = [
+    { name: 'Tý', animal: 'Chuột', emoji: '🐭', traits: 'Thông minh, nhanh nhẹn, khéo léo, tiết kiệm' },
+    { name: 'Sửu', animal: 'Trâu', emoji: '🐂', traits: 'Chăm chỉ, kiên nhẫn, đáng tin cậy, bền bỉ' },
+    { name: 'Dần', animal: 'Hổ', emoji: '🐅', traits: 'Dũng cảm, tự tin, mạnh mẽ, quyết đoán' },
+    { name: 'Mão', animal: 'Mèo', emoji: '🐇', traits: 'Dịu dàng, tinh tế, khéo léo, may mắn' },
+    { name: 'Thìn', animal: 'Rồng', emoji: '🐉', traits: 'Quyền lực, cao quý, thành công, tham vọng' },
+    { name: 'Tỵ', animal: 'Rắn', emoji: '🐍', traits: 'Thông thái, bí ẩn, quyến rũ, trực giác tốt' },
+    { name: 'Ngọ', animal: 'Ngựa', emoji: '🐴', traits: 'Năng động, tự do, nhiệt huyết, lạc quan' },
+    { name: 'Mùi', animal: 'Dê', emoji: '🐐', traits: 'Hiền lành, nghệ sĩ, nhạy cảm, tốt bụng' },
+    { name: 'Thân', animal: 'Khỉ', emoji: '🐵', traits: 'Thông minh, linh hoạt, hài hước, sáng tạo' },
+    { name: 'Dậu', animal: 'Gà', emoji: '🐓', traits: 'Chăm chỉ, dũng cảm, tự tin, thẳng thắn' },
+    { name: 'Tuất', animal: 'Chó', emoji: '🐕', traits: 'Trung thành, thật thà, bảo vệ, đáng tin' },
+    { name: 'Hợi', animal: 'Lợn', emoji: '🐷', traits: 'Hào phóng, chân thành, may mắn, vui vẻ' }
+];
+
+const elements = [
+    { name: 'Kim', color: '#FFD700', desc: 'Mạnh mẽ, quyết đoán' },
+    { name: 'Thủy', color: '#4FC3F7', desc: 'Thông minh, linh hoạt' },
+    { name: 'Hỏa', color: '#FF5722', desc: 'Nhiệt huyết, năng động' },
+    { name: 'Thổ', color: '#8D6E63', desc: 'Ổn định, đáng tin cậy' },
+    { name: 'Mộc', color: '#66BB6A', desc: 'Sáng tạo, phát triển' }
+];
+
+const canChi = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
+
+function calcZodiac(year) {
+    const zodiacIndex = (year - 4) % 12;
+    const canIndex = (year - 4) % 10;
+    const elementIndex = Math.floor(canIndex / 2);
+    
+    return {
+        zodiac: zodiacAnimals[zodiacIndex],
+        can: canChi[canIndex],
+        element: elements[elementIndex]
+    };
+}
+
+document.getElementById('calcZodiac')?.addEventListener('click', () => {
+    const year = parseInt(document.getElementById('birthYear').value);
+    
+    if (!year || year < 1900 || year > 2100) {
+        alert('Vui lòng nhập năm sinh hợp lệ (1900-2100)');
+        return;
+    }
+    
+    const result = calcZodiac(year);
+    const resultDiv = document.getElementById('zodiacResult');
+    
+    // Tính tuổi âm (tuổi mụ = năm hiện tại - năm sinh + 1)
+    const currentYear = new Date().getFullYear();
+    const lunarAge = currentYear - year + 1;
+    
+    document.getElementById('zodiacAnimal').textContent = result.zodiac.emoji;
+    document.getElementById('zodiacName').textContent = `Tuổi ${result.can} ${result.zodiac.name} (${result.zodiac.animal})`;
+    document.getElementById('zodiacElement').innerHTML = `Mệnh <strong>${result.element.name}</strong> - ${result.element.desc}`;
+    document.getElementById('zodiacDesc').innerHTML = `<strong>🎂 ${lunarAge} tuổi (âm lịch)</strong><br>Tính cách: ${result.zodiac.traits}`;
+    
+    resultDiv.style.display = 'block';
+});
+
+document.getElementById('birthYear')?.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') document.getElementById('calcZodiac').click();
+});
+
+// ===== XEM TỬ VI 2026 =====
+const horoscope2026 = {
+    ty: {
+        icon: '🐭', name: 'Tý (Chuột)', rating: 4,
+        content: 'Năm 2026 mang đến nhiều cơ hội phát triển cho tuổi Tý. Công việc hanh thông, tài chính ổn định. Tuy nhiên cần cẩn thận trong các mối quan hệ và tránh đầu tư mạo hiểm.',
+        money: '⭐⭐⭐⭐', love: '⭐⭐⭐', career: '⭐⭐⭐⭐⭐', health: '⭐⭐⭐⭐'
+    },
+    suu: {
+        icon: '🐂', name: 'Sửu (Trâu)', rating: 3,
+        content: 'Tuổi Sửu năm nay cần kiên nhẫn và nỗ lực hơn. Nửa đầu năm có thể gặp khó khăn nhưng nửa cuối năm sẽ gặt hái thành công. Chú ý sức khỏe và nghỉ ngơi hợp lý.',
+        money: '⭐⭐⭐', love: '⭐⭐⭐⭐', career: '⭐⭐⭐', health: '⭐⭐⭐'
+    },
+    dan: {
+        icon: '🐅', name: 'Dần (Hổ)', rating: 4,
+        content: 'Năm Bính Ngọ tương hợp với tuổi Dần, mang lại nhiều may mắn. Sự nghiệp thăng tiến, có quý nhân phù trợ. Tình duyên thuận lợi, người độc thân dễ gặp ý trung nhân.',
+        money: '⭐⭐⭐⭐', love: '⭐⭐⭐⭐⭐', career: '⭐⭐⭐⭐', health: '⭐⭐⭐⭐'
+    },
+    mao: {
+        icon: '🐇', name: 'Mão (Mèo)', rating: 3,
+        content: 'Tuổi Mão năm nay nên thận trọng trong công việc và tài chính. Tránh vay mượn và đầu tư lớn. Tập trung vào sức khỏe và các mối quan hệ gia đình.',
+        money: '⭐⭐⭐', love: '⭐⭐⭐', career: '⭐⭐⭐', health: '⭐⭐⭐⭐'
+    },
+    thin: {
+        icon: '🐉', name: 'Thìn (Rồng)', rating: 5,
+        content: 'Năm đại cát cho tuổi Thìn! Mọi việc hanh thông, tài lộc dồi dào. Đây là thời điểm tốt để khởi nghiệp, đầu tư hoặc thăng tiến trong sự nghiệp.',
+        money: '⭐⭐⭐⭐⭐', love: '⭐⭐⭐⭐', career: '⭐⭐⭐⭐⭐', health: '⭐⭐⭐⭐'
+    },
+    ti: {
+        icon: '🐍', name: 'Tỵ (Rắn)', rating: 4,
+        content: 'Tuổi Tỵ năm nay có nhiều cơ hội tốt trong công việc. Tài chính ổn định, có thể có thu nhập bất ngờ. Chú ý giữ gìn sức khỏe, đặc biệt là hệ tiêu hóa.',
+        money: '⭐⭐⭐⭐', love: '⭐⭐⭐', career: '⭐⭐⭐⭐', health: '⭐⭐⭐'
+    },
+    ngo: {
+        icon: '🐴', name: 'Ngọ (Ngựa)', rating: 5,
+        content: 'Năm Bính Ngọ là năm bản mệnh! Đây là năm đặc biệt quan trọng. Cần cẩn thận đầu năm, nhưng cuối năm sẽ gặp nhiều may mắn. Nên đeo vật phẩm phong thủy để hóa giải.',
+        money: '⭐⭐⭐⭐', love: '⭐⭐⭐⭐', career: '⭐⭐⭐⭐⭐', health: '⭐⭐⭐'
+    },
+    mui: {
+        icon: '🐐', name: 'Mùi (Dê)', rating: 4,
+        content: 'Tuổi Mùi năm nay được Tam Hợp với Ngọ, vận may tăng cao. Công việc thuận lợi, có cơ hội thăng tiến. Tình duyên tốt đẹp, gia đình hạnh phúc.',
+        money: '⭐⭐⭐⭐', love: '⭐⭐⭐⭐⭐', career: '⭐⭐⭐⭐', health: '⭐⭐⭐⭐'
+    },
+    than: {
+        icon: '🐵', name: 'Thân (Khỉ)', rating: 3,
+        content: 'Năm nay tuổi Thân cần cẩn thận trong giao tiếp và các mối quan hệ. Tài chính có biến động, nên tiết kiệm. Sức khỏe cần được chú ý, tránh làm việc quá sức.',
+        money: '⭐⭐⭐', love: '⭐⭐⭐', career: '⭐⭐⭐', health: '⭐⭐⭐'
+    },
+    dau: {
+        icon: '🐓', name: 'Dậu (Gà)', rating: 3,
+        content: 'Tuổi Dậu năm nay nên tập trung vào công việc hiện tại, tránh thay đổi lớn. Tài chính ổn định nếu biết tiết kiệm. Chú ý sức khỏe đường hô hấp.',
+        money: '⭐⭐⭐', love: '⭐⭐⭐⭐', career: '⭐⭐⭐', health: '⭐⭐⭐'
+    },
+    tuat: {
+        icon: '🐕', name: 'Tuất (Chó)', rating: 4,
+        content: 'Năm 2026 mang lại nhiều điều tốt đẹp cho tuổi Tuất. Được Lục Hợp với Ngọ, công việc hanh thông. Tình duyên thuận lợi, có thể có tin vui về hôn nhân.',
+        money: '⭐⭐⭐⭐', love: '⭐⭐⭐⭐⭐', career: '⭐⭐⭐⭐', health: '⭐⭐⭐⭐'
+    },
+    hoi: {
+        icon: '🐷', name: 'Hợi (Lợn)', rating: 4,
+        content: 'Tuổi Hợi năm nay có nhiều cơ hội phát triển. Tài lộc khá tốt, có thể có thu nhập từ nhiều nguồn. Sức khỏe tốt, tinh thần lạc quan.',
+        money: '⭐⭐⭐⭐', love: '⭐⭐⭐⭐', career: '⭐⭐⭐⭐', health: '⭐⭐⭐⭐⭐'
+    }
+};
+
+document.getElementById('horoscopeZodiac')?.addEventListener('change', (e) => {
+    const zodiac = e.target.value;
+    if (!zodiac) {
+        document.getElementById('horoscopeResult').style.display = 'none';
+        return;
+    }
+    
+    const data = horoscope2026[zodiac];
+    const resultDiv = document.getElementById('horoscopeResult');
+    
+    document.getElementById('horoscopeIcon').textContent = data.icon;
+    document.getElementById('horoscopeTitle').textContent = data.name + ' - Năm 2026';
+    document.getElementById('horoscopeRating').textContent = '⭐'.repeat(data.rating) + '☆'.repeat(5 - data.rating);
+    document.getElementById('horoscopeContent').textContent = data.content;
+    document.getElementById('horoscopeMoney').textContent = data.money;
+    document.getElementById('horoscopeLove').textContent = data.love;
+    document.getElementById('horoscopeCareer').textContent = data.career;
+    document.getElementById('horoscopeHealth').textContent = data.health;
+    
+    resultDiv.style.display = 'block';
+});
+
+// ===== MEMORY CARD GAME =====
+const memoryIcons = ['🧧', '🏮', '🎊', '🌸', '🐴', '🎆'];
+let memoryCards = [];
+let flippedCards = [];
+let matchedPairs = 0;
+let memoryMoves = 0;
+let memoryTimer = null;
+let memorySeconds = 0;
+let memoryLocked = false;
+
+function initMemoryGame() {
+    // Reset
+    matchedPairs = 0;
+    memoryMoves = 0;
+    memorySeconds = 0;
+    flippedCards = [];
+    memoryLocked = false;
+    
+    if (memoryTimer) clearInterval(memoryTimer);
+    
+    // Update display
+    document.getElementById('memoryPairs').textContent = '0';
+    document.getElementById('memoryMoves').textContent = '0';
+    document.getElementById('memoryTime').textContent = '00:00';
+    document.getElementById('memoryResult').style.display = 'none';
+    
+    // Create cards (pairs)
+    memoryCards = [...memoryIcons, ...memoryIcons];
+    
+    // Shuffle
+    for (let i = memoryCards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [memoryCards[i], memoryCards[j]] = [memoryCards[j], memoryCards[i]];
+    }
+    
+    // Render board
+    const board = document.getElementById('memoryBoard');
+    board.innerHTML = '';
+    
+    memoryCards.forEach((icon, index) => {
+        const card = document.createElement('div');
+        card.className = 'memory-card';
+        card.dataset.index = index;
+        card.dataset.icon = icon;
+        card.innerHTML = `
+            <div class="card-front"></div>
+            <div class="card-back">${icon}</div>
+        `;
+        card.addEventListener('click', () => flipCard(card));
+        board.appendChild(card);
+    });
+    
+    // Start timer
+    memoryTimer = setInterval(() => {
+        memorySeconds++;
+        const mins = Math.floor(memorySeconds / 60).toString().padStart(2, '0');
+        const secs = (memorySeconds % 60).toString().padStart(2, '0');
+        document.getElementById('memoryTime').textContent = `${mins}:${secs}`;
+    }, 1000);
+}
+
+function flipCard(card) {
+    if (memoryLocked) return;
+    if (card.classList.contains('flipped')) return;
+    if (card.classList.contains('matched')) return;
+    if (flippedCards.length >= 2) return;
+    
+    card.classList.add('flipped');
+    flippedCards.push(card);
+    
+    if (flippedCards.length === 2) {
+        memoryMoves++;
+        document.getElementById('memoryMoves').textContent = memoryMoves;
+        
+        checkMatch();
+    }
+}
+
+function checkMatch() {
+    memoryLocked = true;
+    const [card1, card2] = flippedCards;
+    
+    if (card1.dataset.icon === card2.dataset.icon) {
+        // Match!
+        card1.classList.add('matched');
+        card2.classList.add('matched');
+        matchedPairs++;
+        document.getElementById('memoryPairs').textContent = matchedPairs;
+        
+        flippedCards = [];
+        memoryLocked = false;
+        
+        // Check win
+        if (matchedPairs === memoryIcons.length) {
+            clearInterval(memoryTimer);
+            showMemoryResult();
+        }
+    } else {
+        // No match - flip back
+        setTimeout(() => {
+            card1.classList.remove('flipped');
+            card2.classList.remove('flipped');
+            flippedCards = [];
+            memoryLocked = false;
+        }, 1000);
+    }
+}
+
+function showMemoryResult() {
+    const result = document.getElementById('memoryResult');
+    const mins = Math.floor(memorySeconds / 60);
+    const secs = memorySeconds % 60;
+    
+    let rating = '';
+    if (memoryMoves <= 10) rating = '🏆 Xuất sắc!';
+    else if (memoryMoves <= 15) rating = '⭐ Giỏi lắm!';
+    else if (memoryMoves <= 20) rating = '👍 Tốt!';
+    else rating = '💪 Cố gắng hơn nhé!';
+    
+    result.innerHTML = `
+        <h4>🎉 Hoàn thành!</h4>
+        <p>${rating}</p>
+        <p>Thời gian: ${mins} phút ${secs} giây | Số lượt: ${memoryMoves}</p>
+    `;
+    result.style.display = 'block';
+    
+    // Confetti
+    createMemoryConfetti();
+}
+
+function createMemoryConfetti() {
+    const container = document.querySelector('.memory-card-game');
+    const emojis = ['🎉', '✨', '🏆', '⭐', '🎊'];
+    
+    for (let i = 0; i < 20; i++) {
+        const confetti = document.createElement('div');
+        confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        confetti.style.cssText = `
+            position: absolute;
+            font-size: ${14 + Math.random() * 14}px;
+            left: ${Math.random() * 100}%;
+            top: 0;
+            animation: confettiFall ${1 + Math.random() * 2}s ease-out forwards;
+            z-index: 10;
+            pointer-events: none;
+        `;
+        container.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
+    }
+}
+
+document.getElementById('resetMemory')?.addEventListener('click', initMemoryGame);
+
+// Auto init when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('memoryBoard')) {
+        initMemoryGame();
+    }
+});
+
 // ===== SOCIAL SHARE =====
 const pageUrl = encodeURIComponent(window.location.href);
 const pageTitle = encodeURIComponent('Tết Nguyên Đán 2026 - Khởi Đầu An Khang Thịnh Vượng');

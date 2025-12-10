@@ -989,6 +989,132 @@
                         <div class="wheel-result" id="wheelResult"></div>
                     </div>
                 </div>
+
+                <!-- Oẳn Tù Tì -->
+                <div class="tool-card rps-card">
+                    <h3>✊ Oẳn Tù Tì</h3>
+                    <p class="tool-desc">Kéo Búa Bao - Đấu với máy xem ai thắng!</p>
+                    
+                    <div class="rps-game">
+                        <div class="rps-arena">
+                            <div class="rps-player">
+                                <div class="rps-label">Bạn</div>
+                                <div class="rps-hand" id="playerHand">❓</div>
+                            </div>
+                            <div class="rps-vs">VS</div>
+                            <div class="rps-player">
+                                <div class="rps-label">Máy</div>
+                                <div class="rps-hand" id="computerHand">❓</div>
+                            </div>
+                        </div>
+                        
+                        <div class="rps-choices">
+                            <button class="rps-choice" data-choice="rock" title="Búa">
+                                <span>✊</span>
+                                <small>Búa</small>
+                            </button>
+                            <button class="rps-choice" data-choice="scissors" title="Kéo">
+                                <span>✌️</span>
+                                <small>Kéo</small>
+                            </button>
+                            <button class="rps-choice" data-choice="paper" title="Bao">
+                                <span>🖐️</span>
+                                <small>Bao</small>
+                            </button>
+                        </div>
+                        
+                        <div class="rps-score">
+                            <span class="score-item win">🏆 Thắng: <strong id="rpsWin">0</strong></span>
+                            <span class="score-item lose">💔 Thua: <strong id="rpsLose">0</strong></span>
+                            <span class="score-item draw">🤝 Hòa: <strong id="rpsDraw">0</strong></span>
+                        </div>
+                        
+                        <div class="rps-result" id="rpsResult"></div>
+                    </div>
+                </div>
+
+                <!-- Tính Tuổi Âm -->
+                <div class="tool-card zodiac-calc-card">
+                    <h3>🐲 Tính Tuổi Âm Lịch</h3>
+                    <p class="tool-desc">Nhập năm sinh để xem con giáp và ngũ hành</p>
+                    
+                    <div class="zodiac-calc">
+                        <div class="zodiac-input">
+                            <input type="number" id="birthYear" placeholder="Nhập năm sinh (VD: 1990)" min="1900" max="2100">
+                            <button class="btn btn-primary" id="calcZodiac">Xem Tuổi</button>
+                        </div>
+                        
+                        <div class="zodiac-result" id="zodiacResult" style="display:none;">
+                            <div class="zodiac-animal" id="zodiacAnimal"></div>
+                            <div class="zodiac-info">
+                                <div class="zodiac-name" id="zodiacName"></div>
+                                <div class="zodiac-element" id="zodiacElement"></div>
+                                <div class="zodiac-desc" id="zodiacDesc"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Xem Tử Vi 2026 -->
+                <div class="tool-card horoscope-card">
+                    <h3>🔮 Tử Vi 2026</h3>
+                    <p class="tool-desc">Xem vận mệnh năm Bính Ngọ cho 12 con giáp</p>
+                    
+                    <div class="horoscope-game">
+                        <div class="horoscope-select">
+                            <select id="horoscopeZodiac">
+                                <option value="">-- Chọn con giáp --</option>
+                                <option value="ty">🐭 Tý (Chuột)</option>
+                                <option value="suu">🐂 Sửu (Trâu)</option>
+                                <option value="dan">🐅 Dần (Hổ)</option>
+                                <option value="mao">🐇 Mão (Mèo)</option>
+                                <option value="thin">🐉 Thìn (Rồng)</option>
+                                <option value="ti">🐍 Tỵ (Rắn)</option>
+                                <option value="ngo">🐴 Ngọ (Ngựa)</option>
+                                <option value="mui">🐐 Mùi (Dê)</option>
+                                <option value="than">🐵 Thân (Khỉ)</option>
+                                <option value="dau">🐓 Dậu (Gà)</option>
+                                <option value="tuat">🐕 Tuất (Chó)</option>
+                                <option value="hoi">🐷 Hợi (Lợn)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="horoscope-result" id="horoscopeResult" style="display:none;">
+                            <div class="horoscope-header">
+                                <span class="horoscope-icon" id="horoscopeIcon"></span>
+                                <span class="horoscope-title" id="horoscopeTitle"></span>
+                            </div>
+                            <div class="horoscope-rating" id="horoscopeRating"></div>
+                            <div class="horoscope-content" id="horoscopeContent"></div>
+                            <div class="horoscope-details">
+                                <div class="detail-item"><span>💰 Tài lộc:</span> <span id="horoscopeMoney"></span></div>
+                                <div class="detail-item"><span>💕 Tình duyên:</span> <span id="horoscopeLove"></span></div>
+                                <div class="detail-item"><span>💼 Sự nghiệp:</span> <span id="horoscopeCareer"></span></div>
+                                <div class="detail-item"><span>❤️ Sức khỏe:</span> <span id="horoscopeHealth"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memory Card Game -->
+                <div class="tool-card memory-card-game">
+                    <h3>🃏 Lật Hình Tìm Cặp</h3>
+                    <p class="tool-desc">Tìm các cặp hình giống nhau - Chủ đề Tết!</p>
+                    
+                    <div class="memory-game">
+                        <div class="memory-stats">
+                            <span>🎯 Cặp: <strong id="memoryPairs">0</strong>/6</span>
+                            <span>👆 Lượt: <strong id="memoryMoves">0</strong></span>
+                            <span>⏱️ <strong id="memoryTime">00:00</strong></span>
+                        </div>
+                        
+                        <div class="memory-board" id="memoryBoard"></div>
+                        
+                        <button class="btn btn-primary" id="resetMemory">🔄 Chơi Lại</button>
+                        
+                        <div class="memory-result" id="memoryResult" style="display:none;"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
