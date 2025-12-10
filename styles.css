@@ -530,14 +530,30 @@ section {
     width: 100%;
     max-width: 400px;
     aspect-ratio: 1;
-    background: var(--gradient-hero);
+    background: url('binhngo.png') center/cover no-repeat;
     border-radius: var(--border-radius-lg);
     border: 3px solid var(--color-gold);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     padding: 30px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.illustration-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%);
+    z-index: 0;
+}
+
+.illustration-box > * {
+    position: relative;
+    z-index: 1;
 }
 
 .tet-symbols {
@@ -570,20 +586,20 @@ section {
     flex-direction: column;
     align-items: center;
     font-family: var(--font-heading);
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
 }
 
 .illustration-text span:first-child {
-    font-size: 2rem;
-    color: var(--color-red);
+    font-size: 2.5rem;
+    color: #FFFFFF;
+    font-weight: 600;
 }
 
 .illustration-text span:last-child {
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: 700;
-    background: var(--gradient-gold);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--color-gold);
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.6);
 }
 
 /* Symbols Grid */
@@ -707,6 +723,44 @@ section {
     font-size: 0.9rem;
     color: var(--color-text-light);
     line-height: 1.6;
+}
+
+/* ===== Lion Dance Section ===== */
+.lion-dance-section {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 2px solid var(--color-gold-light);
+}
+
+.lion-dance-title {
+    text-align: center;
+    font-size: 1.8rem;
+    color: var(--color-red);
+    margin-bottom: 12px;
+}
+
+.lion-dance-desc {
+    text-align: center;
+    color: var(--color-text-light);
+    max-width: 600px;
+    margin: 0 auto 40px;
+    font-size: 1rem;
+}
+
+.lion-dance-video-single {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 3px solid var(--color-gold);
+}
+
+.lion-dance-video-single video {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #000;
 }
 
 /* ===== Events Section ===== */
@@ -1978,6 +2032,31 @@ a:focus, button:focus {
     gap: 24px;
 }
 
+.foods-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.food-img-wrapper {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid var(--color-gold);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.food-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-normal);
+}
+
+.food-card:hover .food-img {
+    transform: scale(1.1);
+}
+
 .food-card {
     background: var(--color-white);
     border: 2px solid var(--color-gray-light);
@@ -2387,18 +2466,23 @@ a:focus, button:focus {
 /* Lucky Money / Lì Xì */
 .lixi-card {
     background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%);
+    text-align: center;
+}
+
+.lixi-card .btn {
+    margin: 0 auto;
 }
 
 .lixi-container {
     display: flex;
     justify-content: center;
-    padding: 30px 0;
+    padding: 40px 0;
     perspective: 1000px;
 }
 
 .lixi-envelope {
-    width: 140px;
-    height: 200px;
+    width: 180px;
+    height: 260px;
     position: relative;
     cursor: pointer;
     transform-style: preserve-3d;
@@ -2463,14 +2547,14 @@ a:focus, button:focus {
 }
 
 .envelope-decoration {
-    font-size: 3.5rem;
+    font-size: 4.5rem;
     color: var(--color-gold);
     text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     font-family: serif;
 }
 
 .envelope-text {
-    font-size: 1rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--color-gold);
     letter-spacing: 4px;
