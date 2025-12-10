@@ -2579,26 +2579,16 @@ body.custom-cursor button {
 /* Mobile adjustments */
 @media (max-width: 768px) {
     .dark-mode-toggle {
-        top: 80px;
-        bottom: auto;
-        right: 15px;
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
     }
     
     .toggle-icon {
-        font-size: 1.2rem;
-    }
-    
-    .audio-player {
-        bottom: 80px;
-        right: 15px;
-    }
-    
-    .audio-toggle {
-        width: 40px;
-        height: 40px;
+        font-size: 1.3rem;
     }
 }
 
@@ -2711,24 +2701,20 @@ body.dark-mode .nav-audio {
 
 @media (max-width: 768px) {
     .nav-audio-wrapper {
-        position: absolute;
-        right: 60px;
-        top: 50%;
-        transform: translateY(-50%);
+        position: static;
         margin-left: 0;
+        margin-right: 10px;
+        order: -1;
+    }
+    
+    .nav-audio {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
     }
     
     .audio-tooltip {
-        right: auto;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 0.7rem;
-    }
-    
-    .audio-tooltip::before {
-        right: auto;
-        left: 50%;
-        transform: translateX(-50%);
+        display: none;
     }
 }
 
