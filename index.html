@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tết Nguyên Đán 2026 - Khởi Đầu An Khang Thịnh Vượng</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Chế độ tối">
+        <span class="toggle-icon">🌙</span>
+    </button>
+
+    <!-- Petal Effect Container -->
+    <div class="petal-container" id="petalContainer"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <svg class="logo-icon" viewBox="0 0 40 56" fill="none">
+                    <rect x="14" y="0" width="12" height="6" rx="2" fill="#D4A84B"/>
+                    <path d="M20 6 L20 10" stroke="#8B4513" stroke-width="2"/>
+                    <ellipse cx="20" cy="32" rx="18" ry="22" fill="url(#logoGrad)"/>
+                    <path d="M8 20 Q20 18 32 20" stroke="#FFD700" stroke-width="1.5" fill="none" opacity="0.8"/>
+                    <path d="M6 32 Q20 30 34 32" stroke="#FFD700" stroke-width="1.5" fill="none" opacity="0.8"/>
+                    <rect x="16" y="52" width="8" height="4" rx="1" fill="#D4A84B"/>
+                    <defs><linearGradient id="logoGrad" x1="20" y1="10" x2="20" y2="54"><stop offset="0%" stop-color="#FF6B6B"/><stop offset="100%" stop-color="#D32F2F"/></linearGradient></defs>
+                </svg>
+                <span class="logo-text">Tết 2026</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#hero">Trang chủ</a></li>
+                <li><a href="#about">Giới thiệu</a></li>
+                <li><a href="#traditions">Phong tục</a></li>
+                <li><a href="#foods">Món ăn</a></li>
+                <li><a href="#events">Sự kiện</a></li>
+                <li><a href="#gallery">Hình ảnh</a></li>
+                <li><a href="#tools">Công cụ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <img src="a1.png" alt="Tết 2026" class="hero-image">
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-line">Tết Nguyên Đán 2026</span>
+                <span class="title-sub">Khởi Đầu An Khang Thịnh Vượng</span>
+            </h1>
+            <p class="hero-desc">Năm Bính Ngọ - Mùa xuân sum vầy, hạnh phúc tràn đầy, vạn sự như ý</p>
+            
+            <div class="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Ngày</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Giờ</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Phút</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Giây</span>
+                </div>
+            </div>
+            
+            <div class="hero-cta">
+                <a href="#about" class="btn btn-primary">Khám Phá Tết 2026</a>
+                <a href="#traditions" class="btn btn-secondary">Xem Phong Tục</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Cuộn xuống</span>
+            <svg class="scroll-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Giới thiệu</span>
+                <h2 class="section-title">Tết Nguyên Đán là gì?</h2>
+            </div>
+            
+            <div class="about-grid">
+                <div class="about-content">
+                    <p class="about-intro">Tết Nguyên Đán, hay còn gọi là Tết Âm lịch, là lễ hội truyền thống quan trọng nhất của người Việt Nam, đánh dấu sự khởi đầu của năm mới theo lịch âm.</p>
+                    
+                    <div class="about-info">
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 32 32" fill="none">
+                                    <rect x="4" y="6" width="24" height="22" rx="3" stroke="#D32F2F" stroke-width="2" fill="#FFF"/>
+                                    <path d="M4 12 L28 12" stroke="#D32F2F" stroke-width="2"/>
+                                    <path d="M10 3 L10 9M22 3 L22 9" stroke="#D32F2F" stroke-width="2" stroke-linecap="round"/>
+                                    <text x="16" y="23" text-anchor="middle" fill="#D32F2F" font-size="10" font-weight="bold">17</text>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Tết 2026</h4>
+                                <p>Mùng 1 Tết: <strong>17/02/2026</strong></p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 32 32" fill="none">
+                                    <ellipse cx="16" cy="18" rx="12" ry="10" fill="#FFE4B5"/>
+                                    <ellipse cx="16" cy="16" rx="10" ry="8" fill="#D4A84B"/>
+                                    <path d="M10 14 Q16 10 22 14" stroke="#8B4513" stroke-width="1.5" fill="none"/>
+                                    <circle cx="12" cy="15" r="1.5" fill="#333"/>
+                                    <circle cx="20" cy="15" r="1.5" fill="#333"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Năm Bính Ngọ</h4>
+                                <p>Năm con Ngựa - Biểu tượng sự mạnh mẽ</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <svg viewBox="0 0 32 32" fill="none">
+                                    <circle cx="16" cy="16" r="12" fill="#FFD700" opacity="0.2"/>
+                                    <circle cx="16" cy="16" r="8" fill="#FFD700" opacity="0.4"/>
+                                    <circle cx="16" cy="16" r="4" fill="#FFD700"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Ý nghĩa</h4>
+                                <p>Đoàn viên, sum họp, cầu mong bình an</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-illustration">
+                    <div class="illustration-box">
+                        <div class="tet-symbols">
+                            <svg class="symbol-svg" viewBox="0 0 80 80" fill="none">
+                                <!-- Hoa Mai SVG -->
+                                <circle cx="40" cy="40" r="38" fill="#FFF9E6" stroke="#FFD700" stroke-width="2"/>
+                                <g transform="translate(20, 15)">
+                                    <ellipse cx="20" cy="12" rx="8" ry="10" fill="#FFD700"/>
+                                    <ellipse cx="8" cy="25" rx="8" ry="10" fill="#FFD700" transform="rotate(-30 8 25)"/>
+                                    <ellipse cx="32" cy="25" rx="8" ry="10" fill="#FFD700" transform="rotate(30 32 25)"/>
+                                    <ellipse cx="10" cy="42" rx="8" ry="10" fill="#FFD700" transform="rotate(-60 10 42)"/>
+                                    <ellipse cx="30" cy="42" rx="8" ry="10" fill="#FFD700" transform="rotate(60 30 42)"/>
+                                    <circle cx="20" cy="30" r="6" fill="#D4A84B"/>
+                                    <circle cx="20" cy="30" r="3" fill="#8B4513"/>
+                                </g>
+                            </svg>
+                            <svg class="symbol-svg" viewBox="0 0 80 80" fill="none">
+                                <!-- Hoa Đào SVG -->
+                                <circle cx="40" cy="40" r="38" fill="#FFF0F5" stroke="#FFB7C5" stroke-width="2"/>
+                                <g transform="translate(20, 15)">
+                                    <ellipse cx="20" cy="12" rx="9" ry="11" fill="#FFB7C5"/>
+                                    <ellipse cx="7" cy="24" rx="9" ry="11" fill="#FFB7C5" transform="rotate(-35 7 24)"/>
+                                    <ellipse cx="33" cy="24" rx="9" ry="11" fill="#FFB7C5" transform="rotate(35 33 24)"/>
+                                    <ellipse cx="9" cy="42" rx="9" ry="11" fill="#FFB7C5" transform="rotate(-70 9 42)"/>
+                                    <ellipse cx="31" cy="42" rx="9" ry="11" fill="#FFB7C5" transform="rotate(70 31 42)"/>
+                                    <circle cx="20" cy="30" r="7" fill="#FF69B4" opacity="0.6"/>
+                                    <circle cx="20" cy="30" r="4" fill="#FFD700"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="illustration-text">
+                            <span>Xuân</span>
+                            <span>2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="symbols-section">
+                <h3 class="symbols-title">Biểu Tượng Tết Việt</h3>
+                <div class="symbols-grid">
+                    <div class="symbol-card">
+                        <div class="card-img-wrapper">
+                            <img src="hoamai.png" alt="Hoa Mai" class="card-img">
+                        </div>
+                        <h4>Hoa Mai</h4>
+                        <p>Biểu tượng mùa xuân miền Nam, tượng trưng cho sự giàu sang</p>
+                    </div>
+                    <div class="symbol-card">
+                        <div class="card-img-wrapper">
+                            <img src="hoadao.png" alt="Hoa Đào" class="card-img">
+                        </div>
+                        <h4>Hoa Đào</h4>
+                        <p>Đặc trưng miền Bắc, mang ý nghĩa xua đuổi tà ma</p>
+                    </div>
+                    <div class="symbol-card">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 48 48" fill="none">
+                                <rect x="8" y="12" width="32" height="28" rx="2" fill="#2E7D32"/>
+                                <rect x="11" y="15" width="26" height="22" fill="#4CAF50"/>
+                                <path d="M11 15 L24 28 L37 15" stroke="#81C784" stroke-width="1.5" fill="none"/>
+                                <rect x="18" y="6" width="12" height="7" fill="#8D6E63"/>
+                            </svg>
+                        </div>
+                        <h4>Bánh Chưng</h4>
+                        <p>Tượng trưng cho đất, lòng biết ơn tổ tiên</p>
+                    </div>
+                    <div class="symbol-card">
+                        <div class="card-icon">
+                            <svg viewBox="0 0 48 48" fill="none">
+                                <rect x="10" y="6" width="28" height="38" rx="3" fill="#D32F2F"/>
+                                <rect x="13" y="9" width="22" height="32" fill="#E53935"/>
+                                <circle cx="24" cy="25" r="10" fill="#FFD700" opacity="0.2"/>
+                                <text x="24" y="29" text-anchor="middle" fill="#FFD700" font-size="12" font-weight="bold">福</text>
+                                <rect x="21" y="2" width="6" height="5" rx="1" fill="#FFD700"/>
+                            </svg>
+                        </div>
+                        <h4>Lì Xì</h4>
+                        <p>Phong bao đỏ chứa tiền mừng tuổi may mắn</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Traditions Section -->
+    <section class="traditions" id="traditions">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Phong tục</span>
+                <h2 class="section-title">Phong Tục & Hoạt Động Tết</h2>
+                <p class="section-desc">Những nét đẹp văn hóa truyền thống không thể thiếu trong dịp Tết cổ truyền</p>
+            </div>
+            
+            <div class="traditions-grid">
+                <div class="tradition-card tradition-card-img">
+                    <div class="card-img-wrapper">
+                        <img src="banhchung.png" alt="Gói Bánh Chưng" class="card-img">
+                    </div>
+                    <h3>Gói Bánh Chưng</h3>
+                    <p>Cả gia đình quây quần gói bánh - nét đẹp sum vầy ngày Tết</p>
+                </div>
+                <div class="tradition-card tradition-card-img">
+                    <div class="card-img-wrapper">
+                        <img src="cung.png" alt="Cúng ông Công ông Táo" class="card-img">
+                    </div>
+                    <h3>Cúng Ông Công Ông Táo</h3>
+                    <p>Ngày 23 tháng Chạp, tiễn Táo quân về trời</p>
+                </div>
+                <div class="tradition-card tradition-card-img">
+                    <div class="card-img-wrapper">
+                        <img src="baolixi.png" alt="Lì Xì" class="card-img">
+                    </div>
+                    <h3>Chúc Tết & Lì Xì</h3>
+                    <p>Trao nhau lời chúc và phong bao may mắn</p>
+                </div>
+                <div class="tradition-card tradition-card-img">
+                    <div class="card-img-wrapper">
+                        <img src="xongdat.png" alt="Xông Đất" class="card-img">
+                    </div>
+                    <h3>Xông Đất</h3>
+                    <p>Người đầu tiên bước vào nhà mang vận may</p>
+                </div>
+                <div class="tradition-card">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 48 48" fill="none">
+                            <path d="M24 4 L24 12" stroke="#D32F2F" stroke-width="2"/>
+                            <path d="M16 8 Q24 4 32 8 L32 14 Q24 18 16 14 Z" fill="#FFD700"/>
+                            <rect x="12" y="14" width="24" height="28" rx="2" fill="#D32F2F"/>
+                            <rect x="16" y="18" width="16" height="20" fill="#B71C1C"/>
+                            <rect x="20" y="38" width="8" height="6" fill="#8D6E63"/>
+                        </svg>
+                    </div>
+                    <h3>Du Xuân Lễ Chùa</h3>
+                    <p>Đi chùa cầu bình an, may mắn năm mới</p>
+                </div>
+                <div class="tradition-card tradition-card-img">
+                    <div class="card-img-wrapper">
+                        <img src="donnha.png" alt="Dọn Nhà" class="card-img">
+                    </div>
+                    <h3>Dọn Nhà Đón Tết</h3>
+                    <p>Tổng vệ sinh, trang trí nhà cửa tươi mới</p>
+                </div>
+                <div class="tradition-card tradition-card-img">
+                    <div class="card-img-wrapper">
+                        <img src="chotet.png" alt="Chợ Tết" class="card-img">
+                    </div>
+                    <h3>Chợ Hoa Xuân</h3>
+                    <p>Chọn cành mai đào đẹp trang trí nhà</p>
+                </div>
+                <div class="tradition-card tradition-card-img">
+                    <div class="card-img-wrapper">
+                        <img src="phao.png" alt="Pháo hoa" class="card-img">
+                    </div>
+                    <h3>Đón Giao Thừa</h3>
+                    <p>Khoảnh khắc thiêng liêng chuyển giao năm</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events" id="events">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Sự kiện</span>
+                <h2 class="section-title">Sự Kiện Nổi Bật Tết 2026</h2>
+                <p class="section-desc">Những hoạt động và sự kiện đặc sắc không thể bỏ lỡ</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span class="date-day">23</span>
+                        <span class="date-month">Tháng Chạp</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Lễ Cúng Ông Công Ông Táo</h3>
+                        <p>Tiễn Táo quân về trời, chuẩn bị cá chép và mâm cỗ truyền thống</p>
+                        <span class="timeline-tag">Truyền thống</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span class="date-day">28-29</span>
+                        <span class="date-month">Tháng Chạp</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Chợ Hoa Xuân Toàn Quốc</h3>
+                        <p>Các chợ hoa lớn tại Hà Nội, TP.HCM, Đà Nẵng mở cửa phục vụ người dân</p>
+                        <span class="timeline-tag tag-yellow">Lễ hội</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span class="date-day">29</span>
+                        <span class="date-month">Tháng Chạp</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Đêm Giao Thừa & Bắn Pháo Hoa</h3>
+                        <p>Màn pháo hoa rực rỡ tại 34 tỉnh thành, chào đón năm mới Bính Ngọ</p>
+                        <span class="timeline-tag tag-orange">Pháo hoa</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span class="date-day">1-3</span>
+                        <span class="date-month">Tết</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Lễ Hội Đường Phố</h3>
+                        <p>Múa lân, biểu diễn nghệ thuật, hội chợ xuân tại các thành phố lớn</p>
+                        <span class="timeline-tag tag-purple">Giải trí</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span class="date-day">4-9</span>
+                        <span class="date-month">Tết</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Lễ Hội Chùa Hương & Các Đền Chùa</h3>
+                        <p>Mùa lễ hội bắt đầu, du xuân cầu may tại các địa điểm tâm linh</p>
+                        <span class="timeline-tag tag-teal">Tâm linh</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Hình ảnh</span>
+                <h2 class="section-title">Không Khí Tết Việt</h2>
+                <p class="section-desc">Những khoảnh khắc đẹp nhất của mùa xuân Việt Nam</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item gallery-item-large" data-title="Không khí Tết">
+                    <img src="a1.png" alt="Không khí Tết" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+                        <span>Không Khí Tết</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-title="Bánh Chưng">
+                    <img src="banhchung.png" alt="Bánh Chưng" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+                        <span>Bánh Chưng Xanh</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-title="Lì Xì">
+                    <img src="baolixi.png" alt="Lì Xì" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+                        <span>Bao Lì Xì May Mắn</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-title="Pháo Hoa">
+                    <img src="phao.png" alt="Pháo Hoa" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+                        <span>Pháo Hoa Giao Thừa</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-title="Cúng Táo Quân">
+                    <img src="cung.png" alt="Cúng Táo Quân" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+                        <span>Cúng Ông Táo</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-title="Chợ Tết">
+                    <img src="chotet.png" alt="Chợ Tết" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+                        <span>Chợ Hoa Xuân</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-title="Hoa Mai">
+                    <img src="hoamai.png" alt="Hoa Mai" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+                        <span>Hoa Mai Vàng</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-title="Hoa Đào">
+                    <img src="hoadao.png" alt="Hoa Đào" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+                        <span>Hoa Đào Xuân</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-title="Xông Đất">
+                    <img src="xongdat.png" alt="Xông Đất" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+                        <span>Xông Đất Đầu Năm</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-title="Dọn Nhà">
+                    <img src="donnha.png" alt="Dọn Nhà" class="gallery-img">
+                    <div class="gallery-overlay">
+                        <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+                        <span>Dọn Nhà Đón Tết</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checklist Section -->
+    <section class="checklist" id="checklist">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Chuẩn bị</span>
+                <h2 class="section-title">Checklist Chuẩn Bị Tết 2026</h2>
+                <p class="section-desc">Danh sách những việc cần làm để đón Tết trọn vẹn</p>
+            </div>
+            
+            <div class="checklist-grid">
+                <div class="checklist-category">
+                    <h3 class="category-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path d="M9 22V12h6v10"/></svg>
+                        Nhà Cửa
+                    </h3>
+                    <ul class="checklist-items">
+                        <li class="checklist-item"><span class="check-box"></span><span>Tổng vệ sinh nhà cửa</span></li>
+                        <li class="checklist-item"><span class="check-box"></span><span>Sơn sửa, trang trí lại</span></li>
+                        <li class="checklist-item"><span class="check-box"></span><span>Mua hoa mai/đào trang trí</span></li>
+                        <li class="checklist-item"><span class="check-box"></span><span>Treo câu đối, đèn lồng</span></li>
+                        <li class="checklist-item"><span class="check-box"></span><span>Bày mâm ngũ quả</span></li>
+                    </ul>
+                </div>
+                <div class="checklist-category">
+                    <h3 class="category-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+                        Mua Sắm
+                    </h3>
+                    <ul class="checklist-items">
+                        <li class="checklist-item"><span class="check-box"></span><span>Bánh chưng, bánh tét</span></li>
+                        <li class="checklist-item"><span class="check-box"></span><span>Mứt, hạt dưa, kẹo bánh</span></li>
+                        <li class="checklist-item"><span class="check-box"></span><span>Thực phẩm cho mâm cỗ</span></li>
+                        <li class="checklist-item"><span class="check-box"></span><span>Quần áo mới</span></li>
+                        <li class="checklist-item"><span class="check-box"></span><span>Phong bao lì xì</span></li>
+                    </ul>
+                </div>
+                <div class="checklist-category">
+                    <h3 class="category-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        Tâm Linh
+                    </h3>
+                    <ul class="checklist-items">
+                        <li class="checklist-item"><span class="check-box"></span><span>Cúng ông Công ông Táo</span></li>
+                        <li class="checklist-item"><span class="check-box"></span><span>Tảo mộ, viếng tổ tiên</span></li>
+                        <li class="checklist-item"><span class="check-box"></span><span>Mâm cúng giao thừa</span></li>
+                        <li class="checklist-item"><span class="check-box"></span><span>Hương, đèn, vàng mã</span></li>
+                        <li class="checklist-item"><span class="check-box"></span><span>Xem ngày giờ xông đất</span></li>
+                    </ul>
+                </div>
+                <div class="checklist-category">
+                    <h3 class="category-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                        Gia Đình
+                    </h3>
+                    <ul class="checklist-items">
+                        <li class="checklist-item"><span class="check-box"></span><span>Đặt vé về quê</span></li>
+                        <li class="checklist-item"><span class="check-box"></span><span>Chuẩn bị quà biếu</span></li>
+                        <li class="checklist-item"><span class="check-box"></span><span>Đổi tiền mới lì xì</span></li>
+                        <li class="checklist-item"><span class="check-box"></span><span>Lên kế hoạch du xuân</span></li>
+                        <li class="checklist-item"><span class="check-box"></span><span>Chụp ảnh gia đình</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Foods Section -->
+    <section class="foods" id="foods">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Ẩm thực</span>
+                <h2 class="section-title">Món Ăn Ngày Tết</h2>
+                <p class="section-desc">Những món ăn truyền thống không thể thiếu trong mâm cỗ Tết Việt</p>
+            </div>
+            
+            <div class="foods-grid">
+                <div class="food-card">
+                    <div class="food-icon">🍚</div>
+                    <h3>Bánh Chưng</h3>
+                    <p>Biểu tượng của đất, gói ghém tình yêu thương gia đình. Gạo nếp, đậu xanh, thịt lợn tạo nên hương vị đặc trưng.</p>
+                    <span class="food-region">Miền Bắc</span>
+                </div>
+                <div class="food-card">
+                    <div class="food-icon">🥢</div>
+                    <h3>Bánh Tét</h3>
+                    <p>Phiên bản miền Nam của bánh chưng, hình trụ dài, thường có nhân chuối hoặc đậu đen.</p>
+                    <span class="food-region">Miền Nam</span>
+                </div>
+                <div class="food-card">
+                    <div class="food-icon">🍖</div>
+                    <h3>Thịt Kho Tàu</h3>
+                    <p>Thịt ba chỉ kho với trứng và nước dừa, vị ngọt mặn đậm đà, ăn kèm dưa giá.</p>
+                    <span class="food-region">Miền Nam</span>
+                </div>
+                <div class="food-card">
+                    <div class="food-icon">🥬</div>
+                    <h3>Canh Măng</h3>
+                    <p>Măng khô ninh với chân giò, hương vị đậm đà, thanh mát, giải ngấy sau những món nhiều đạm.</p>
+                    <span class="food-region">Miền Bắc</span>
+                </div>
+                <div class="food-card">
+                    <div class="food-icon">🥓</div>
+                    <h3>Giò Chả</h3>
+                    <p>Giò lụa, chả quế - món không thể thiếu. Thịt lợn giã nhuyễn, gói lá chuối, hấp chín.</p>
+                    <span class="food-region">Cả nước</span>
+                </div>
+                <div class="food-card">
+                    <div class="food-icon">🍬</div>
+                    <h3>Mứt Tết</h3>
+                    <p>Mứt dừa, mứt gừng, mứt sen, mứt bí... Vị ngọt thanh, màu sắc rực rỡ đón khách.</p>
+                    <span class="food-region">Cả nước</span>
+                </div>
+                <div class="food-card">
+                    <div class="food-icon">🥗</div>
+                    <h3>Nem Rán</h3>
+                    <p>Nem giòn rụm với nhân thịt, miến, mộc nhĩ. Chấm nước mắm chua ngọt tuyệt vời.</p>
+                    <span class="food-region">Miền Bắc</span>
+                </div>
+                <div class="food-card">
+                    <div class="food-icon">🍲</div>
+                    <h3>Canh Khổ Qua</h3>
+                    <p>Khổ qua nhồi thịt, vị đắng thanh nhiệt. Người miền Nam tin mang lại may mắn.</p>
+                    <span class="food-region">Miền Nam</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cau Doi Section -->
+    <section class="caudoi" id="caudoi">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Câu đối</span>
+                <h2 class="section-title">Câu Đối Tết Hay</h2>
+                <p class="section-desc">Những câu đối đỏ mang lời chúc tốt đẹp cho năm mới</p>
+            </div>
+            
+            <div class="caudoi-grid">
+                <div class="caudoi-card">
+                    <div class="caudoi-content">
+                        <p class="caudoi-line">Tân niên hạnh phúc bình an tiến</p>
+                        <p class="caudoi-line">Xuân nhật vinh hoa phú quý lai</p>
+                    </div>
+                    <span class="caudoi-meaning">Năm mới hạnh phúc bình an đến, Ngày xuân vinh hoa phú quý về</span>
+                </div>
+                <div class="caudoi-card">
+                    <div class="caudoi-content">
+                        <p class="caudoi-line">Đào hoa đón Tết trăm nhà thịnh</p>
+                        <p class="caudoi-line">Mai nở mừng Xuân vạn sự thành</p>
+                    </div>
+                    <span class="caudoi-meaning">Hoa đào đón Tết mọi nhà thịnh vượng, Hoa mai mừng Xuân vạn sự thành công</span>
+                </div>
+                <div class="caudoi-card">
+                    <div class="caudoi-content">
+                        <p class="caudoi-line">Xuân về hoa nở khắp muôn nơi</p>
+                        <p class="caudoi-line">Tết đến sum vầy cả đất trời</p>
+                    </div>
+                    <span class="caudoi-meaning">Mùa xuân về hoa nở khắp nơi, Tết đến mọi người sum vầy</span>
+                </div>
+                <div class="caudoi-card">
+                    <div class="caudoi-content">
+                        <p class="caudoi-line">An khang thịnh vượng gia đình ấm</p>
+                        <p class="caudoi-line">Hạnh phúc bình an sự nghiệp thành</p>
+                    </div>
+                    <span class="caudoi-meaning">Gia đình an khang thịnh vượng ấm áp, Sự nghiệp hạnh phúc bình an thành công</span>
+                </div>
+                <div class="caudoi-card">
+                    <div class="caudoi-content">
+                        <p class="caudoi-line">Ngựa phi vạn dặm đường xuân rộng</p>
+                        <p class="caudoi-line">Phúc đến muôn nhà lộc thọ dài</p>
+                    </div>
+                    <span class="caudoi-meaning">Năm Ngọ ngựa phi ngàn dặm, Phúc lộc thọ đến muôn nhà</span>
+                </div>
+                <div class="caudoi-card">
+                    <div class="caudoi-content">
+                        <p class="caudoi-line">Tết đến gia đình vui sum họp</p>
+                        <p class="caudoi-line">Xuân về đất nước đẹp thanh bình</p>
+                    </div>
+                    <span class="caudoi-meaning">Tết đến gia đình vui vẻ sum họp, Xuân về đất nước thanh bình tươi đẹp</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="tools" id="tools">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Công cụ</span>
+                <h2 class="section-title">Công Cụ Tết 2026</h2>
+                <p class="section-desc">Những tiện ích hữu ích cho mùa Tết của bạn</p>
+            </div>
+            
+            <div class="tools-grid">
+                <!-- Lunar Calendar Widget -->
+                <div class="tool-card lunar-calendar">
+                    <h3>📅 Lịch Âm Hôm Nay</h3>
+                    <div class="lunar-display">
+                        <div class="lunar-date" id="lunarDate">--</div>
+                        <div class="lunar-info">
+                            <span id="lunarDay">--</span>
+                            <span id="lunarMonth">--</span>
+                            <span id="lunarYear">--</span>
+                        </div>
+                        <div class="lunar-zodiac" id="lunarZodiac">--</div>
+                    </div>
+                </div>
+
+                <!-- Greeting Card Generator -->
+                <div class="tool-card greeting-generator">
+                    <h3>🎴 Tạo Thiệp Chúc Tết</h3>
+                    <div class="greeting-form">
+                        <input type="text" id="recipientName" placeholder="Nhập tên người nhận..." maxlength="30">
+                        <select id="greetingTemplate">
+                            <option value="1">Chúc An Khang Thịnh Vượng</option>
+                            <option value="2">Chúc Vạn Sự Như Ý</option>
+                            <option value="3">Chúc Phúc Lộc Đầy Nhà</option>
+                            <option value="4">Chúc Tài Lộc Dồi Dào</option>
+                            <option value="5">Chúc Sức Khỏe Bình An</option>
+                        </select>
+                        <button class="btn btn-primary" id="generateCard">Tạo Thiệp</button>
+                    </div>
+                    <div class="greeting-preview" id="greetingPreview" style="display:none;">
+                        <div class="greeting-card-preview">
+                            <div class="card-decoration">🏮</div>
+                            <p class="card-recipient">Kính gửi: <span id="previewName"></span></p>
+                            <p class="card-message" id="previewMessage"></p>
+                            <p class="card-signature">Xuân Bính Ngọ 2026 🌸</p>
+                        </div>
+                        <div class="greeting-actions">
+                            <button class="btn btn-secondary" id="downloadCard">📥 Tải về</button>
+                            <button class="btn btn-secondary" id="shareCard">📤 Chia sẻ</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Xong Dat Checker -->
+                <div class="tool-card xongdat-checker">
+                    <h3>🚪 Xem Tuổi Xông Đất</h3>
+                    <p class="tool-desc">Năm Bính Ngọ 2026 - Tuổi hợp xông đất cho gia chủ</p>
+                    <div class="xongdat-form">
+                        <select id="homeownerYear">
+                            <option value="">Chọn năm sinh gia chủ...</option>
+                            <option value="1948">1948 - Mậu Tý</option>
+                            <option value="1949">1949 - Kỷ Sửu</option>
+                            <option value="1950">1950 - Canh Dần</option>
+                            <option value="1951">1951 - Tân Mão</option>
+                            <option value="1952">1952 - Nhâm Thìn</option>
+                            <option value="1953">1953 - Quý Tỵ</option>
+                            <option value="1954">1954 - Giáp Ngọ</option>
+                            <option value="1955">1955 - Ất Mùi</option>
+                            <option value="1956">1956 - Bính Thân</option>
+                            <option value="1957">1957 - Đinh Dậu</option>
+                            <option value="1958">1958 - Mậu Tuất</option>
+                            <option value="1959">1959 - Kỷ Hợi</option>
+                            <option value="1960">1960 - Canh Tý</option>
+                            <option value="1961">1961 - Tân Sửu</option>
+                            <option value="1962">1962 - Nhâm Dần</option>
+                            <option value="1963">1963 - Quý Mão</option>
+                            <option value="1964">1964 - Giáp Thìn</option>
+                            <option value="1965">1965 - Ất Tỵ</option>
+                            <option value="1966">1966 - Bính Ngọ</option>
+                            <option value="1967">1967 - Đinh Mùi</option>
+                            <option value="1968">1968 - Mậu Thân</option>
+                            <option value="1969">1969 - Kỷ Dậu</option>
+                            <option value="1970">1970 - Canh Tuất</option>
+                            <option value="1971">1971 - Tân Hợi</option>
+                            <option value="1972">1972 - Nhâm Tý</option>
+                            <option value="1973">1973 - Quý Sửu</option>
+                            <option value="1974">1974 - Giáp Dần</option>
+                            <option value="1975">1975 - Ất Mão</option>
+                            <option value="1976">1976 - Bính Thìn</option>
+                            <option value="1977">1977 - Đinh Tỵ</option>
+                            <option value="1978">1978 - Mậu Ngọ</option>
+                            <option value="1979">1979 - Kỷ Mùi</option>
+                            <option value="1980">1980 - Canh Thân</option>
+                            <option value="1981">1981 - Tân Dậu</option>
+                            <option value="1982">1982 - Nhâm Tuất</option>
+                            <option value="1983">1983 - Quý Hợi</option>
+                            <option value="1984">1984 - Giáp Tý</option>
+                            <option value="1985">1985 - Ất Sửu</option>
+                            <option value="1986">1986 - Bính Dần</option>
+                            <option value="1987">1987 - Đinh Mão</option>
+                            <option value="1988">1988 - Mậu Thìn</option>
+                            <option value="1989">1989 - Kỷ Tỵ</option>
+                            <option value="1990">1990 - Canh Ngọ</option>
+                            <option value="1991">1991 - Tân Mùi</option>
+                            <option value="1992">1992 - Nhâm Thân</option>
+                            <option value="1993">1993 - Quý Dậu</option>
+                            <option value="1994">1994 - Giáp Tuất</option>
+                            <option value="1995">1995 - Ất Hợi</option>
+                            <option value="1996">1996 - Bính Tý</option>
+                            <option value="1997">1997 - Đinh Sửu</option>
+                            <option value="1998">1998 - Mậu Dần</option>
+                            <option value="1999">1999 - Kỷ Mão</option>
+                            <option value="2000">2000 - Canh Thìn</option>
+                            <option value="2001">2001 - Tân Tỵ</option>
+                            <option value="2002">2002 - Nhâm Ngọ</option>
+                            <option value="2003">2003 - Quý Mùi</option>
+                            <option value="2004">2004 - Giáp Thân</option>
+                            <option value="2005">2005 - Ất Dậu</option>
+                        </select>
+                        <button class="btn btn-primary" id="checkXongdat">Xem Tuổi Hợp</button>
+                    </div>
+                    <div class="xongdat-result" id="xongdatResult" style="display:none;"></div>
+                </div>
+
+                <!-- Quiz -->
+                <div class="tool-card quiz-card">
+                    <h3>🎯 Quiz Tết Việt</h3>
+                    <p class="tool-desc">Kiểm tra hiểu biết về phong tục Tết</p>
+                    <div class="quiz-container" id="quizContainer">
+                        <div class="quiz-question" id="quizQuestion"></div>
+                        <div class="quiz-options" id="quizOptions"></div>
+                        <div class="quiz-progress">
+                            <span id="quizProgress">Câu 1/5</span>
+                            <span id="quizScore">Điểm: 0</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="startQuiz">Bắt Đầu Quiz</button>
+                    <div class="quiz-result" id="quizResult" style="display:none;"></div>
+                </div>
+            </div>
+
+            <!-- Social Share -->
+            <div class="social-share">
+                <h3>Chia Sẻ Trang Web</h3>
+                <div class="share-buttons">
+                    <button class="share-btn facebook" id="shareFacebook">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                        Facebook
+                    </button>
+                    <button class="share-btn zalo" id="shareZalo">
+                        <span class="zalo-icon">Z</span>
+                        Zalo
+                    </button>
+                    <button class="share-btn twitter" id="shareTwitter">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+                        Twitter
+                    </button>
+                    <button class="share-btn copy" id="copyLink">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                        Sao chép
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Chúc Mừng Năm Mới 2026</h2>
+                <p>Kính chúc quý vị và gia đình một năm mới An Khang Thịnh Vượng, Vạn Sự Như Ý!</p>
+                <div class="cta-wishes">
+                    <span class="wish-item">⭐ Phúc</span>
+                    <span class="wish-item">💰 Lộc</span>
+                    <span class="wish-item">❤️ Thọ</span>
+                    <span class="wish-item">✨ Khang</span>
+                    <span class="wish-item">🎊 Ninh</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <span class="footer-logo">
+                            <svg viewBox="0 0 40 56" fill="none">
+                                <rect x="14" y="0" width="12" height="6" rx="2" fill="#FFD700"/>
+                                <path d="M20 6 L20 10" stroke="#D4A84B" stroke-width="2"/>
+                                <ellipse cx="20" cy="32" rx="18" ry="22" fill="#FFF" opacity="0.9"/>
+                                <path d="M8 20 Q20 18 32 20" stroke="#FFD700" stroke-width="1.5" fill="none"/>
+                                <path d="M6 32 Q20 30 34 32" stroke="#FFD700" stroke-width="1.5" fill="none"/>
+                                <path d="M8 44 Q20 46 32 44" stroke="#FFD700" stroke-width="1.5" fill="none"/>
+                            </svg>
+                            Tết Nguyên Đán 2026
+                        </span>
+                        <p>Chào đón năm mới Bính Ngọ với niềm vui, hy vọng và những điều tốt đẹp nhất dành cho bạn và gia đình.</p>
+                        <p class="footer-quote">"Xuân về, Tết đến, sum vầy bên nhau"</p>
+                    </div>
+                    <div class="footer-links">
+                        <h4>Khám phá</h4>
+                        <ul>
+                            <li><a href="#about">Giới thiệu Tết</a></li>
+                            <li><a href="#traditions">Phong tục truyền thống</a></li>
+                            <li><a href="#events">Sự kiện 2026</a></li>
+                            <li><a href="#gallery">Hình ảnh đẹp</a></li>
+                            <li><a href="#checklist">Chuẩn bị Tết</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-social">
+                        <h4>Kết nối với chúng tôi</h4>
+                        <div class="social-icons">
+                            <a href="#" class="social-icon" aria-label="Facebook">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                            </a>
+                            <a href="#" class="social-icon" aria-label="Instagram">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg>
+                            </a>
+                            <a href="#" class="social-icon" aria-label="YouTube">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.33z"/><polygon points="9.75,15.02 15.5,11.75 9.75,8.48" fill="#B71C1C"/></svg>
+                            </a>
+                            <a href="#" class="social-icon" aria-label="TikTok">
+                                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p>© 2026 Tết Nguyên Đán. Thiết kế với <span class="heart">❤️</span> cho người Việt</p>
+                    <p class="designer-credit">Thiết kế bởi <strong>Nt Vu</strong> ✨</p>
+                    <p>🏮 Chúc Mừng Năm Mới 🏮</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Về đầu trang">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+        </svg>
+    </button>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" aria-label="Đóng">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+        <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Ảnh trước">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="lightbox-nav next" id="lightboxNext" aria-label="Ảnh sau">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="lightbox-content">
+            <img class="lightbox-image" id="lightboxImage" src="" alt="">
+            <p class="lightbox-title" id="lightboxTitle"></p>
+            <p class="lightbox-counter" id="lightboxCounter"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
