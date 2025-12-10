@@ -8,6 +8,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Welcome Overlay - Click to start with music -->
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <div class="welcome-content">
+            <div class="welcome-lantern">🏮</div>
+            <h2>Chào Mừng Đến Với</h2>
+            <h1>Tết Nguyên Đán 2026</h1>
+            <p>Năm Bính Ngọ - An Khang Thịnh Vượng</p>
+            <button class="welcome-btn" id="enterSite">
+                <span>🎊 Khám Phá Ngay 🎊</span>
+            </button>
+
+        </div>
+    </div>
+
     <!-- Dark Mode Toggle -->
     <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Chế độ tối">
         <span class="toggle-icon">🌙</span>
@@ -48,9 +62,12 @@
                 <li><a href="#gallery">Hình ảnh</a></li>
                 <li><a href="#tools">Công cụ</a></li>
             </ul>
-            <button class="nav-audio" id="audioToggle" aria-label="Bật/tắt nhạc">
-                <span class="audio-icon">🔇</span>
-            </button>
+            <div class="nav-audio-wrapper">
+                <button class="nav-audio" id="audioToggle" aria-label="Bật/tắt nhạc">
+                    <span class="audio-icon">🎵</span>
+                </button>
+                <span class="audio-tooltip">Tắt nhạc tại đây</span>
+            </div>
         </div>
     </nav>
 

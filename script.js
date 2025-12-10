@@ -870,16 +870,39 @@ const bgMusic = document.getElementById('bgMusic');
 const audioIcon = audioToggle?.querySelector('.audio-icon');
 let isPlaying = false;
 
+// Welcome overlay and auto play music
+const welcomeOverlay = document.getElementById('welcomeOverlay');
+const enterSiteBtn = document.getElementById('enterSite');
+
+enterSiteBtn?.addEventListener('click', () => {
+    // Hide welcome overlay
+    welcomeOverlay.classList.add('hidden');
+    
+    // Play music
+    if (bgMusic) {
+        bgMusic.volume = 0.3;
+        bgMusic.play().then(() => {
+            isPlaying = true;
+            if (audioIcon) audioIcon.textContent = '🎵';
+            if (audioToggle) audioToggle.classList.add('playing');
+        }).catch(e => {
+            console.log('Audio play failed:', e);
+        });
+    }
+});
+
+// Toggle button
 audioToggle?.addEventListener('click', () => {
     if (isPlaying) {
         bgMusic.pause();
         audioIcon.textContent = '🔇';
         audioToggle.classList.remove('playing');
+        isPlaying = false;
     } else {
         bgMusic.volume = 0.3;
         bgMusic.play().catch(e => console.log('Audio play failed:', e));
         audioIcon.textContent = '🎵';
         audioToggle.classList.add('playing');
+        isPlaying = true;
     }
-    isPlaying = !isPlaying;
 });
