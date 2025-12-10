@@ -2601,3 +2601,57 @@ body.custom-cursor button {
         height: 40px;
     }
 }
+
+
+/* ===== Nav Audio Button ===== */
+.nav-audio {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--color-gold);
+    background: var(--color-white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all var(--transition-normal);
+    margin-left: 12px;
+}
+
+.nav-audio:hover {
+    transform: scale(1.1);
+    background: var(--color-gold-light);
+}
+
+.nav-audio.playing {
+    animation: audioPulse 1s ease-in-out infinite;
+    background: var(--color-gold-light);
+    border-color: var(--color-red);
+}
+
+@keyframes audioPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(255, 215, 0, 0); }
+}
+
+body.dark-mode .nav-audio {
+    background: #16213e;
+    border-color: var(--color-gold);
+}
+
+@media (max-width: 768px) {
+    .nav-audio {
+        position: absolute;
+        right: 60px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+    
+    .nav-audio:hover {
+        transform: translateY(-50%) scale(1.1);
+    }
+}

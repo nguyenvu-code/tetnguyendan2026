@@ -862,3 +862,24 @@ for (let i = 0; i < 10; i++) {
 // ===== CUSTOM CURSOR (optional - can be toggled) =====
 // Uncomment to enable custom cursor
 // document.body.classList.add('custom-cursor');
+
+
+// ===== AUDIO PLAYER =====
+const audioToggle = document.getElementById('audioToggle');
+const bgMusic = document.getElementById('bgMusic');
+const audioIcon = audioToggle?.querySelector('.audio-icon');
+let isPlaying = false;
+
+audioToggle?.addEventListener('click', () => {
+    if (isPlaying) {
+        bgMusic.pause();
+        audioIcon.textContent = '🔇';
+        audioToggle.classList.remove('playing');
+    } else {
+        bgMusic.volume = 0.3;
+        bgMusic.play().catch(e => console.log('Audio play failed:', e));
+        audioIcon.textContent = '🎵';
+        audioToggle.classList.add('playing');
+    }
+    isPlaying = !isPlaying;
+});
