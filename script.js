@@ -596,36 +596,47 @@ document.getElementById('shareCard')?.addEventListener('click', () => {
 });
 
 // ===== XONG DAT CHECKER =====
+// Năm 2026 là năm Bính Ngọ
+// Tam hợp Ngọ: Dần - Ngọ - Tuất (rất tốt)
+// Lục hợp Ngọ: Mùi (tốt)
+// Tương xung Ngọ: Tý (xấu)
+// Tương hại Ngọ: Sửu (xấu)
+// Tương hình Ngọ: Ngọ (tự hình - không tốt)
+
 const xongdatData = {
-    // Tuổi hợp xông đất cho từng tuổi gia chủ (simplified)
+    // Năm Bính Ngọ 2026 - Tuổi hợp xông đất dựa trên Tam hợp, Lục hợp với tuổi gia chủ
+    // Ưu tiên: Tam hợp > Lục hợp > Tương sinh
     goodYears: {
-        'Tý': ['Thân', 'Thìn', 'Sửu'],
-        'Sửu': ['Tỵ', 'Dậu', 'Tý'],
-        'Dần': ['Ngọ', 'Tuất', 'Hợi'],
-        'Mão': ['Hợi', 'Mùi', 'Tuất'],
-        'Thìn': ['Tý', 'Thân', 'Dậu'],
-        'Tỵ': ['Dậu', 'Sửu', 'Thân'],
-        'Ngọ': ['Dần', 'Tuất', 'Mùi'],
-        'Mùi': ['Mão', 'Hợi', 'Ngọ'],
-        'Thân': ['Tý', 'Thìn', 'Tỵ'],
-        'Dậu': ['Tỵ', 'Sửu', 'Thìn'],
-        'Tuất': ['Dần', 'Ngọ', 'Mão'],
-        'Hợi': ['Mão', 'Mùi', 'Dần']
+        'Tý': ['Thân', 'Thìn', 'Sửu'],      // Tam hợp: Thân-Tý-Thìn, Lục hợp: Sửu
+        'Sửu': ['Tỵ', 'Dậu', 'Tý'],          // Tam hợp: Tỵ-Dậu-Sửu, Lục hợp: Tý
+        'Dần': ['Ngọ', 'Tuất', 'Hợi'],       // Tam hợp: Dần-Ngọ-Tuất, Lục hợp: Hợi
+        'Mão': ['Hợi', 'Mùi', 'Tuất'],       // Tam hợp: Hợi-Mão-Mùi, Lục hợp: Tuất
+        'Thìn': ['Tý', 'Thân', 'Dậu'],       // Tam hợp: Thân-Tý-Thìn, Lục hợp: Dậu
+        'Tỵ': ['Dậu', 'Sửu', 'Thân'],        // Tam hợp: Tỵ-Dậu-Sửu, Lục hợp: Thân
+        'Ngọ': ['Dần', 'Tuất', 'Mùi'],       // Tam hợp: Dần-Ngọ-Tuất, Lục hợp: Mùi
+        'Mùi': ['Hợi', 'Mão', 'Ngọ'],        // Tam hợp: Hợi-Mão-Mùi, Lục hợp: Ngọ
+        'Thân': ['Tý', 'Thìn', 'Tỵ'],        // Tam hợp: Thân-Tý-Thìn, Lục hợp: Tỵ
+        'Dậu': ['Tỵ', 'Sửu', 'Thìn'],        // Tam hợp: Tỵ-Dậu-Sửu, Lục hợp: Thìn
+        'Tuất': ['Dần', 'Ngọ', 'Mão'],       // Tam hợp: Dần-Ngọ-Tuất, Lục hợp: Mão
+        'Hợi': ['Mão', 'Mùi', 'Dần']         // Tam hợp: Hợi-Mão-Mùi, Lục hợp: Dần
     },
+    // Tuổi xung khắc (Lục xung, Lục hại, Tương hình)
     badYears: {
-        'Tý': ['Ngọ', 'Mão', 'Mùi'],
-        'Sửu': ['Mùi', 'Ngọ', 'Tuất'],
-        'Dần': ['Thân', 'Tỵ'],
-        'Mão': ['Dậu', 'Thìn'],
-        'Thìn': ['Tuất', 'Mão'],
-        'Tỵ': ['Hợi', 'Dần'],
-        'Ngọ': ['Tý', 'Sửu'],
-        'Mùi': ['Sửu', 'Tý'],
-        'Thân': ['Dần', 'Hợi'],
-        'Dậu': ['Mão', 'Tuất'],
-        'Tuất': ['Thìn', 'Dậu'],
-        'Hợi': ['Tỵ', 'Thân']
-    }
+        'Tý': ['Ngọ', 'Mùi', 'Mão'],         // Xung: Ngọ, Hại: Mùi, Hình: Mão
+        'Sửu': ['Mùi', 'Ngọ', 'Tuất'],       // Xung: Mùi, Hại: Ngọ, Hình: Tuất
+        'Dần': ['Thân', 'Tỵ'],               // Xung: Thân, Hại+Hình: Tỵ
+        'Mão': ['Dậu', 'Thìn', 'Tý'],        // Xung: Dậu, Hại: Thìn, Hình: Tý
+        'Thìn': ['Tuất', 'Mão', 'Thìn'],     // Xung: Tuất, Hại: Mão, Tự hình
+        'Tỵ': ['Hợi', 'Dần', 'Thân'],        // Xung: Hợi, Hại: Dần, Hình: Thân
+        'Ngọ': ['Tý', 'Sửu', 'Ngọ'],         // Xung: Tý, Hại: Sửu, Tự hình
+        'Mùi': ['Sửu', 'Tý', 'Tuất'],        // Xung: Sửu, Hại: Tý, Hình: Tuất
+        'Thân': ['Dần', 'Hợi', 'Tỵ'],        // Xung: Dần, Hại: Hợi, Hình: Tỵ
+        'Dậu': ['Mão', 'Tuất', 'Dậu'],       // Xung: Mão, Hại: Tuất, Tự hình
+        'Tuất': ['Thìn', 'Dậu', 'Sửu'],      // Xung: Thìn, Hại: Dậu, Hình: Sửu
+        'Hợi': ['Tỵ', 'Thân', 'Hợi']         // Xung: Tỵ, Hại: Thân, Tự hình
+    },
+    // Ghi chú đặc biệt cho năm Bính Ngọ 2026
+    note2026: 'Năm 2026 Bính Ngọ, tuổi Dần-Ngọ-Tuất (Tam hợp) và Mùi (Lục hợp) đặc biệt tốt để xông đất.'
 };
 
 function getZodiac(year) {
@@ -647,18 +658,33 @@ document.getElementById('checkXongdat')?.addEventListener('click', () => {
     const badYears = xongdatData.badYears[zodiac] || [];
     
     const resultDiv = document.getElementById('xongdatResult');
+    
+    // Kiểm tra tuổi đặc biệt tốt cho năm Bính Ngọ 2026
+    const bestYears2026 = ['Dần', 'Ngọ', 'Tuất', 'Mùi'];
+    const goodYearsWithNote = goodYears.map(y => {
+        const isBest = bestYears2026.includes(y);
+        return `<li class="tuoi-tot">✅ Tuổi ${y}${isBest ? ' ⭐ (Đặc biệt hợp năm Bính Ngọ)' : ' - Tam hợp/Lục hợp'}</li>`;
+    }).join('');
+    
     resultDiv.innerHTML = `
         <h4>🏠 Gia chủ tuổi ${zodiac} (${year})</h4>
         <p><strong>Năm Bính Ngọ 2026 - Tuổi hợp xông đất:</strong></p>
-        <ul>
-            ${goodYears.map(y => `<li class="tuoi-tot">✅ Tuổi ${y} - Hợp, mang lại may mắn</li>`).join('')}
-        </ul>
-        <p><strong>Tuổi nên tránh:</strong></p>
+        <ul>${goodYearsWithNote}</ul>
+        <p><strong>Tuổi nên tránh (Lục xung, Lục hại):</strong></p>
         <ul>
             ${badYears.map(y => `<li class="tuoi-xau">❌ Tuổi ${y} - Xung khắc</li>`).join('')}
         </ul>
-        <p style="margin-top: 12px; font-style: italic; color: var(--color-text-light);">
-            💡 Giờ tốt xông đất: 23h-1h (Tý), 5h-7h (Mão), 7h-9h (Thìn)
+        <div style="margin-top: 12px; padding: 10px; background: var(--color-gold-light); border-radius: 8px;">
+            <p style="margin: 0; font-size: 0.9rem;">
+                💡 <strong>Giờ tốt xông đất Tết 2026:</strong><br>
+                • Giờ Tý (23h-1h) - Giờ đầu tiên của năm mới<br>
+                • Giờ Dần (3h-5h) - Tam hợp với Ngọ<br>
+                • Giờ Mão (5h-7h) - Giờ bình minh tốt lành<br>
+                • Giờ Ngọ (11h-13h) - Chính vị năm Bính Ngọ
+            </p>
+        </div>
+        <p style="margin-top: 10px; font-style: italic; color: var(--color-text-light); font-size: 0.85rem;">
+            📌 Lưu ý: Tuổi Dần, Ngọ, Tuất (Tam hợp) và Mùi (Lục hợp với Ngọ) đặc biệt tốt cho năm 2026.
         </p>
     `;
     resultDiv.style.display = 'block';
@@ -1401,25 +1427,96 @@ const zodiacAnimals = [
     { name: 'Hợi', animal: 'Lợn', emoji: '🐷', traits: 'Hào phóng, chân thành, may mắn, vui vẻ' }
 ];
 
-const elements = [
-    { name: 'Kim', color: '#FFD700', desc: 'Mạnh mẽ, quyết đoán' },
-    { name: 'Thủy', color: '#4FC3F7', desc: 'Thông minh, linh hoạt' },
-    { name: 'Hỏa', color: '#FF5722', desc: 'Nhiệt huyết, năng động' },
-    { name: 'Thổ', color: '#8D6E63', desc: 'Ổn định, đáng tin cậy' },
-    { name: 'Mộc', color: '#66BB6A', desc: 'Sáng tạo, phát triển' }
-];
-
 const canChi = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
+
+// Bảng Lục Thập Hoa Giáp - Ngũ hành nạp âm theo cặp năm
+const napAmTable = {
+    'Giáp Tý': { menh: 'Kim', tenMenh: 'Hải Trung Kim', desc: 'Vàng trong biển' },
+    'Ất Sửu': { menh: 'Kim', tenMenh: 'Hải Trung Kim', desc: 'Vàng trong biển' },
+    'Bính Dần': { menh: 'Hỏa', tenMenh: 'Lư Trung Hỏa', desc: 'Lửa trong lò' },
+    'Đinh Mão': { menh: 'Hỏa', tenMenh: 'Lư Trung Hỏa', desc: 'Lửa trong lò' },
+    'Mậu Thìn': { menh: 'Mộc', tenMenh: 'Đại Lâm Mộc', desc: 'Cây rừng lớn' },
+    'Kỷ Tỵ': { menh: 'Mộc', tenMenh: 'Đại Lâm Mộc', desc: 'Cây rừng lớn' },
+    'Canh Ngọ': { menh: 'Thổ', tenMenh: 'Lộ Bàng Thổ', desc: 'Đất ven đường' },
+    'Tân Mùi': { menh: 'Thổ', tenMenh: 'Lộ Bàng Thổ', desc: 'Đất ven đường' },
+    'Nhâm Thân': { menh: 'Kim', tenMenh: 'Kiếm Phong Kim', desc: 'Vàng mũi kiếm' },
+    'Quý Dậu': { menh: 'Kim', tenMenh: 'Kiếm Phong Kim', desc: 'Vàng mũi kiếm' },
+    'Giáp Tuất': { menh: 'Hỏa', tenMenh: 'Sơn Đầu Hỏa', desc: 'Lửa trên núi' },
+    'Ất Hợi': { menh: 'Hỏa', tenMenh: 'Sơn Đầu Hỏa', desc: 'Lửa trên núi' },
+    'Bính Tý': { menh: 'Thủy', tenMenh: 'Giản Hạ Thủy', desc: 'Nước dưới khe' },
+    'Đinh Sửu': { menh: 'Thủy', tenMenh: 'Giản Hạ Thủy', desc: 'Nước dưới khe' },
+    'Mậu Dần': { menh: 'Thổ', tenMenh: 'Thành Đầu Thổ', desc: 'Đất trên thành' },
+    'Kỷ Mão': { menh: 'Thổ', tenMenh: 'Thành Đầu Thổ', desc: 'Đất trên thành' },
+    'Canh Thìn': { menh: 'Kim', tenMenh: 'Bạch Lạp Kim', desc: 'Vàng trong nến' },
+    'Tân Tỵ': { menh: 'Kim', tenMenh: 'Bạch Lạp Kim', desc: 'Vàng trong nến' },
+    'Nhâm Ngọ': { menh: 'Mộc', tenMenh: 'Dương Liễu Mộc', desc: 'Cây dương liễu' },
+    'Quý Mùi': { menh: 'Mộc', tenMenh: 'Dương Liễu Mộc', desc: 'Cây dương liễu' },
+    'Giáp Thân': { menh: 'Thủy', tenMenh: 'Tuyền Trung Thủy', desc: 'Nước trong suối' },
+    'Ất Dậu': { menh: 'Thủy', tenMenh: 'Tuyền Trung Thủy', desc: 'Nước trong suối' },
+    'Bính Tuất': { menh: 'Thổ', tenMenh: 'Ốc Thượng Thổ', desc: 'Đất trên nóc' },
+    'Đinh Hợi': { menh: 'Thổ', tenMenh: 'Ốc Thượng Thổ', desc: 'Đất trên nóc' },
+    'Mậu Tý': { menh: 'Hỏa', tenMenh: 'Tích Lịch Hỏa', desc: 'Lửa sấm sét' },
+    'Kỷ Sửu': { menh: 'Hỏa', tenMenh: 'Tích Lịch Hỏa', desc: 'Lửa sấm sét' },
+    'Canh Dần': { menh: 'Mộc', tenMenh: 'Tùng Bách Mộc', desc: 'Cây tùng bách' },
+    'Tân Mão': { menh: 'Mộc', tenMenh: 'Tùng Bách Mộc', desc: 'Cây tùng bách' },
+    'Nhâm Thìn': { menh: 'Thủy', tenMenh: 'Trường Lưu Thủy', desc: 'Nước chảy dài' },
+    'Quý Tỵ': { menh: 'Thủy', tenMenh: 'Trường Lưu Thủy', desc: 'Nước chảy dài' },
+    'Giáp Ngọ': { menh: 'Kim', tenMenh: 'Sa Trung Kim', desc: 'Vàng trong cát' },
+    'Ất Mùi': { menh: 'Kim', tenMenh: 'Sa Trung Kim', desc: 'Vàng trong cát' },
+    'Bính Thân': { menh: 'Hỏa', tenMenh: 'Sơn Hạ Hỏa', desc: 'Lửa dưới núi' },
+    'Đinh Dậu': { menh: 'Hỏa', tenMenh: 'Sơn Hạ Hỏa', desc: 'Lửa dưới núi' },
+    'Mậu Tuất': { menh: 'Mộc', tenMenh: 'Bình Địa Mộc', desc: 'Cây đồng bằng' },
+    'Kỷ Hợi': { menh: 'Mộc', tenMenh: 'Bình Địa Mộc', desc: 'Cây đồng bằng' },
+    'Canh Tý': { menh: 'Thổ', tenMenh: 'Bích Thượng Thổ', desc: 'Đất trên vách' },
+    'Tân Sửu': { menh: 'Thổ', tenMenh: 'Bích Thượng Thổ', desc: 'Đất trên vách' },
+    'Nhâm Dần': { menh: 'Kim', tenMenh: 'Kim Bạc Kim', desc: 'Vàng lá mỏng' },
+    'Quý Mão': { menh: 'Kim', tenMenh: 'Kim Bạc Kim', desc: 'Vàng lá mỏng' },
+    'Giáp Thìn': { menh: 'Hỏa', tenMenh: 'Phú Đăng Hỏa', desc: 'Lửa đèn to' },
+    'Ất Tỵ': { menh: 'Hỏa', tenMenh: 'Phú Đăng Hỏa', desc: 'Lửa đèn to' },
+    'Bính Ngọ': { menh: 'Thủy', tenMenh: 'Thiên Hà Thủy', desc: 'Nước trên trời' },
+    'Đinh Mùi': { menh: 'Thủy', tenMenh: 'Thiên Hà Thủy', desc: 'Nước trên trời' },
+    'Mậu Thân': { menh: 'Thổ', tenMenh: 'Đại Trạch Thổ', desc: 'Đất nhà lớn' },
+    'Kỷ Dậu': { menh: 'Thổ', tenMenh: 'Đại Trạch Thổ', desc: 'Đất nhà lớn' },
+    'Canh Tuất': { menh: 'Kim', tenMenh: 'Thoa Xuyến Kim', desc: 'Vàng trang sức' },
+    'Tân Hợi': { menh: 'Kim', tenMenh: 'Thoa Xuyến Kim', desc: 'Vàng trang sức' },
+    'Nhâm Tý': { menh: 'Mộc', tenMenh: 'Tang Đố Mộc', desc: 'Cây dâu tằm' },
+    'Quý Sửu': { menh: 'Mộc', tenMenh: 'Tang Đố Mộc', desc: 'Cây dâu tằm' },
+    'Giáp Dần': { menh: 'Thủy', tenMenh: 'Đại Khê Thủy', desc: 'Nước khe lớn' },
+    'Ất Mão': { menh: 'Thủy', tenMenh: 'Đại Khê Thủy', desc: 'Nước khe lớn' },
+    'Bính Thìn': { menh: 'Thổ', tenMenh: 'Sa Trung Thổ', desc: 'Đất trong cát' },
+    'Đinh Tỵ': { menh: 'Thổ', tenMenh: 'Sa Trung Thổ', desc: 'Đất trong cát' },
+    'Mậu Ngọ': { menh: 'Hỏa', tenMenh: 'Thiên Thượng Hỏa', desc: 'Lửa trên trời' },
+    'Kỷ Mùi': { menh: 'Hỏa', tenMenh: 'Thiên Thượng Hỏa', desc: 'Lửa trên trời' },
+    'Canh Thân': { menh: 'Mộc', tenMenh: 'Thạch Lựu Mộc', desc: 'Cây thạch lựu' },
+    'Tân Dậu': { menh: 'Mộc', tenMenh: 'Thạch Lựu Mộc', desc: 'Cây thạch lựu' },
+    'Nhâm Tuất': { menh: 'Thủy', tenMenh: 'Đại Hải Thủy', desc: 'Nước biển lớn' },
+    'Quý Hợi': { menh: 'Thủy', tenMenh: 'Đại Hải Thủy', desc: 'Nước biển lớn' }
+};
+
+const elementColors = {
+    'Kim': '#FFD700',
+    'Thủy': '#4FC3F7', 
+    'Hỏa': '#FF5722',
+    'Thổ': '#8D6E63',
+    'Mộc': '#66BB6A'
+};
 
 function calcZodiac(year) {
     const zodiacIndex = (year - 4) % 12;
     const canIndex = (year - 4) % 10;
-    const elementIndex = Math.floor(canIndex / 2);
+    
+    const can = canChi[canIndex];
+    const chi = zodiacAnimals[zodiacIndex].name;
+    const canChiKey = `${can} ${chi}`;
+    
+    const napAm = napAmTable[canChiKey] || { menh: 'Không xác định', tenMenh: '', desc: '' };
     
     return {
         zodiac: zodiacAnimals[zodiacIndex],
-        can: canChi[canIndex],
-        element: elements[elementIndex]
+        can: can,
+        chi: chi,
+        canChi: canChiKey,
+        element: napAm
     };
 }
 
@@ -1434,14 +1531,13 @@ document.getElementById('calcZodiac')?.addEventListener('click', () => {
     const result = calcZodiac(year);
     const resultDiv = document.getElementById('zodiacResult');
     
-    // Tính tuổi âm (tuổi mụ = năm hiện tại - năm sinh + 1)
-    const currentYear = new Date().getFullYear();
-    const lunarAge = currentYear - year + 1;
+    // Tính tuổi âm năm 2026 (tuổi mụ = 2026 - năm sinh + 1)
+    const lunarAge = 2026 - year + 1;
     
     document.getElementById('zodiacAnimal').textContent = result.zodiac.emoji;
-    document.getElementById('zodiacName').textContent = `Tuổi ${result.can} ${result.zodiac.name} (${result.zodiac.animal})`;
-    document.getElementById('zodiacElement').innerHTML = `Mệnh <strong>${result.element.name}</strong> - ${result.element.desc}`;
-    document.getElementById('zodiacDesc').innerHTML = `<strong>🎂 ${lunarAge} tuổi (âm lịch)</strong><br>Tính cách: ${result.zodiac.traits}`;
+    document.getElementById('zodiacName').textContent = `Tuổi ${result.canChi} (${result.zodiac.animal})`;
+    document.getElementById('zodiacElement').innerHTML = `Mệnh <strong style="color:${elementColors[result.element.menh]}">${result.element.menh}</strong> - ${result.element.tenMenh} (${result.element.desc})`;
+    document.getElementById('zodiacDesc').innerHTML = `<strong>🎂 ${lunarAge} tuổi âm (năm 2026)</strong><br>Tính cách: ${result.zodiac.traits}`;
     
     resultDiv.style.display = 'block';
 });
