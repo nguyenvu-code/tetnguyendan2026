@@ -16,14 +16,14 @@
     <meta property="og:url" content="https://nguyenvu-code.github.io/tetnguyendan2026/">
     <meta property="og:title" content="Tết Nguyên Đán 2026 - Khởi Đầu An Khang Thịnh Vượng">
     <meta property="og:description" content="Khám phá Tết Việt 2026 - Năm Bính Ngọ với phong tục, món ăn truyền thống và lời chúc tốt đẹp!">
-    <meta property="og:image" content="https://nguyenvu-code.github.io/tetnguyendan2026/a1.png">
+    <meta property="og:image" content="https://nguyenvu-code.github.io/tetnguyendan2026/images/a1.png">
     <meta property="og:locale" content="vi_VN">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Tết Nguyên Đán 2026 - Khởi Đầu An Khang Thịnh Vượng">
     <meta name="twitter:description" content="Khám phá Tết Việt 2026 - Năm Bính Ngọ với phong tục, món ăn truyền thống và lời chúc tốt đẹp!">
-    <meta name="twitter:image" content="https://nguyenvu-code.github.io/tetnguyendan2026/a1.png">
+    <meta name="twitter:image" content="https://nguyenvu-code.github.io/tetnguyendan2026/images/a1.png">
     
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#D32F2F">
@@ -58,14 +58,9 @@
         </div>
     </div>
 
-    <!-- Dark Mode Toggle -->
-    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Chế độ tối">
-        <span class="toggle-icon">🌙</span>
-    </button>
-
     <!-- Background Music -->
     <audio id="bgMusic" loop preload="auto">
-        <source src="nhacxuan.mp3" type="audio/mpeg">
+        <source src="audio/nhacxuan.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Petal Effect Container -->
@@ -98,20 +93,31 @@
                 <li><a href="#foods">Món ăn</a></li>
                 <li><a href="#tools">Công cụ</a></li>
             </ul>
-            <div class="nav-audio-wrapper">
-                <button class="nav-audio" id="audioToggle" aria-label="Bật/tắt nhạc">
-                    <span class="audio-icon">🎵</span>
+            <div class="nav-controls">
+                <button class="nav-btn" id="audioToggle" aria-label="Bật/tắt nhạc" title="Nhạc nền">
+                    <span class="nav-btn-icon">🎵</span>
                 </button>
-                <span class="audio-tooltip">Tắt nhạc tại đây</span>
+                <button class="nav-btn" id="darkModeToggle" aria-label="Chế độ tối" title="Chế độ tối">
+                    <span class="nav-btn-icon toggle-icon">🌙</span>
+                </button>
+                <div class="theme-dropdown" id="themeSwitcher">
+                    <button class="nav-btn" id="themeToggle" aria-label="Đổi màu" title="Đổi màu">
+                        <span class="nav-btn-icon">🎨</span>
+                    </button>
+                    <div class="theme-options" id="themeOptions">
+                        <button class="theme-option" data-theme="default" title="Đỏ Vàng">🔴</button>
+                        <button class="theme-option" data-theme="pink" title="Hồng Đào">🌸</button>
+                        <button class="theme-option" data-theme="green" title="Xanh Lá">🌿</button>
+                    </div>
+                </div>
             </div>
-
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
         <div class="hero-bg">
-            <img src="a1.png" alt="Tết 2026" class="hero-image">
+            <img src="images/a1.png" alt="Tết 2026" class="hero-image">
         </div>
         <div class="hero-content">
             <h1 class="hero-title">
@@ -225,28 +231,28 @@
                 <div class="symbols-grid">
                     <div class="symbol-card">
                         <div class="card-img-wrapper">
-                            <img src="hoamai.png" alt="Hoa Mai" class="card-img">
+                            <img src="images/hoamai.png" alt="Hoa Mai" class="card-img">
                         </div>
                         <h4>Hoa Mai</h4>
                         <p>Biểu tượng mùa xuân miền Nam, tượng trưng cho sự giàu sang</p>
                     </div>
                     <div class="symbol-card">
                         <div class="card-img-wrapper">
-                            <img src="hoadao.png" alt="Hoa Đào" class="card-img">
+                            <img src="images/hoadao.png" alt="Hoa Đào" class="card-img">
                         </div>
                         <h4>Hoa Đào</h4>
                         <p>Đặc trưng miền Bắc, mang ý nghĩa xua đuổi tà ma</p>
                     </div>
                     <div class="symbol-card">
                         <div class="card-img-wrapper">
-                            <img src="banhchung.png" alt="Bánh Chưng" class="card-img">
+                            <img src="images/banhchung.png" alt="Bánh Chưng" class="card-img">
                         </div>
                         <h4>Bánh Chưng</h4>
                         <p>Tượng trưng cho đất, lòng biết ơn tổ tiên</p>
                     </div>
                     <div class="symbol-card">
                         <div class="card-img-wrapper">
-                            <img src="baolixi.png" alt="Lì Xì" class="card-img">
+                            <img src="images/baolixi.png" alt="Lì Xì" class="card-img">
                         </div>
                         <h4>Lì Xì</h4>
                         <p>Phong bao đỏ chứa tiền mừng tuổi may mắn</p>
@@ -268,56 +274,56 @@
             <div class="traditions-grid">
                 <div class="tradition-card tradition-card-img">
                     <div class="card-img-wrapper">
-                        <img src="banhchung.png" alt="Gói Bánh Chưng" class="card-img">
+                        <img src="images/banhchung.png" alt="Gói Bánh Chưng" class="card-img">
                     </div>
                     <h3>Gói Bánh Chưng</h3>
                     <p>Cả gia đình quây quần gói bánh - nét đẹp sum vầy ngày Tết</p>
                 </div>
                 <div class="tradition-card tradition-card-img">
                     <div class="card-img-wrapper">
-                        <img src="cung.png" alt="Cúng ông Công ông Táo" class="card-img">
+                        <img src="images/cung.png" alt="Cúng ông Công ông Táo" class="card-img">
                     </div>
                     <h3>Cúng Ông Công Ông Táo</h3>
                     <p>Ngày 23 tháng Chạp, tiễn Táo quân về trời</p>
                 </div>
                 <div class="tradition-card tradition-card-img">
                     <div class="card-img-wrapper">
-                        <img src="baolixi.png" alt="Lì Xì" class="card-img">
+                        <img src="images/baolixi.png" alt="Lì Xì" class="card-img">
                     </div>
                     <h3>Chúc Tết & Lì Xì</h3>
                     <p>Trao nhau lời chúc và phong bao may mắn</p>
                 </div>
                 <div class="tradition-card tradition-card-img">
                     <div class="card-img-wrapper">
-                        <img src="xongdat.png" alt="Xông Đất" class="card-img">
+                        <img src="images/xongdat.png" alt="Xông Đất" class="card-img">
                     </div>
                     <h3>Xông Đất</h3>
                     <p>Người đầu tiên bước vào nhà mang vận may</p>
                 </div>
                 <div class="tradition-card tradition-card-img">
                     <div class="card-img-wrapper">
-                        <img src="duxuanlechua.png" alt="Du Xuân Lễ Chùa" class="card-img">
+                        <img src="images/duxuanlechua.png" alt="Du Xuân Lễ Chùa" class="card-img">
                     </div>
                     <h3>Du Xuân Lễ Chùa</h3>
                     <p>Đi chùa cầu bình an, may mắn năm mới</p>
                 </div>
                 <div class="tradition-card tradition-card-img">
                     <div class="card-img-wrapper">
-                        <img src="donnha.png" alt="Dọn Nhà" class="card-img">
+                        <img src="images/donnha.png" alt="Dọn Nhà" class="card-img">
                     </div>
                     <h3>Dọn Nhà Đón Tết</h3>
                     <p>Tổng vệ sinh, trang trí nhà cửa tươi mới</p>
                 </div>
                 <div class="tradition-card tradition-card-img">
                     <div class="card-img-wrapper">
-                        <img src="chotet.png" alt="Chợ Tết" class="card-img">
+                        <img src="images/chotet.png" alt="Chợ Tết" class="card-img">
                     </div>
                     <h3>Chợ Hoa Xuân</h3>
                     <p>Chọn cành mai đào đẹp trang trí nhà</p>
                 </div>
                 <div class="tradition-card tradition-card-img">
                     <div class="card-img-wrapper">
-                        <img src="phao.png" alt="Pháo hoa" class="card-img">
+                        <img src="images/phao.png" alt="Pháo hoa" class="card-img">
                     </div>
                     <h3>Đón Giao Thừa</h3>
                     <p>Khoảnh khắc thiêng liêng chuyển giao năm</p>
@@ -330,7 +336,7 @@
                 <p class="lion-dance-desc">Múa lân là nét văn hóa đặc sắc không thể thiếu trong dịp Tết, mang ý nghĩa xua đuổi tà ma và đem lại may mắn</p>
                 <div class="lion-dance-video-single">
                     <video autoplay loop muted playsinline>
-                        <source src="Video1.mp4" type="video/mp4">
+                        <source src="video/Video1.mp4" type="video/mp4">
                         Trình duyệt không hỗ trợ video.
                     </video>
                 </div>
@@ -418,70 +424,70 @@
             
             <div class="gallery-grid">
                 <div class="gallery-item gallery-item-large" data-title="Không khí Tết">
-                    <img src="a1.png" alt="Không khí Tết" class="gallery-img">
+                    <img src="images/a1.png" alt="Không khí Tết" class="gallery-img">
                     <div class="gallery-overlay">
                         <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                         <span>Không Khí Tết</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-title="Bánh Chưng">
-                    <img src="banhchung.png" alt="Bánh Chưng" class="gallery-img">
+                    <img src="images/banhchung.png" alt="Bánh Chưng" class="gallery-img">
                     <div class="gallery-overlay">
                         <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                         <span>Bánh Chưng Xanh</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-title="Lì Xì">
-                    <img src="baolixi.png" alt="Lì Xì" class="gallery-img">
+                    <img src="images/baolixi.png" alt="Lì Xì" class="gallery-img">
                     <div class="gallery-overlay">
                         <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                         <span>Bao Lì Xì May Mắn</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-title="Pháo Hoa">
-                    <img src="phao.png" alt="Pháo Hoa" class="gallery-img">
+                    <img src="images/phao.png" alt="Pháo Hoa" class="gallery-img">
                     <div class="gallery-overlay">
                         <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                         <span>Pháo Hoa Giao Thừa</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-title="Cúng Táo Quân">
-                    <img src="cung.png" alt="Cúng Táo Quân" class="gallery-img">
+                    <img src="images/cung.png" alt="Cúng Táo Quân" class="gallery-img">
                     <div class="gallery-overlay">
                         <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                         <span>Cúng Ông Táo</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-title="Chợ Tết">
-                    <img src="chotet.png" alt="Chợ Tết" class="gallery-img">
+                    <img src="images/chotet.png" alt="Chợ Tết" class="gallery-img">
                     <div class="gallery-overlay">
                         <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                         <span>Chợ Hoa Xuân</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-title="Hoa Mai">
-                    <img src="hoamai.png" alt="Hoa Mai" class="gallery-img">
+                    <img src="images/hoamai.png" alt="Hoa Mai" class="gallery-img">
                     <div class="gallery-overlay">
                         <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                         <span>Hoa Mai Vàng</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-title="Hoa Đào">
-                    <img src="hoadao.png" alt="Hoa Đào" class="gallery-img">
+                    <img src="images/hoadao.png" alt="Hoa Đào" class="gallery-img">
                     <div class="gallery-overlay">
                         <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                         <span>Hoa Đào Xuân</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-title="Xông Đất">
-                    <img src="xongdat.png" alt="Xông Đất" class="gallery-img">
+                    <img src="images/xongdat.png" alt="Xông Đất" class="gallery-img">
                     <div class="gallery-overlay">
                         <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                         <span>Xông Đất Đầu Năm</span>
                     </div>
                 </div>
                 <div class="gallery-item" data-title="Dọn Nhà">
-                    <img src="donnha.png" alt="Dọn Nhà" class="gallery-img">
+                    <img src="images/donnha.png" alt="Dọn Nhà" class="gallery-img">
                     <div class="gallery-overlay">
                         <svg class="gallery-zoom" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
                         <span>Dọn Nhà Đón Tết</span>
@@ -569,7 +575,7 @@
             <div class="foods-grid foods-grid-3">
                 <div class="food-card">
                     <div class="food-img-wrapper">
-                        <img src="banhchung.png" alt="Bánh Chưng" class="food-img">
+                        <img src="images/banhchung.png" alt="Bánh Chưng" class="food-img">
                     </div>
                     <h3>Bánh Chưng</h3>
                     <p>Biểu tượng của đất, gói ghém tình yêu thương gia đình. Gạo nếp, đậu xanh, thịt lợn tạo nên hương vị đặc trưng.</p>
@@ -577,7 +583,7 @@
                 </div>
                 <div class="food-card">
                     <div class="food-img-wrapper">
-                        <img src="banhtet.png" alt="Bánh Tét" class="food-img">
+                        <img src="images/banhtet.png" alt="Bánh Tét" class="food-img">
                     </div>
                     <h3>Bánh Tét</h3>
                     <p>Phiên bản miền Nam của bánh chưng, hình trụ dài, thường có nhân chuối hoặc đậu đen.</p>
@@ -585,7 +591,7 @@
                 </div>
                 <div class="food-card">
                     <div class="food-img-wrapper">
-                        <img src="muttet.png" alt="Mứt Tết" class="food-img">
+                        <img src="images/muttet.png" alt="Mứt Tết" class="food-img">
                     </div>
                     <h3>Mứt Tết</h3>
                     <p>Mứt dừa, mứt gừng, mứt sen, mứt bí... Vị ngọt thanh, màu sắc rực rỡ đón khách.</p>

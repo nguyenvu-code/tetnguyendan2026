@@ -1,21 +1,26 @@
-const CACHE_NAME = 'tet2026-v1';
+const CACHE_NAME = 'tet2026-v2';
 const urlsToCache = [
   './',
   './index.html',
   './styles.css',
   './script.js',
   './manifest.json',
-  './a1.png',
-  './hoamai.png',
-  './hoadao.png',
-  './banhchung.png',
-  './baolixi.png',
-  './cung.png',
-  './phao.png',
-  './chotet.png',
-  './donnha.png',
-  './xongdat.png',
-  './nhacxuan.mp3'
+  './images/a1.png',
+  './images/hoamai.png',
+  './images/hoadao.png',
+  './images/banhchung.png',
+  './images/baolixi.png',
+  './images/cung.png',
+  './images/phao.png',
+  './images/chotet.png',
+  './images/donnha.png',
+  './images/xongdat.png',
+  './images/binhngo.png',
+  './images/duxuanlechua.png',
+  './images/banhtet.png',
+  './images/muttet.png',
+  './audio/nhacxuan.mp3',
+  './video/Video1.mp4'
 ];
 
 // Install event

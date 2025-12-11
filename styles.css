@@ -108,6 +108,8 @@ h1, h2, h3, h4 {
     50% { background-position: 100% 50%; }
 }
 
+
+
 .nav-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -530,7 +532,7 @@ section {
     width: 100%;
     max-width: 400px;
     aspect-ratio: 1;
-    background: url('binhngo.png') center/cover no-repeat;
+    background: url('images/binhngo.png') center/cover no-repeat;
     border-radius: var(--border-radius-lg);
     border: 3px solid var(--color-gold);
     display: flex;
@@ -608,7 +610,7 @@ section {
 .symbols-title {
     text-align: center;
     font-size: 1.5rem;
-    color: var(--color-text);
+    color: var(--color-red);
     margin-bottom: 40px;
 }
 
@@ -3549,33 +3551,147 @@ a:focus, button:focus {
 }
 
 
-/* ===== Dark Mode Toggle ===== */
-.dark-mode-toggle {
-    position: fixed;
-    top: 90px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
+/* ===== Navbar Controls ===== */
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 16px;
+}
+
+.nav-btn {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: 2px solid var(--color-gold);
     background: var(--color-white);
     cursor: pointer;
-    z-index: 999;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all var(--transition-normal);
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-btn:hover {
+    transform: scale(1.1);
     box-shadow: var(--shadow-md);
+    border-color: var(--color-red);
 }
 
-.dark-mode-toggle:hover {
-    transform: scale(1.1) rotate(15deg);
+.nav-btn-icon {
+    font-size: 1.1rem;
+    transition: transform var(--transition-fast);
+}
+
+.nav-btn:hover .nav-btn-icon {
+    transform: scale(1.1);
+}
+
+/* Theme Dropdown */
+.theme-dropdown {
+    position: relative;
+}
+
+.theme-options {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
+    background: var(--color-white);
+    border-radius: 12px;
     box-shadow: var(--shadow-lg);
+    border: 2px solid var(--color-gold);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--transition-normal);
+    z-index: 100;
 }
 
-.toggle-icon {
-    font-size: 1.5rem;
-    transition: transform var(--transition-normal);
+.theme-dropdown.active .theme-options {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.theme-option {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: var(--color-gray-light);
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.theme-option:hover {
+    transform: scale(1.1);
+    border-color: var(--color-gold);
+}
+
+.theme-option.active {
+    border-color: var(--color-red);
+    background: var(--color-red-light);
+}
+
+/* ===== Theme Colors ===== */
+/* Pink Theme */
+body.theme-pink {
+    --color-red: #E91E63;
+    --color-red-dark: #C2185B;
+    --color-red-light: #FCE4EC;
+    --color-gold: #FF80AB;
+    --color-gold-dark: #F48FB1;
+    --color-gold-light: #FFF0F5;
+    --gradient-red: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);
+    --gradient-gold: linear-gradient(135deg, #FF80AB 0%, #F48FB1 100%);
+}
+
+/* Green Theme */
+body.theme-green {
+    --color-red: #2E7D32;
+    --color-red-dark: #1B5E20;
+    --color-red-light: #E8F5E9;
+    --color-gold: #8BC34A;
+    --color-gold-dark: #689F38;
+    --color-gold-light: #F1F8E9;
+    --gradient-red: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
+    --gradient-gold: linear-gradient(135deg, #8BC34A 0%, #689F38 100%);
+}
+
+@media (max-width: 768px) {
+    .nav-controls {
+        position: fixed;
+        bottom: 20px;
+        right: 15px;
+        flex-direction: column;
+        gap: 10px;
+        margin-left: 0;
+        z-index: 999;
+    }
+    
+    .nav-btn {
+        width: 45px;
+        height: 45px;
+        box-shadow: var(--shadow-md);
+    }
+    
+    .theme-options {
+        right: 55px;
+        top: auto;
+        bottom: 0;
+        flex-direction: row;
+        margin-top: 0;
+    }
 }
 
 /* ===== Dark Mode Styles ===== */
@@ -3620,12 +3736,9 @@ body.dark-mode .gallery-item {
     background: linear-gradient(135deg, #2a1a1a 0%, #1a2a1a 100%);
 }
 
-body.dark-mode .dark-mode-toggle {
+body.dark-mode .nav-btn {
     background: #16213e;
-}
-
-body.dark-mode .dark-mode-toggle .toggle-icon::after {
-    content: '☀️';
+    border-color: #8BC34A;
 }
 
 /* ===== Petal/Snowfall Effect ===== */
@@ -3711,21 +3824,7 @@ body.custom-cursor button {
     50% { box-shadow: 0 0 0 15px rgba(211, 47, 47, 0); }
 }
 
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .dark-mode-toggle {
-        top: auto;
-        bottom: 20px;
-        right: 20px;
-        width: 45px;
-        height: 45px;
-        font-size: 1.3rem;
-    }
-    
-    .toggle-icon {
-        font-size: 1.3rem;
-    }
-}
+
 
 
 /* ===== Nav Audio Button ===== */
@@ -3778,78 +3877,6 @@ body.dark-mode .nav-audio {
     
     .nav-audio:hover {
         transform: translateY(-50%) scale(1.1);
-    }
-}
-
-
-/* ===== Audio Tooltip ===== */
-.nav-audio-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    margin-left: 12px;
-}
-
-.audio-tooltip {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    margin-top: 8px;
-    background: var(--color-red);
-    color: white;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: all var(--transition-fast);
-    z-index: 100;
-    box-shadow: var(--shadow-md);
-}
-
-.audio-tooltip::before {
-    content: '';
-    position: absolute;
-    top: -6px;
-    right: 12px;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 6px solid var(--color-red);
-}
-
-.nav-audio-wrapper:hover .audio-tooltip,
-.nav-audio.playing + .audio-tooltip {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Show tooltip when music is playing */
-.nav-audio.playing + .audio-tooltip {
-    animation: tooltipBounce 2s ease-in-out infinite;
-}
-
-@keyframes tooltipBounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(3px); }
-}
-
-@media (max-width: 768px) {
-    .nav-audio-wrapper {
-        position: static;
-        margin-left: 0;
-        margin-right: 10px;
-        order: -1;
-    }
-    
-    .nav-audio {
-        width: 36px;
-        height: 36px;
-        font-size: 1rem;
-    }
-    
-    .audio-tooltip {
-        display: none;
     }
 }
 

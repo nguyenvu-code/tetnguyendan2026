@@ -1745,6 +1745,60 @@ darkModeToggle?.addEventListener('click', () => {
     if (toggleIcon) toggleIcon.textContent = isDark ? '☀️' : '🌙';
 });
 
+// ===== THEME SWITCHER =====
+const themeSwitcher = document.getElementById('themeSwitcher');
+const themeToggle = document.getElementById('themeToggle');
+const themeOptions = document.querySelectorAll('.theme-option');
+
+// Toggle theme options visibility
+themeToggle?.addEventListener('click', () => {
+    themeSwitcher.classList.toggle('active');
+});
+
+// Close when clicking outside
+document.addEventListener('click', (e) => {
+    if (themeSwitcher && !themeSwitcher.contains(e.target)) {
+        themeSwitcher.classList.remove('active');
+    }
+});
+
+// Apply saved theme
+const savedTheme = localStorage.getItem('theme') || 'default';
+if (savedTheme !== 'default') {
+    document.body.classList.add(`theme-${savedTheme}`);
+}
+updateActiveThemeOption(savedTheme);
+
+// Theme option click
+themeOptions.forEach(option => {
+    option.addEventListener('click', () => {
+        const theme = option.dataset.theme;
+        
+        // Remove all theme classes
+        document.body.classList.remove('theme-pink', 'theme-green');
+        
+        // Add new theme if not default
+        if (theme !== 'default') {
+            document.body.classList.add(`theme-${theme}`);
+        }
+        
+        // Save preference
+        localStorage.setItem('theme', theme);
+        
+        // Update active state
+        updateActiveThemeOption(theme);
+        
+        // Close options
+        themeSwitcher.classList.remove('active');
+    });
+});
+
+function updateActiveThemeOption(theme) {
+    themeOptions.forEach(opt => {
+        opt.classList.toggle('active', opt.dataset.theme === theme);
+    });
+}
+
 // ===== PETAL EFFECT =====
 function createPetal() {
     const container = document.getElementById('petalContainer');
@@ -1781,7 +1835,7 @@ for (let i = 0; i < 10; i++) {
 // ===== AUDIO PLAYER =====
 const audioToggle = document.getElementById('audioToggle');
 const bgMusic = document.getElementById('bgMusic');
-const audioIcon = audioToggle?.querySelector('.audio-icon');
+const audioIcon = audioToggle?.querySelector('.nav-btn-icon');
 let isPlaying = false;
 
 // Welcome overlay and auto play music
@@ -1809,13 +1863,13 @@ enterSiteBtn?.addEventListener('click', () => {
 audioToggle?.addEventListener('click', () => {
     if (isPlaying) {
         bgMusic.pause();
-        audioIcon.textContent = '🔇';
+        if (audioIcon) audioIcon.textContent = '🔇';
         audioToggle.classList.remove('playing');
         isPlaying = false;
     } else {
         bgMusic.volume = 0.3;
         bgMusic.play().catch(e => console.log('Audio play failed:', e));
-        audioIcon.textContent = '🎵';
+        if (audioIcon) audioIcon.textContent = '🎵';
         audioToggle.classList.add('playing');
         isPlaying = true;
     }
