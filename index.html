@@ -66,6 +66,24 @@
     <!-- Petal Effect Container -->
     <div class="petal-container" id="petalContainer"></div>
 
+    <!-- Mobile Controls (fixed position) -->
+    <div class="mobile-controls" id="mobileControls">
+        <button class="mobile-btn" id="mobileAudioToggle" aria-label="Nhạc" title="Nhạc nền">
+            <span class="mobile-btn-icon">🎵</span>
+        </button>
+        <button class="mobile-btn" id="mobileDarkToggle" aria-label="Chế độ tối" title="Chế độ tối">
+            <span class="mobile-btn-icon mobile-toggle-icon">🌙</span>
+        </button>
+        <button class="mobile-btn" id="mobileThemeToggle" aria-label="Đổi màu" title="Đổi màu">
+            <span class="mobile-btn-icon">🎨</span>
+        </button>
+        <div class="mobile-theme-options" id="mobileThemeOptions">
+            <button class="mobile-theme-opt" data-theme="default">🔴</button>
+            <button class="mobile-theme-opt" data-theme="pink">🌸</button>
+            <button class="mobile-theme-opt" data-theme="green">🌿</button>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -94,9 +112,12 @@
                 <li><a href="#tools">Công cụ</a></li>
             </ul>
             <div class="nav-controls">
-                <button class="nav-btn" id="audioToggle" aria-label="Bật/tắt nhạc" title="Nhạc nền">
-                    <span class="nav-btn-icon">🎵</span>
-                </button>
+                <div class="nav-btn-wrapper">
+                    <button class="nav-btn" id="audioToggle" aria-label="Bật/tắt nhạc" title="Nhạc nền">
+                        <span class="nav-btn-icon">🎵</span>
+                    </button>
+                    <span class="nav-tooltip">Tắt nhạc tại đây</span>
+                </div>
                 <button class="nav-btn" id="darkModeToggle" aria-label="Chế độ tối" title="Chế độ tối">
                     <span class="nav-btn-icon toggle-icon">🌙</span>
                 </button>

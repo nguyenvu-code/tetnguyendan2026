@@ -1875,6 +1875,74 @@ audioToggle?.addEventListener('click', () => {
     }
 });
 
+// ===== MOBILE CONTROLS =====
+const mobileAudioToggle = document.getElementById('mobileAudioToggle');
+const mobileDarkToggle = document.getElementById('mobileDarkToggle');
+const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+const mobileThemeOptions = document.getElementById('mobileThemeOptions');
+const mobileThemeOpts = document.querySelectorAll('.mobile-theme-opt');
+const mobileAudioIcon = mobileAudioToggle?.querySelector('.mobile-btn-icon');
+const mobileDarkIcon = mobileDarkToggle?.querySelector('.mobile-toggle-icon');
+
+// Sync mobile audio button
+mobileAudioToggle?.addEventListener('click', () => {
+    if (isPlaying) {
+        bgMusic.pause();
+        if (audioIcon) audioIcon.textContent = '🔇';
+        if (mobileAudioIcon) mobileAudioIcon.textContent = '🔇';
+        audioToggle?.classList.remove('playing');
+        isPlaying = false;
+    } else {
+        bgMusic.volume = 0.3;
+        bgMusic.play().catch(e => console.log('Audio play failed:', e));
+        if (audioIcon) audioIcon.textContent = '🎵';
+        if (mobileAudioIcon) mobileAudioIcon.textContent = '🎵';
+        audioToggle?.classList.add('playing');
+        isPlaying = true;
+    }
+});
+
+// Sync mobile dark mode button
+mobileDarkToggle?.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDark);
+    if (toggleIcon) toggleIcon.textContent = isDark ? '☀️' : '🌙';
+    if (mobileDarkIcon) mobileDarkIcon.textContent = isDark ? '☀️' : '🌙';
+});
+
+// Mobile theme toggle
+mobileThemeToggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    mobileThemeOptions?.classList.toggle('active');
+});
+
+// Mobile theme options
+mobileThemeOpts.forEach(opt => {
+    opt.addEventListener('click', () => {
+        const theme = opt.dataset.theme;
+        document.body.classList.remove('theme-pink', 'theme-green');
+        if (theme !== 'default') {
+            document.body.classList.add(`theme-${theme}`);
+        }
+        localStorage.setItem('theme', theme);
+        updateActiveThemeOption(theme);
+        mobileThemeOpts.forEach(o => o.classList.toggle('active', o.dataset.theme === theme));
+        mobileThemeOptions?.classList.remove('active');
+    });
+});
+
+// Close mobile theme options when clicking outside
+document.addEventListener('click', (e) => {
+    if (mobileThemeOptions && !mobileThemeToggle?.contains(e.target) && !mobileThemeOptions.contains(e.target)) {
+        mobileThemeOptions.classList.remove('active');
+    }
+});
+
+// Sync initial state for mobile
+if (localStorage.getItem('darkMode') === 'true' && mobileDarkIcon) {
+    mobileDarkIcon.textContent = '☀️';
+}
 
 // ===== SERVICE WORKER REGISTRATION (PWA) =====
 if ('serviceWorker' in navigator) {
