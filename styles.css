@@ -5078,6 +5078,20 @@ body.dark-mode .chatbot-input input {
         width: 55px;
         height: 55px;
     }
+
+    .faq-input-wrapper {
+        padding: 10px;
+        padding-right: 60px;
+    }
+
+    .faq-input {
+        font-size: 16px;
+    }
+
+    .faq-send-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
 }
 
 
