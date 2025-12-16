@@ -2332,4 +2332,53 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // Handle custom input
+    const faqInput = document.getElementById('faqInput');
+    const faqSendBtn = document.getElementById('faqSendBtn');
+
+    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzTX7TlAEuRiyjb6JIfpFw82JiZxeZzTAU0hsPtZdtZV_mFpYy-WzgKnogUe-dhH9RXOA/exec';
+
+    const saveToGoogleSheet = (message) => {
+        fetch(GOOGLE_SHEET_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                message: message,
+                userAgent: navigator.userAgent
+            })
+        }).catch(err => console.log('Log error:', err));
+    };
+
+    const handleCustomInput = () => {
+        const text = faqInput.value.trim();
+        if (!text) return;
+
+        // Save to Google Sheet
+        saveToGoogleSheet(text);
+
+        // Add user message
+        const userMsg = document.createElement('div');
+        userMsg.className = 'faq-user-msg';
+        userMsg.textContent = text;
+        faqMessages.appendChild(userMsg);
+        faqInput.value = '';
+
+        // Add bot response after delay
+        setTimeout(() => {
+            const botMsg = document.createElement('div');
+            botMsg.className = 'faq-bot-msg';
+            botMsg.innerHTML = 'Ối! Mình chỉ là bot nhỏ thôi. Anh Vũ đang bận đẹp trai nên chưa dạy mình chat được. Hãy chọn câu hỏi có sẵn nhé! 😄';
+            faqMessages.appendChild(botMsg);
+            faqMessages.scrollTop = faqMessages.scrollHeight;
+        }, 500);
+
+        faqMessages.scrollTop = faqMessages.scrollHeight;
+    };
+
+    faqSendBtn.addEventListener('click', handleCustomInput);
+    faqInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleCustomInput();
+    });
 });
