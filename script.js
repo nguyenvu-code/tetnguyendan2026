@@ -533,6 +533,9 @@ function solarToLunar(date) {
 }
 
 function getLunarDate() {
+    const lunarDateEl = document.getElementById('lunarDate');
+    if (!lunarDateEl) return; // Skip if element doesn't exist
+    
     const today = new Date();
     const lunar = solarToLunar(today);
     
@@ -545,11 +548,17 @@ function getLunarDate() {
     const yearName = `${canChi[canIndex]} ${diaChi[chiIndex]}`;
     const zodiac = zodiacAnimals[chiIndex];
     
-    document.getElementById('lunarDate').textContent = `${lunar.day}/${lunar.month}`;
-    document.getElementById('lunarDay').textContent = `Ngày ${lunar.day}`;
-    document.getElementById('lunarMonth').textContent = `Tháng ${lunar.month}`;
-    document.getElementById('lunarYear').textContent = `Năm ${yearName}`;
-    document.getElementById('lunarZodiac').textContent = zodiac;
+    if (lunarDateEl) lunarDateEl.textContent = `${lunar.day}/${lunar.month}`;
+    
+    const lunarDayEl = document.getElementById('lunarDay');
+    const lunarMonthEl = document.getElementById('lunarMonth');
+    const lunarYearEl = document.getElementById('lunarYear');
+    const lunarZodiacEl = document.getElementById('lunarZodiac');
+    
+    if (lunarDayEl) lunarDayEl.textContent = `Ngày ${lunar.day}`;
+    if (lunarMonthEl) lunarMonthEl.textContent = `Tháng ${lunar.month}`;
+    if (lunarYearEl) lunarYearEl.textContent = `Năm ${yearName}`;
+    if (lunarZodiacEl) lunarZodiacEl.textContent = zodiac;
 }
 
 // ===== GREETING CARD GENERATOR =====
@@ -908,11 +917,16 @@ function resetLixi() {
     const container = document.getElementById('lixiContainer');
     const result = document.getElementById('lixiResult');
     const drawBtn = document.getElementById('drawLixi');
+    const claimBtn = document.getElementById('claimLixi');
+    const notice = document.getElementById('lixiClaimNotice');
     
     envelope.classList.remove('opened');
     container.style.display = 'flex';
     drawBtn.style.display = 'inline-flex';
     result.style.display = 'none';
+    // Reset thông báo và nút nhận lì xì
+    if (claimBtn) claimBtn.style.display = 'inline-flex';
+    if (notice) notice.style.display = 'none';
 }
 
 function createLixiConfetti() {
@@ -1014,6 +1028,14 @@ function createFireworkBurst(container, x, y) {
 
 document.getElementById('drawLixi')?.addEventListener('click', drawLixi);
 document.getElementById('drawAgain')?.addEventListener('click', resetLixi);
+document.getElementById('claimLixi')?.addEventListener('click', () => {
+    const notice = document.getElementById('lixiClaimNotice');
+    if (notice) {
+        notice.style.display = 'block';
+        // Ẩn nút nhận lì xì sau khi bấm
+        document.getElementById('claimLixi').style.display = 'none';
+    }
+});
 
 // ===== BẦU CUA GAME =====
 const bcItems = ['bau', 'cua', 'tom', 'ca', 'ga', 'nai'];
@@ -2203,3 +2225,111 @@ function showFortune(fortune) {
     `;
     resultDiv.style.display = 'block';
 }
+
+
+// ===== FAQ CHATBOT =====
+const faqData = {
+    1: {
+        q: "Tết 2026 là ngày nào?",
+        a: "Tết Nguyên Đán 2026 (Tết Bính Ngọ) rơi vào <strong>Thứ Ba, ngày 17/02/2026</strong> dương lịch. Đây là ngày Mùng 1 Tết âm lịch. Giao thừa sẽ vào đêm 16/02/2026."
+    },
+    2: {
+        q: "Được nghỉ Tết mấy ngày?",
+        a: "Theo quy định, công chức được nghỉ <strong>9 ngày</strong> (từ 29 Tết đến hết Mùng 7). Lưu ý: Năm 2026 chỉ có 29 ngày tháng Chạp, không có ngày 30 Tết!"
+    },
+    3: {
+        q: "Năm 2026 là năm con gì?",
+        a: "Năm 2026 là năm <strong>Bính Ngọ</strong> - con Ngựa. Người tuổi Ngọ thường năng động, nhiệt huyết và yêu tự do. Năm nay hợp với tuổi Dần, Tuất, Mùi."
+    },
+    4: {
+        q: "SV Duy Tân nghỉ Tết mấy ngày?",
+        a: "Sinh viên ĐH Duy Tân nghỉ Tết từ <strong>08/02/2026 (21 tháng Chạp)</strong> đến hết <strong>23/02/2026 (07 tháng Giêng)</strong>, tổng <strong>16 ngày</strong>.<br>• 24/02 - 01/03/2026: Học <strong>ONLINE</strong> theo lịch MyDTU<br>• Từ 02/03/2026: Học <strong>trực tiếp</strong> tại trường"
+    },
+    5: {
+        q: "Ngày thần tài 2026?",
+        a: "Ngày vía Thần Tài 2026 là <strong>Mùng 10 tháng Giêng</strong>, tức <strong>Thứ Năm 26/02/2026</strong>. Đây là ngày tốt để mua vàng cầu may mắn, tài lộc cả năm!"
+    },
+    6: {
+        q: "Kiêng kỵ gì ngày Tết?",
+        a: "Những điều nên kiêng:<br>• Không quét nhà Mùng 1 (quét tài lộc)<br>• Không cho vay/đòi nợ đầu năm<br>• Không mặc đồ trắng, đen<br>• Không cãi nhau, nói điều xui<br>• Không làm vỡ đồ vật"
+    },
+    7: {
+        q: "Cách gói bánh Tét?",
+        a: "Bạn hãy liên hệ trực tiếp với anh Vũ đẹp trai nhé! 😜🤣👨‍🍳"
+    },
+
+    9: {
+        q: "Giờ tốt xuất hành?",
+        a: "Giờ tốt xuất hành Mùng 1 Tết 2026:<br>• <strong>Giờ Mão (5-7h)</strong> - hướng Đông Nam<br>• <strong>Giờ Ngọ (11-13h)</strong> - hướng Nam<br>• <strong>Giờ Thân (15-17h)</strong> - hướng Tây Bắc"
+    },
+    10: {
+        q: "Có nên dọn nhà ngày Tết?",
+        a: "<strong>Không nên quét nhà Mùng 1 Tết</strong> vì quan niệm sẽ quét đi tài lộc. Nên dọn dẹp sạch sẽ trước Giao thừa. Từ Mùng 2 có thể dọn bình thường."
+    },
+    11: {
+        q: "Mặc màu gì may mắn?",
+        a: "Màu may mắn dịp Tết 2026:<br>• <strong>Đỏ:</strong> May mắn, thịnh vượng<br>• <strong>Vàng/Gold:</strong> Tài lộc, giàu sang<br>• <strong>Hồng:</strong> Tình duyên, hạnh phúc<br>Tránh: trắng, đen (tang tóc)"
+    },
+    12: {
+        q: "Ý nghĩa Tết Nguyên Đán?",
+        a: "<strong>Tết Nguyên Đán</strong> nghĩa là 'Tiết đầu năm mới'. Đây là dịp:<br>• Đoàn viên gia đình<br>• Tưởng nhớ tổ tiên<br>• Chào đón năm mới<br>• Cầu mong bình an, may mắn"
+    },
+    13: {
+        q: "Ý nghĩa lì xì?",
+        a: "<strong>Lì xì</strong> (hồng bao) mang ý nghĩa:<br>• Chúc may mắn, sức khỏe<br>• Truyền tài lộc đầu năm<br>• Thể hiện tình yêu thương<br>Tiền lì xì thường là số chẵn, tránh số 4."
+    },
+    14: {
+        q: "Nên đi du lịch Tết không?",
+        a: "Du lịch Tết 2026 phù hợp nếu:<br>• Đã cúng ông bà xong<br>• Gia đình đồng ý<br>Điểm đến hot: Đà Lạt, Phú Quốc, Sapa, Hội An. Nên đặt sớm vì giá tăng cao!"
+    },
+    15: {
+        q: "Tết có từ bao giờ?",
+        a: "Tết Nguyên Đán có <strong>lịch sử hàng nghìn năm</strong>, gắn liền với nền văn minh lúa nước. Bắt nguồn từ thời Hùng Vương, là lễ hội quan trọng nhất của người Việt."
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const faqToggle = document.getElementById('faqToggle');
+    const faqContainer = document.getElementById('faqContainer');
+    const faqClose = document.getElementById('faqClose');
+    const faqMessages = document.getElementById('faqMessages');
+    const faqQuestions = document.getElementById('faqQuestions');
+
+    if (!faqToggle) return;
+
+    // Toggle chatbot
+    faqToggle.addEventListener('click', () => {
+        faqContainer.classList.toggle('active');
+    });
+
+    faqClose.addEventListener('click', () => {
+        faqContainer.classList.remove('active');
+    });
+
+    // Handle question click
+    faqQuestions.addEventListener('click', (e) => {
+        if (e.target.classList.contains('faq-btn')) {
+            const qId = e.target.dataset.q;
+            const data = faqData[qId];
+            
+            if (data) {
+                // Add user question
+                const userMsg = document.createElement('div');
+                userMsg.className = 'faq-user-msg';
+                userMsg.textContent = data.q;
+                faqMessages.appendChild(userMsg);
+
+                // Add bot answer after delay
+                setTimeout(() => {
+                    const botMsg = document.createElement('div');
+                    botMsg.className = 'faq-bot-msg';
+                    botMsg.innerHTML = data.a;
+                    faqMessages.appendChild(botMsg);
+                    faqMessages.scrollTop = faqMessages.scrollHeight;
+                }, 500);
+
+                faqMessages.scrollTop = faqMessages.scrollHeight;
+            }
+        }
+    });
+});

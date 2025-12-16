@@ -119,10 +119,10 @@
             },
             {
                 "@type": "Question",
-                "name": "Tuổi nào hợp xông đất năm 2026?",
+                "name": "Sinh viên Duy Tân nghỉ Tết bao nhiêu ngày?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Năm Bính Ngọ 2026, các tuổi Dần, Ngọ, Tuất (Tam hợp) và Mùi (Lục hợp) đặc biệt tốt để xông đất. Nên tránh tuổi Tý (xung) và Sửu (hại)."
+                    "text": "Sinh viên Đại học Duy Tân nghỉ Tết Nguyên Đán 2026 từ ngày 08/02/2026 (21 tháng Chạp) đến hết ngày 23/02/2026 (07 tháng Giêng), tổng cộng 16 ngày. Từ 24/02 - 01/03/2026 học online, từ 02/03/2026 học trực tiếp tại trường."
                 }
             },
             {
@@ -902,7 +902,13 @@
                     <div class="lixi-result" id="lixiResult" style="display:none;">
                         <div class="lixi-money" id="lixiMoney"></div>
                         <div class="lixi-message" id="lixiMessage"></div>
-                        <button class="btn btn-secondary" id="drawAgain">🔄 Rút Lại</button>
+                        <div class="lixi-buttons">
+                            <button class="btn btn-primary" id="claimLixi">💰 Nhận Lì Xì Ngay</button>
+                            <button class="btn btn-secondary" id="drawAgain">🔄 Rút Lại</button>
+                        </div>
+                        <div class="lixi-claim-notice" id="lixiClaimNotice" style="display:none;">
+                            🎉 Bạn sẽ nhận được tiền lì xì vào ngày <strong>30/02/2026</strong>! 🧧
+                        </div>
                     </div>
                 </div>
 
@@ -1124,6 +1130,42 @@
             </div>
         </div>
     </section>
+
+    <!-- FAQ Chatbot -->
+    <div class="faq-chatbot" id="faqChatbot">
+        <button class="faq-toggle" id="faqToggle" aria-label="Hỏi đáp Tết 2026">
+            <svg class="faq-icon-svg" viewBox="0 0 24 24" fill="white" width="26" height="26">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12zM7 9h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/>
+            </svg>
+        </button>
+        <div class="faq-container" id="faqContainer">
+            <div class="faq-header">
+                <span>🧧 Hỏi đáp Tết 2026</span>
+                <button class="faq-close" id="faqClose">✕</button>
+            </div>
+            <div class="faq-messages" id="faqMessages">
+                <div class="faq-bot-msg">
+                    Xin chào. Mình là trợ lý của anh Vũ, mình có thể giúp bạn tìm hiểu về Tết Nguyên Đán 2026.
+                </div>
+            </div>
+            <div class="faq-questions" id="faqQuestions">
+                <button class="faq-btn" data-q="1">Tết 2026 là ngày nào?</button>
+                <button class="faq-btn" data-q="2">Được nghỉ Tết mấy ngày?</button>
+                <button class="faq-btn" data-q="3">Năm 2026 là năm con gì?</button>
+                <button class="faq-btn" data-q="4">SV Duy Tân nghỉ Tết mấy ngày?</button>
+                <button class="faq-btn" data-q="5">Ngày thần tài 2026?</button>
+                <button class="faq-btn" data-q="6">Kiêng kỵ gì ngày Tết?</button>
+                <button class="faq-btn" data-q="7">Cách gói bánh Tét?</button>
+                <button class="faq-btn" data-q="9">Giờ tốt xuất hành?</button>
+                <button class="faq-btn" data-q="10">Có nên dọn nhà ngày Tết?</button>
+                <button class="faq-btn" data-q="11">Mặc màu gì may mắn?</button>
+                <button class="faq-btn" data-q="12">Ý nghĩa Tết Nguyên Đán?</button>
+                <button class="faq-btn" data-q="13">Ý nghĩa lì xì?</button>
+                <button class="faq-btn" data-q="14">Nên đi du lịch Tết không?</button>
+                <button class="faq-btn" data-q="15">Tết có từ bao giờ?</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
