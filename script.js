@@ -36,6 +36,99 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
+// ===== Current Date Display (Solar & Lunar) =====
+function updateCurrentDate() {
+    const now = new Date();
+    const weekdays = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
+    
+    // Solar date
+    const solarStr = `${weekdays[now.getDay()]}, ${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()}`;
+    const solarEl = document.getElementById('solarDate');
+    if (solarEl) solarEl.textContent = solarStr;
+    
+    // Lunar date calculation
+    const lunar = solarToLunar(now.getFullYear(), now.getMonth() + 1, now.getDate());
+    const lunarStr = `${lunar.day} tháng ${lunar.month}${lunar.leap ? ' nhuận' : ''} năm ${lunar.yearName}`;
+    const lunarEl = document.getElementById('lunarDate');
+    if (lunarEl) lunarEl.textContent = lunarStr;
+}
+
+// Simple Solar to Lunar converter
+function solarToLunar(yy, mm, dd) {
+    const lunarInfo = [
+        0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
+        0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
+        0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970,
+        0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950,
+        0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557,
+        0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5d0, 0x14573, 0x052d0, 0x0a9a8, 0x0e950, 0x06aa0,
+        0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0,
+        0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b5a0, 0x195a6,
+        0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60, 0x09570,
+        0x04af5, 0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x055c0, 0x0ab60, 0x096d5, 0x092e0,
+        0x0c960, 0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0, 0x0cab5,
+        0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0, 0x0a5b0, 0x15176, 0x052b0, 0x0a930,
+        0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0, 0x0d260, 0x0ea65, 0x0d530,
+        0x05aa0, 0x076a3, 0x096d0, 0x04afb, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45,
+        0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0
+    ];
+    
+    const can = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
+    const chi = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
+    
+    function lYearDays(y) {
+        let sum = 348;
+        for (let i = 0x8000; i > 0x8; i >>= 1) sum += (lunarInfo[y - 1900] & i) ? 1 : 0;
+        return sum + leapDays(y);
+    }
+    
+    function leapDays(y) {
+        if (leapMonth(y)) return (lunarInfo[y - 1900] & 0x10000) ? 30 : 29;
+        return 0;
+    }
+    
+    function leapMonth(y) { return lunarInfo[y - 1900] & 0xf; }
+    
+    function monthDays(y, m) {
+        return (lunarInfo[y - 1900] & (0x10000 >> m)) ? 30 : 29;
+    }
+    
+    let offset = Math.floor((Date.UTC(yy, mm - 1, dd) - Date.UTC(1900, 0, 31)) / 86400000);
+    let year = 1900;
+    
+    for (; year < 2100 && offset > 0; year++) offset -= lYearDays(year);
+    if (offset < 0) { offset += lYearDays(--year); }
+    
+    const leap = leapMonth(year);
+    let isLeap = false;
+    let month = 1;
+    
+    for (; month < 13 && offset > 0; month++) {
+        if (leap > 0 && month === (leap + 1) && !isLeap) {
+            --month;
+            isLeap = true;
+            offset -= leapDays(year);
+        } else {
+            offset -= monthDays(year, month);
+        }
+        if (isLeap && month === (leap + 1)) isLeap = false;
+    }
+    
+    if (offset === 0 && leap > 0 && month === leap + 1) {
+        if (isLeap) isLeap = false;
+        else { isLeap = true; --month; }
+    }
+    if (offset < 0) { offset += monthDays(year, --month); }
+    
+    const day = offset + 1;
+    const yearName = can[(year - 4) % 10] + ' ' + chi[(year - 4) % 12];
+    
+    return { year, month, day, leap: isLeap, yearName };
+}
+
+updateCurrentDate();
+setInterval(updateCurrentDate, 60000); // Update every minute
+
 // ===== Mobile Navigation =====
 navToggle.addEventListener('click', () => {
     navToggle.classList.toggle('active');
@@ -437,129 +530,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initProgressBar();
 });
 
-
-// ===== LUNAR CALENDAR =====
-// Accurate lunar calendar conversion using lookup table
-const LUNAR_INFO = [
-    0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
-    0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
-    0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970,
-    0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950,
-    0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950, 0x0b557,
-    0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5b0, 0x14573, 0x052b0, 0x0a9a8, 0x0e950, 0x06aa0,
-    0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57, 0x056a0,
-    0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b6a0, 0x195a6,
-    0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60, 0x09570,
-    0x04af5, 0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x05ac0, 0x0ab60, 0x096d5, 0x092e0,
-    0x0c960, 0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0, 0x0cab5,
-    0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0, 0x0a5b0, 0x15176, 0x052b0, 0x0a930,
-    0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0, 0x0d260, 0x0ea65, 0x0d530,
-    0x05aa0, 0x076a3, 0x096d0, 0x04afb, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45,
-    0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0,
-    0x14b63, 0x09370, 0x049f8, 0x04970, 0x064b0, 0x168a6, 0x0ea50, 0x06b20, 0x1a6c4, 0x0aae0,
-    0x0a2e0, 0x0d2e3, 0x0c960, 0x0d557, 0x0d4a0, 0x0da50, 0x05d55, 0x056a0, 0x0a6d0, 0x055d4,
-    0x052d0, 0x0a9b8, 0x0a950, 0x0b4a0, 0x0b6a6, 0x0ad50, 0x055a0, 0x0aba4, 0x0a5b0, 0x052b0,
-    0x0b273, 0x06930, 0x07337, 0x06aa0, 0x0ad50, 0x14b55, 0x04b60, 0x0a570, 0x054e4, 0x0d160,
-    0x0e968, 0x0d520, 0x0daa0, 0x16aa6, 0x056d0, 0x04ae0, 0x0a9d4, 0x0a2d0, 0x0d150, 0x0f252
-];
-
-function lYearDays(y) {
-    let sum = 348;
-    for (let i = 0x8000; i > 0x8; i >>= 1) {
-        sum += (LUNAR_INFO[y - 1900] & i) ? 1 : 0;
-    }
-    return sum + leapDays(y);
-}
-
-function leapMonth(y) {
-    return LUNAR_INFO[y - 1900] & 0xf;
-}
-
-function leapDays(y) {
-    if (leapMonth(y)) {
-        return (LUNAR_INFO[y - 1900] & 0x10000) ? 30 : 29;
-    }
-    return 0;
-}
-
-function monthDays(y, m) {
-    return (LUNAR_INFO[y - 1900] & (0x10000 >> m)) ? 30 : 29;
-}
-
-function solarToLunar(date) {
-    const baseDate = new Date(1900, 0, 31);
-    let offset = Math.floor((date - baseDate) / 86400000);
-    
-    let lunarYear = 1900;
-    let lunarMonth = 1;
-    let lunarDay = 1;
-    let isLeap = false;
-    
-    // Calculate year
-    let daysInYear = lYearDays(lunarYear);
-    while (offset >= daysInYear) {
-        offset -= daysInYear;
-        lunarYear++;
-        daysInYear = lYearDays(lunarYear);
-    }
-    
-    // Calculate month
-    let leap = leapMonth(lunarYear);
-    let daysInMonth;
-    
-    for (let i = 1; i <= 12; i++) {
-        if (leap > 0 && i === leap + 1 && !isLeap) {
-            --i;
-            isLeap = true;
-            daysInMonth = leapDays(lunarYear);
-        } else {
-            daysInMonth = monthDays(lunarYear, i);
-        }
-        
-        if (isLeap && i === leap + 1) {
-            isLeap = false;
-        }
-        
-        if (offset < daysInMonth) {
-            lunarMonth = i;
-            break;
-        }
-        offset -= daysInMonth;
-    }
-    
-    lunarDay = offset + 1;
-    
-    return { year: lunarYear, month: lunarMonth, day: lunarDay, isLeap };
-}
-
-function getLunarDate() {
-    const lunarDateEl = document.getElementById('lunarDate');
-    if (!lunarDateEl) return; // Skip if element doesn't exist
-    
-    const today = new Date();
-    const lunar = solarToLunar(today);
-    
-    const canChi = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
-    const diaChi = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
-    const zodiacAnimals = ['🐀 Chuột', '🐂 Trâu', '🐅 Hổ', '🐇 Mèo', '🐉 Rồng', '🐍 Rắn', '🐴 Ngựa', '🐐 Dê', '🐵 Khỉ', '🐔 Gà', '🐕 Chó', '🐷 Lợn'];
-    
-    const canIndex = (lunar.year - 4) % 10;
-    const chiIndex = (lunar.year - 4) % 12;
-    const yearName = `${canChi[canIndex]} ${diaChi[chiIndex]}`;
-    const zodiac = zodiacAnimals[chiIndex];
-    
-    if (lunarDateEl) lunarDateEl.textContent = `${lunar.day}/${lunar.month}`;
-    
-    const lunarDayEl = document.getElementById('lunarDay');
-    const lunarMonthEl = document.getElementById('lunarMonth');
-    const lunarYearEl = document.getElementById('lunarYear');
-    const lunarZodiacEl = document.getElementById('lunarZodiac');
-    
-    if (lunarDayEl) lunarDayEl.textContent = `Ngày ${lunar.day}`;
-    if (lunarMonthEl) lunarMonthEl.textContent = `Tháng ${lunar.month}`;
-    if (lunarYearEl) lunarYearEl.textContent = `Năm ${yearName}`;
-    if (lunarZodiacEl) lunarZodiacEl.textContent = zodiac;
-}
 
 // ===== GREETING CARD GENERATOR =====
 const greetingMessages = {
@@ -1139,11 +1109,12 @@ document.getElementById('bcRoll')?.addEventListener('click', () => {
         if (rollCount > 20) {
             clearInterval(rollInterval);
             
-            // Kết quả cuối cùng
+            // Kết quả cuối cùng - nai và cá có tỷ lệ cao hơn
             const results = [];
+            const weightedItems = ['bau', 'cua', 'tom', 'ca', 'ca', 'ga', 'nai', 'nai'];
             dice.forEach(die => {
                 die.classList.remove('rolling');
-                const result = bcItems[Math.floor(Math.random() * bcItems.length)];
+                const result = weightedItems[Math.floor(Math.random() * weightedItems.length)];
                 die.textContent = bcIcons[result];
                 results.push(result);
             });
@@ -1814,6 +1785,178 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// ===== SCRATCH CARD GAME =====
+const scratchPrizes = [
+    { amount: '5.000 VNĐ', message: 'Lộc Nhỏ Góp Gió' },
+    { amount: '10.000 VNĐ', message: 'May Mắn Đầu Xuân' },
+    { amount: '20.000 VNĐ', message: 'Xuân Sang Phát Tài' },
+    { amount: '50.000 VNĐ', message: 'Tài Lộc Dồi Dào' },
+    { amount: '100.000 VNĐ', message: 'Phú Quý Vinh Hoa 🎉' }
+];
+
+let scratchCanvas, scratchCtx;
+let isScratching = false;
+let scratchRevealed = false;
+
+function initScratchCard() {
+    scratchCanvas = document.getElementById('scratchCanvas');
+    if (!scratchCanvas) return;
+    
+    scratchCtx = scratchCanvas.getContext('2d', { willReadFrequently: true });
+    scratchRevealed = false;
+    
+    // Set canvas size
+    const container = document.getElementById('scratchContainer');
+    scratchCanvas.width = container.offsetWidth;
+    scratchCanvas.height = container.offsetHeight;
+    
+    // Draw scratch layer with gradient
+    const gradient = scratchCtx.createLinearGradient(0, 0, scratchCanvas.width, scratchCanvas.height);
+    gradient.addColorStop(0, '#ef4444');
+    gradient.addColorStop(0.5, '#dc2626');
+    gradient.addColorStop(1, '#b91c1c');
+    
+    scratchCtx.fillStyle = gradient;
+    scratchCtx.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
+    
+    // Draw decorative circles
+    scratchCtx.globalAlpha = 0.2;
+    for (let i = 0; i < 8; i++) {
+        const x = Math.random() * scratchCanvas.width;
+        const y = Math.random() * scratchCanvas.height;
+        const r = 20 + Math.random() * 40;
+        scratchCtx.beginPath();
+        scratchCtx.arc(x, y, r, 0, Math.PI * 2);
+        scratchCtx.fillStyle = '#fbbf24';
+        scratchCtx.fill();
+    }
+    scratchCtx.globalAlpha = 1;
+    
+    // Draw text
+    scratchCtx.fillStyle = '#fbbf24';
+    scratchCtx.font = 'bold 28px Playfair Display, serif';
+    scratchCtx.textAlign = 'center';
+    scratchCtx.fillText('CÀO TẠI ĐÂY', scratchCanvas.width / 2, scratchCanvas.height / 2);
+    
+    scratchCtx.fillStyle = '#fef3c7';
+    scratchCtx.font = '14px Inter, sans-serif';
+    scratchCtx.fillText('Scratch Here', scratchCanvas.width / 2, scratchCanvas.height / 2 + 25);
+    
+    // Set random prize
+    const prize = scratchPrizes[Math.floor(Math.random() * scratchPrizes.length)];
+    document.getElementById('scratchPrize').textContent = prize.amount;
+    document.getElementById('scratchMessage').textContent = prize.message;
+    
+    // Show canvas
+    scratchCanvas.style.opacity = '1';
+}
+
+function scratch(x, y) {
+    if (scratchRevealed) return;
+    
+    scratchCtx.globalCompositeOperation = 'destination-out';
+    scratchCtx.beginPath();
+    scratchCtx.arc(x, y, 18, 0, Math.PI * 2);
+    scratchCtx.fill();
+    
+    checkScratchProgress();
+}
+
+function checkScratchProgress() {
+    const imageData = scratchCtx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height);
+    const pixels = imageData.data;
+    let transparentPixels = 0;
+    
+    for (let i = 3; i < pixels.length; i += 4) {
+        if (pixels[i] === 0) transparentPixels++;
+    }
+    
+    const totalPixels = pixels.length / 4;
+    const percentage = (transparentPixels / totalPixels) * 100;
+    
+    if (percentage > 50 && !scratchRevealed) {
+        scratchRevealed = true;
+        scratchCanvas.style.transition = 'opacity 0.5s';
+        scratchCanvas.style.opacity = '0';
+        
+        // Celebration effect
+        const prize = document.getElementById('scratchPrize').textContent;
+        if (prize.includes('100.000') || prize.includes('50.000')) {
+            createScratchConfetti();
+        }
+    }
+}
+
+function createScratchConfetti() {
+    const container = document.querySelector('.scratch-card-wrapper');
+    const emojis = ['🎉', '✨', '🪙', '💰', '🧧', '🎊'];
+    
+    for (let i = 0; i < 15; i++) {
+        const confetti = document.createElement('div');
+        confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        confetti.style.cssText = `
+            position: absolute;
+            font-size: ${16 + Math.random() * 16}px;
+            left: ${Math.random() * 100}%;
+            top: 50%;
+            opacity: 1;
+            pointer-events: none;
+            z-index: 100;
+            animation: scratchConfettiFall ${1.5 + Math.random() * 1.5}s ease-out forwards;
+        `;
+        container.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
+    }
+}
+
+// Mouse events
+document.getElementById('scratchCanvas')?.addEventListener('mousedown', (e) => {
+    isScratching = true;
+    const rect = scratchCanvas.getBoundingClientRect();
+    scratch(e.clientX - rect.left, e.clientY - rect.top);
+});
+
+document.getElementById('scratchCanvas')?.addEventListener('mousemove', (e) => {
+    if (!isScratching) return;
+    const rect = scratchCanvas.getBoundingClientRect();
+    scratch(e.clientX - rect.left, e.clientY - rect.top);
+});
+
+document.addEventListener('mouseup', () => {
+    isScratching = false;
+});
+
+// Touch events
+document.getElementById('scratchCanvas')?.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    isScratching = true;
+    const rect = scratchCanvas.getBoundingClientRect();
+    const touch = e.touches[0];
+    scratch(touch.clientX - rect.left, touch.clientY - rect.top);
+});
+
+document.getElementById('scratchCanvas')?.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    if (!isScratching) return;
+    const rect = scratchCanvas.getBoundingClientRect();
+    const touch = e.touches[0];
+    scratch(touch.clientX - rect.left, touch.clientY - rect.top);
+});
+
+document.addEventListener('touchend', () => {
+    isScratching = false;
+});
+
+// Reset button
+document.getElementById('scratchReset')?.addEventListener('click', initScratchCard);
+
+// Init on page load
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('scratchCanvas')) {
+        initScratchCard();
+    }
+});
+
 // ===== SOCIAL SHARE =====
 const pageUrl = encodeURIComponent(window.location.href);
 const pageTitle = encodeURIComponent('Tết Nguyên Đán 2026 - Khởi Đầu An Khang Thịnh Vượng');
@@ -1840,10 +1983,7 @@ document.getElementById('copyLink')?.addEventListener('click', () => {
     });
 });
 
-// Initialize lunar calendar
-document.addEventListener('DOMContentLoaded', () => {
-    getLunarDate();
-});
+// Initialize lunar calendar - handled by updateCurrentDate() now
 
 
 // ===== DARK MODE =====

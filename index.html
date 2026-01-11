@@ -255,6 +255,20 @@
             </h1>
             <p class="hero-desc">Năm Bính Ngọ - Mùa xuân sum vầy, hạnh phúc tràn đầy, vạn sự như ý</p>
             
+            <!-- Hiển thị ngày hiện tại -->
+            <div class="current-date-display">
+                <div class="date-solar">
+                    <span class="date-icon">📅</span>
+                    <span class="date-label">Dương lịch:</span>
+                    <span id="solarDate">--</span>
+                </div>
+                <div class="date-lunar">
+                    <span class="date-icon">🌙</span>
+                    <span class="date-label">Âm lịch:</span>
+                    <span id="lunarDate">--</span>
+                </div>
+            </div>
+            
             <div class="countdown">
                 <div class="countdown-item">
                     <span class="countdown-number" id="days">00</span>
@@ -985,49 +999,6 @@
                     </div>
                 </div>
 
-                <!-- Oẳn Tù Tì -->
-                <div class="tool-card rps-card">
-                    <h3>✊ Oẳn Tù Tì</h3>
-                    <p class="tool-desc">Kéo Búa Bao - Đấu với máy xem ai thắng!</p>
-                    
-                    <div class="rps-game">
-                        <div class="rps-arena">
-                            <div class="rps-player">
-                                <div class="rps-label">Bạn</div>
-                                <div class="rps-hand" id="playerHand">❓</div>
-                            </div>
-                            <div class="rps-vs">VS</div>
-                            <div class="rps-player">
-                                <div class="rps-label">Máy</div>
-                                <div class="rps-hand" id="computerHand">❓</div>
-                            </div>
-                        </div>
-                        
-                        <div class="rps-choices">
-                            <button class="rps-choice" data-choice="rock" title="Búa">
-                                <span>✊</span>
-                                <small>Búa</small>
-                            </button>
-                            <button class="rps-choice" data-choice="scissors" title="Kéo">
-                                <span>✌️</span>
-                                <small>Kéo</small>
-                            </button>
-                            <button class="rps-choice" data-choice="paper" title="Bao">
-                                <span>🖐️</span>
-                                <small>Bao</small>
-                            </button>
-                        </div>
-                        
-                        <div class="rps-score">
-                            <span class="score-item win">🏆 Thắng: <strong id="rpsWin">0</strong></span>
-                            <span class="score-item lose">💔 Thua: <strong id="rpsLose">0</strong></span>
-                            <span class="score-item draw">🤝 Hòa: <strong id="rpsDraw">0</strong></span>
-                        </div>
-                        
-                        <div class="rps-result" id="rpsResult"></div>
-                    </div>
-                </div>
-
                 <!-- Tính Tuổi Âm -->
                 <div class="tool-card zodiac-calc-card">
                     <h3>🐲 Tính Tuổi Âm Lịch</h3>
@@ -1108,6 +1079,25 @@
                         <button class="btn btn-primary" id="resetMemory">🔄 Chơi Lại</button>
                         
                         <div class="memory-result" id="memoryResult" style="display:none;"></div>
+                    </div>
+                </div>
+
+                <!-- Scratch Card / Cào Thẻ -->
+                <div class="tool-card scratch-card-wrapper">
+                    <h3>🎫 Cào Thẻ Trúng Thưởng</h3>
+                    <p class="tool-desc">Cào lớp phủ để xem phần thưởng may mắn của bạn!</p>
+                    
+                    <div class="scratch-game">
+                        <div class="scratch-container" id="scratchContainer">
+                            <div class="scratch-background" id="scratchBackground">
+                                <div class="scratch-label">Bạn nhận được</div>
+                                <div class="scratch-prize" id="scratchPrize">100.000 VNĐ</div>
+                                <div class="scratch-message" id="scratchMessage">Tài Lộc Đầy Nhà</div>
+                            </div>
+                            <canvas class="scratch-canvas" id="scratchCanvas"></canvas>
+                        </div>
+                        
+                        <button class="btn btn-primary scratch-reset" id="scratchReset">🎫 Thẻ Mới</button>
                     </div>
                 </div>
             </div>
