@@ -9,8 +9,8 @@ const lightboxClose = document.querySelector('.lightbox-close');
 
 // ===== Countdown Timer =====
 function updateCountdown() {
-    // Tết Nguyên Đán 2026: 17/02/2026 (Mùng 1 Tết)
-    const tetDate = new Date('February 17, 2026 00:00:00').getTime();
+    // Tết Nguyên Đán 2027: 06/02/2027 (Mùng 1 Tết)
+    const tetDate = new Date('February 6, 2027 00:00:00').getTime();
     const now = new Date().getTime();
     const distance = tetDate - now;
 
@@ -40,12 +40,12 @@ setInterval(updateCountdown, 1000);
 function updateCurrentDate() {
     const now = new Date();
     const weekdays = ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
-    
+
     // Solar date
     const solarStr = `${weekdays[now.getDay()]}, ${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()}`;
     const solarEl = document.getElementById('solarDate');
     if (solarEl) solarEl.textContent = solarStr;
-    
+
     // Lunar date calculation
     const lunar = solarToLunar(now.getFullYear(), now.getMonth() + 1, now.getDate());
     const lunarStr = `${lunar.day} tháng ${lunar.month}${lunar.leap ? ' nhuận' : ''} năm ${lunar.yearName}`;
@@ -72,37 +72,37 @@ function solarToLunar(yy, mm, dd) {
         0x05aa0, 0x076a3, 0x096d0, 0x04afb, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520, 0x0dd45,
         0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20, 0x0ada0
     ];
-    
+
     const can = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
     const chi = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
-    
+
     function lYearDays(y) {
         let sum = 348;
         for (let i = 0x8000; i > 0x8; i >>= 1) sum += (lunarInfo[y - 1900] & i) ? 1 : 0;
         return sum + leapDays(y);
     }
-    
+
     function leapDays(y) {
         if (leapMonth(y)) return (lunarInfo[y - 1900] & 0x10000) ? 30 : 29;
         return 0;
     }
-    
+
     function leapMonth(y) { return lunarInfo[y - 1900] & 0xf; }
-    
+
     function monthDays(y, m) {
         return (lunarInfo[y - 1900] & (0x10000 >> m)) ? 30 : 29;
     }
-    
+
     let offset = Math.floor((Date.UTC(yy, mm - 1, dd) - Date.UTC(1900, 0, 31)) / 86400000);
     let year = 1900;
-    
+
     for (; year < 2100 && offset > 0; year++) offset -= lYearDays(year);
     if (offset < 0) { offset += lYearDays(--year); }
-    
+
     const leap = leapMonth(year);
     let isLeap = false;
     let month = 1;
-    
+
     for (; month < 13 && offset > 0; month++) {
         if (leap > 0 && month === (leap + 1) && !isLeap) {
             --month;
@@ -113,16 +113,16 @@ function solarToLunar(yy, mm, dd) {
         }
         if (isLeap && month === (leap + 1)) isLeap = false;
     }
-    
+
     if (offset === 0 && leap > 0 && month === leap + 1) {
         if (isLeap) isLeap = false;
         else { isLeap = true; --month; }
     }
     if (offset < 0) { offset += monthDays(year, --month); }
-    
+
     const day = offset + 1;
     const yearName = can[(year - 4) % 10] + ' ' + chi[(year - 4) % 12];
-    
+
     return { year, month, day, leap: isLeap, yearName };
 }
 
@@ -153,7 +153,7 @@ document.addEventListener('click', (e) => {
 
 // ===== Smooth Scroll =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
@@ -179,14 +179,14 @@ window.addEventListener('scroll', () => {
     } else {
         navbar.classList.remove('scrolled');
     }
-    
+
     // Back to top button
     if (window.scrollY > 500) {
         backToTop.classList.add('visible');
     } else {
         backToTop.classList.remove('visible');
     }
-    
+
     // Active nav link based on scroll position
     updateActiveNavLink();
 });
@@ -203,7 +203,7 @@ backToTop.addEventListener('click', () => {
 function updateActiveNavLink() {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-menu a');
-    
+
     let current = '';
     sections.forEach(section => {
         const sectionTop = section.offsetTop - 100;
@@ -211,7 +211,7 @@ function updateActiveNavLink() {
             current = section.getAttribute('id');
         }
     });
-    
+
     navLinks.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href') === `#${current}`) {
@@ -253,12 +253,12 @@ document.querySelectorAll('.gallery-item').forEach(item => {
     item.addEventListener('click', () => {
         const title = item.dataset.title;
         const img = item.querySelector('.gallery-img');
-        
+
         if (img) {
             lightboxImage.src = img.src;
             lightboxImage.alt = title;
         }
-        
+
         lightboxTitle.textContent = title;
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -296,7 +296,7 @@ document.querySelectorAll('.checklist-item').forEach(item => {
 function initParallax() {
     const heroImage = document.querySelector('.hero-image');
     const heroContent = document.querySelector('.hero-content');
-    
+
     window.addEventListener('scroll', () => {
         const scrolled = window.scrollY;
         if (heroImage && scrolled < 800) {
@@ -314,13 +314,13 @@ function initParallax() {
 function createParticles() {
     const hero = document.querySelector('.hero');
     if (!hero) return;
-    
+
     const particleContainer = document.createElement('div');
     particleContainer.className = 'particles-container';
     hero.appendChild(particleContainer);
-    
+
     const particles = ['🌸', '✨', '🏮', '🎊', '💮'];
-    
+
     for (let i = 0; i < 15; i++) {
         const particle = document.createElement('span');
         particle.className = 'floating-particle';
@@ -337,11 +337,11 @@ function createParticles() {
 function initTypingEffect() {
     const titleSub = document.querySelector('.title-sub');
     if (!titleSub) return;
-    
+
     const text = titleSub.textContent;
     titleSub.textContent = '';
     titleSub.style.borderRight = '2px solid var(--color-gold)';
-    
+
     let i = 0;
     const typeWriter = () => {
         if (i < text.length) {
@@ -352,7 +352,7 @@ function initTypingEffect() {
             titleSub.style.borderRight = 'none';
         }
     };
-    
+
     setTimeout(typeWriter, 1000);
 }
 
@@ -367,7 +367,7 @@ function animateCounters() {
 // ===== Card Tilt Effect =====
 function initTiltEffect() {
     const cards = document.querySelectorAll('.tradition-card, .symbol-card, .gallery-item');
-    
+
     cards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
@@ -377,10 +377,10 @@ function initTiltEffect() {
             const centerY = rect.height / 2;
             const rotateX = (y - centerY) / 20;
             const rotateY = (centerX - x) / 20;
-            
+
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
         });
-        
+
         card.addEventListener('mouseleave', () => {
             card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
         });
@@ -393,11 +393,11 @@ function animateNumber(element, newValue) {
     if (currentValue !== newValue) {
         element.style.transform = 'translateY(-10px)';
         element.style.opacity = '0';
-        
+
         setTimeout(() => {
             element.textContent = newValue;
             element.style.transform = 'translateY(10px)';
-            
+
             setTimeout(() => {
                 element.style.transform = 'translateY(0)';
                 element.style.opacity = '1';
@@ -421,18 +421,18 @@ function updateLightboxCounter() {
 
 function navigateGallery(direction) {
     if (!lightbox.classList.contains('active')) return;
-    
+
     currentGalleryIndex += direction;
     if (currentGalleryIndex < 0) currentGalleryIndex = galleryItems.length - 1;
     if (currentGalleryIndex >= galleryItems.length) currentGalleryIndex = 0;
-    
+
     const item = galleryItems[currentGalleryIndex];
     const img = item.querySelector('.gallery-img');
     const title = item.dataset.title;
-    
+
     lightboxImage.style.opacity = '0';
     lightboxImage.style.transform = direction > 0 ? 'translateX(30px)' : 'translateX(-30px)';
-    
+
     setTimeout(() => {
         lightboxImage.src = img.src;
         lightboxTitle.textContent = title;
@@ -474,7 +474,7 @@ galleryItems.forEach((item, index) => {
 function createConfetti() {
     const ctaSection = document.querySelector('.cta-section');
     if (!ctaSection) return;
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -483,14 +483,14 @@ function createConfetti() {
             }
         });
     }, { threshold: 0.5 });
-    
+
     observer.observe(ctaSection);
 }
 
 function triggerConfetti() {
     const colors = ['#D32F2F', '#FFD700', '#FF6B6B', '#FFC107'];
     const ctaSection = document.querySelector('.cta-section');
-    
+
     for (let i = 0; i < 30; i++) {
         const confetti = document.createElement('div');
         confetti.className = 'confetti';
@@ -499,7 +499,7 @@ function triggerConfetti() {
         confetti.style.animationDelay = Math.random() * 2 + 's';
         confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
         ctaSection.appendChild(confetti);
-        
+
         setTimeout(() => confetti.remove(), 4000);
     }
 }
@@ -509,7 +509,7 @@ function initProgressBar() {
     const progressBar = document.createElement('div');
     progressBar.className = 'scroll-progress';
     document.body.appendChild(progressBar);
-    
+
     window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -543,12 +543,12 @@ const greetingMessages = {
 document.getElementById('generateCard')?.addEventListener('click', () => {
     const name = document.getElementById('recipientName').value.trim();
     const template = document.getElementById('greetingTemplate').value;
-    
+
     if (!name) {
         alert('Vui lòng nhập tên người nhận!');
         return;
     }
-    
+
     document.getElementById('previewName').textContent = name;
     document.getElementById('previewMessage').textContent = greetingMessages[template];
     document.getElementById('greetingPreview').style.display = 'block';
@@ -561,11 +561,11 @@ document.getElementById('downloadCard')?.addEventListener('click', () => {
 document.getElementById('shareCard')?.addEventListener('click', () => {
     const name = document.getElementById('recipientName').value;
     const template = document.getElementById('greetingTemplate').value;
-    const message = `🧧 Thiệp Chúc Tết gửi ${name}:\n\n${greetingMessages[template]}\n\n🌸 Xuân Bính Ngọ 2026`;
-    
+    const message = `🧧 Thiệp Chúc Tết gửi ${name}:\n\n${greetingMessages[template]}\n\n🌸 Xuân Đinh Mùi 2027`;
+
     if (navigator.share) {
         navigator.share({
-            title: 'Thiệp Chúc Tết 2026',
+            title: 'Thiệp Chúc Tết 2027',
             text: message
         });
     } else {
@@ -575,15 +575,15 @@ document.getElementById('shareCard')?.addEventListener('click', () => {
 });
 
 // ===== XONG DAT CHECKER =====
-// Năm 2026 là năm Bính Ngọ
-// Tam hợp Ngọ: Dần - Ngọ - Tuất (rất tốt)
-// Lục hợp Ngọ: Mùi (tốt)
-// Tương xung Ngọ: Tý (xấu)
-// Tương hại Ngọ: Sửu (xấu)
-// Tương hình Ngọ: Ngọ (tự hình - không tốt)
+// Năm 2027 là năm Đinh Mùi
+// Tam hợp Mùi: Hợi - Mão - Mùi (rất tốt)
+// Lục hợp Mùi: Ngọ (tốt)
+// Tương xung Mùi: Sửu (xấu)
+// Tương hại Mùi: Tý (xấu)
+// Tương hình Mùi: Tuất (xấu)
 
 const xongdatData = {
-    // Năm Bính Ngọ 2026 - Tuổi hợp xông đất dựa trên Tam hợp, Lục hợp với tuổi gia chủ
+    // Năm Đinh Mùi 2027 - Tuổi hợp xông đất dựa trên Tam hợp, Lục hợp với tuổi gia chủ
     // Ưu tiên: Tam hợp > Lục hợp > Tương sinh
     goodYears: {
         'Tý': ['Thân', 'Thìn', 'Sửu'],      // Tam hợp: Thân-Tý-Thìn, Lục hợp: Sửu
@@ -614,8 +614,8 @@ const xongdatData = {
         'Tuất': ['Thìn', 'Dậu', 'Sửu'],      // Xung: Thìn, Hại: Dậu, Hình: Sửu
         'Hợi': ['Tỵ', 'Thân', 'Hợi']         // Xung: Tỵ, Hại: Thân, Tự hình
     },
-    // Ghi chú đặc biệt cho năm Bính Ngọ 2026
-    note2026: 'Năm 2026 Bính Ngọ, tuổi Dần-Ngọ-Tuất (Tam hợp) và Mùi (Lục hợp) đặc biệt tốt để xông đất.'
+    // Ghi chú đặc biệt cho năm Đinh Mùi 2027
+    note2027: 'Năm 2027 Đinh Mùi, tuổi Hợi-Mão-Mùi (Tam hợp) và Ngọ (Lục hợp) đặc biệt tốt để xông đất.'
 };
 
 function getZodiac(year) {
@@ -626,28 +626,28 @@ function getZodiac(year) {
 document.getElementById('checkXongdat')?.addEventListener('click', () => {
     const yearSelect = document.getElementById('homeownerYear');
     const year = parseInt(yearSelect.value);
-    
+
     if (!year) {
         alert('Vui lòng chọn năm sinh gia chủ!');
         return;
     }
-    
+
     const zodiac = getZodiac(year);
     const goodYears = xongdatData.goodYears[zodiac] || [];
     const badYears = xongdatData.badYears[zodiac] || [];
-    
+
     const resultDiv = document.getElementById('xongdatResult');
-    
-    // Kiểm tra tuổi đặc biệt tốt cho năm Bính Ngọ 2026
-    const bestYears2026 = ['Dần', 'Ngọ', 'Tuất', 'Mùi'];
+
+    // Kiểm tra tuổi đặc biệt tốt cho năm Đinh Mùi 2027
+    const bestYears2027 = ['Hợi', 'Mão', 'Mùi', 'Ngọ'];
     const goodYearsWithNote = goodYears.map(y => {
-        const isBest = bestYears2026.includes(y);
-        return `<li class="tuoi-tot">✅ Tuổi ${y}${isBest ? ' ⭐ (Đặc biệt hợp năm Bính Ngọ)' : ' - Tam hợp/Lục hợp'}</li>`;
+        const isBest = bestYears2027.includes(y);
+        return `<li class="tuoi-tot">✅ Tuổi ${y}${isBest ? ' ⭐ (Đặc biệt hợp năm Đinh Mùi)' : ' - Tam hợp/Lục hợp'}</li>`;
     }).join('');
-    
+
     resultDiv.innerHTML = `
         <h4>🏠 Gia chủ tuổi ${zodiac} (${year})</h4>
-        <p><strong>Năm Bính Ngọ 2026 - Tuổi hợp xông đất:</strong></p>
+        <p><strong>Năm Đinh Mùi 2027 - Tuổi hợp xông đất:</strong></p>
         <ul>${goodYearsWithNote}</ul>
         <p><strong>Tuổi nên tránh (Lục xung, Lục hại):</strong></p>
         <ul>
@@ -655,15 +655,15 @@ document.getElementById('checkXongdat')?.addEventListener('click', () => {
         </ul>
         <div style="margin-top: 12px; padding: 10px; background: var(--color-gold-light); border-radius: 8px;">
             <p style="margin: 0; font-size: 0.9rem;">
-                💡 <strong>Giờ tốt xông đất Tết 2026:</strong><br>
+                💡 <strong>Giờ tốt xông đất Tết 2027:</strong><br>
                 • Giờ Tý (23h-1h) - Giờ đầu tiên của năm mới<br>
-                • Giờ Dần (3h-5h) - Tam hợp với Ngọ<br>
-                • Giờ Mão (5h-7h) - Giờ bình minh tốt lành<br>
-                • Giờ Ngọ (11h-13h) - Chính vị năm Bính Ngọ
+                • Giờ Mão (5h-7h) - Tam hợp với Mùi<br>
+                • Giờ Ngọ (11h-13h) - Lục hợp với Mùi<br>
+                • Giờ Mùi (13h-15h) - Chính vị năm Đinh Mùi
             </p>
         </div>
         <p style="margin-top: 10px; font-style: italic; color: var(--color-text-light); font-size: 0.85rem;">
-            📌 Lưu ý: Tuổi Dần, Ngọ, Tuất (Tam hợp) và Mùi (Lục hợp với Ngọ) đặc biệt tốt cho năm 2026.
+            📌 Lưu ý: Tuổi Hợi, Mão, Mùi (Tam hợp) và Ngọ (Lục hợp với Mùi) đặc biệt tốt cho năm 2027.
         </p>
     `;
     resultDiv.style.display = 'block';
@@ -672,13 +672,13 @@ document.getElementById('checkXongdat')?.addEventListener('click', () => {
 // ===== QUIZ TET =====
 const quizQuestions = [
     {
-        question: 'Tết Nguyên Đán 2026 rơi vào ngày nào dương lịch?',
-        options: ['15/02/2026', '16/02/2026', '17/02/2026', '18/02/2026'],
+        question: 'Tết Nguyên Đán 2027 rơi vào ngày nào dương lịch?',
+        options: ['04/02/2027', '05/02/2027', '06/02/2027', '07/02/2027'],
         correct: 2
     },
     {
-        question: 'Năm 2026 là năm con gì theo âm lịch?',
-        options: ['Rắn', 'Ngựa', 'Dê', 'Khỉ'],
+        question: 'Năm 2027 là năm con gì theo âm lịch?',
+        options: ['Ngựa', 'Dê', 'Khỉ', 'Gà'],
         correct: 1
     },
     {
@@ -732,17 +732,17 @@ function showQuestion() {
         endQuiz();
         return;
     }
-    
+
     const q = quizQuestions[currentQuestion];
     document.getElementById('quizQuestion').textContent = q.question;
     document.getElementById('quizProgress').textContent = `Câu ${currentQuestion + 1}/5`;
     document.getElementById('quizScore').textContent = `Điểm: ${score}`;
-    
+
     const optionsDiv = document.getElementById('quizOptions');
-    optionsDiv.innerHTML = q.options.map((opt, i) => 
+    optionsDiv.innerHTML = q.options.map((opt, i) =>
         `<div class="quiz-option" data-index="${i}">${opt}</div>`
     ).join('');
-    
+
     optionsDiv.querySelectorAll('.quiz-option').forEach(opt => {
         opt.addEventListener('click', () => selectAnswer(parseInt(opt.dataset.index)));
     });
@@ -751,9 +751,9 @@ function showQuestion() {
 function selectAnswer(index) {
     const q = quizQuestions[currentQuestion];
     const options = document.querySelectorAll('.quiz-option');
-    
+
     options.forEach(opt => opt.style.pointerEvents = 'none');
-    
+
     if (index === q.correct) {
         options[index].classList.add('correct');
         score++;
@@ -761,7 +761,7 @@ function selectAnswer(index) {
         options[index].classList.add('wrong');
         options[q.correct].classList.add('correct');
     }
-    
+
     setTimeout(() => {
         currentQuestion++;
         showQuestion();
@@ -772,13 +772,13 @@ function endQuiz() {
     document.getElementById('quizContainer').classList.remove('active');
     document.getElementById('startQuiz').style.display = 'block';
     document.getElementById('startQuiz').textContent = 'Chơi Lại';
-    
+
     let message = '';
     if (score === 5) message = '🏆 Xuất sắc! Bạn là chuyên gia về Tết Việt!';
     else if (score >= 4) message = '🎉 Tuyệt vời! Bạn hiểu rất rõ về Tết!';
     else if (score >= 3) message = '👍 Khá tốt! Bạn biết khá nhiều về Tết!';
     else message = '📚 Hãy tìm hiểu thêm về Tết Việt nhé!';
-    
+
     document.getElementById('quizResult').innerHTML = `
         <h4>Kết Quả Quiz</h4>
         <p>Bạn đạt <strong>${score}/5</strong> điểm</p>
@@ -809,7 +809,7 @@ const lixiMessages = [
     { text: "Năm mới tấn tài tấn lộc, gia đình hạnh phúc! 🎊", type: "blessing" },
     { text: "Sức khỏe dồi dào, công việc hanh thông! 🌟", type: "blessing" },
     { text: "Xuân sang phú quý, Tết đến vinh hoa! 🌸", type: "blessing" },
-    { text: "Cung chúc tân xuân, mã đáo thành công! 🐴", type: "blessing" },
+    { text: "Cung chúc tân xuân, vạn sự cát tường! 🐐", type: "blessing" },
     // Câu hài hước
     { text: "Ít thôi nhưng tình cảm là chính! 😂", type: "funny" },
     { text: "Của ít lòng nhiều, đừng chê nha! 🤭", type: "funny" },
@@ -835,7 +835,7 @@ function getRandomMessage(amount) {
     // Higher amounts get more blessing messages
     const blessings = lixiMessages.filter(m => m.type === 'blessing');
     const funny = lixiMessages.filter(m => m.type === 'funny');
-    
+
     if (amount >= 100000) {
         return blessings[Math.floor(Math.random() * blessings.length)].text;
     } else if (amount <= 5000) {
@@ -851,27 +851,27 @@ function drawLixi() {
     const container = document.getElementById('lixiContainer');
     const result = document.getElementById('lixiResult');
     const drawBtn = document.getElementById('drawLixi');
-    
+
     // Shake animation
     envelope.classList.add('shake');
-    
+
     setTimeout(() => {
         envelope.classList.remove('shake');
         envelope.classList.add('opened');
-        
+
         // Get random amount and message
         const lixi = getRandomLixi();
         const message = getRandomMessage(lixi.value);
-        
+
         // Hide envelope, show result
         setTimeout(() => {
             container.style.display = 'none';
             drawBtn.style.display = 'none';
-            
+
             document.getElementById('lixiMoney').textContent = `🧧 ${lixi.label}`;
             document.getElementById('lixiMessage').textContent = message;
             result.style.display = 'block';
-            
+
             // Add effects based on amount
             if (lixi.value === 500000) {
                 createJackpotEffect();
@@ -889,7 +889,7 @@ function resetLixi() {
     const drawBtn = document.getElementById('drawLixi');
     const claimBtn = document.getElementById('claimLixi');
     const notice = document.getElementById('lixiClaimNotice');
-    
+
     envelope.classList.remove('opened');
     container.style.display = 'flex';
     drawBtn.style.display = 'inline-flex';
@@ -902,7 +902,7 @@ function resetLixi() {
 function createLixiConfetti() {
     const colors = ['#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7'];
     const container = document.querySelector('.lixi-card');
-    
+
     for (let i = 0; i < 30; i++) {
         const confetti = document.createElement('div');
         confetti.style.cssText = `
@@ -924,7 +924,7 @@ function createLixiConfetti() {
 
 function createJackpotEffect() {
     const container = document.querySelector('.lixi-card');
-    
+
     // Massive confetti
     const colors = ['#FFD700', '#FF6B6B', '#E53935', '#FFC107', '#FF9800', '#FFEB3B'];
     for (let i = 0; i < 80; i++) {
@@ -944,20 +944,20 @@ function createJackpotEffect() {
         container.appendChild(confetti);
         setTimeout(() => confetti.remove(), 4000);
     }
-    
+
     // Firework bursts
     for (let burst = 0; burst < 3; burst++) {
         setTimeout(() => {
             createFireworkBurst(container, 20 + Math.random() * 60, 30 + Math.random() * 40);
         }, burst * 400);
     }
-    
+
     // Golden glow effect
     container.style.boxShadow = '0 0 60px rgba(255, 215, 0, 0.8), 0 0 100px rgba(255, 215, 0, 0.5)';
     setTimeout(() => {
         container.style.boxShadow = '';
     }, 3000);
-    
+
     // Jackpot text animation
     const moneyEl = document.getElementById('lixiMoney');
     moneyEl.innerHTML = '🎉 JACKPOT! 🎉<br>🧧 500.000đ 🧧';
@@ -970,13 +970,13 @@ function createJackpotEffect() {
 function createFireworkBurst(container, x, y) {
     const colors = ['#FFD700', '#FF6B6B', '#00E676', '#2196F3', '#E91E63', '#9C27B0'];
     const particles = 20;
-    
+
     for (let i = 0; i < particles; i++) {
         const particle = document.createElement('div');
         const angle = (i / particles) * Math.PI * 2;
         const velocity = 50 + Math.random() * 50;
         const color = colors[Math.floor(Math.random() * colors.length)];
-        
+
         particle.style.cssText = `
             position: absolute;
             width: 6px;
@@ -1036,14 +1036,14 @@ document.querySelectorAll('.bc-chip').forEach(chip => {
 document.querySelectorAll('.bc-item').forEach(item => {
     item.addEventListener('click', () => {
         if (bcIsRolling) return;
-        
+
         const itemName = item.dataset.item;
         if (bcBalance >= bcCurrentChip) {
             bcBets[itemName] += bcCurrentChip;
             bcBalance -= bcCurrentChip;
             updateBCDisplay();
             item.classList.add('selected');
-            
+
             // Hiệu ứng đặt chip
             item.style.transform = 'scale(0.95)';
             setTimeout(() => item.style.transform = '', 150);
@@ -1056,15 +1056,15 @@ document.querySelectorAll('.bc-item').forEach(item => {
 // Xóa cược
 document.getElementById('bcClear')?.addEventListener('click', () => {
     if (bcIsRolling) return;
-    
+
     // Hoàn lại xu
     const totalBet = Object.values(bcBets).reduce((a, b) => a + b, 0);
     bcBalance += totalBet;
-    
+
     // Reset cược
     bcBets = { bau: 0, cua: 0, tom: 0, ca: 0, ga: 0, nai: 0 };
     updateBCDisplay();
-    
+
     document.querySelectorAll('.bc-item').forEach(item => {
         item.classList.remove('selected', 'winner');
     });
@@ -1075,29 +1075,29 @@ document.getElementById('bcClear')?.addEventListener('click', () => {
 // Lắc xúc xắc
 document.getElementById('bcRoll')?.addEventListener('click', () => {
     if (bcIsRolling) return;
-    
+
     const totalBet = Object.values(bcBets).reduce((a, b) => a + b, 0);
     if (totalBet === 0) {
         showBCMessage('Đặt cược trước đã! 🎯', 'lose');
         return;
     }
-    
+
     bcIsRolling = true;
-    
+
     // Xóa trạng thái winner cũ
     document.querySelectorAll('.bc-item').forEach(item => {
         item.classList.remove('winner');
     });
-    
+
     // Animation lắc xúc xắc
     const dice = [
         document.getElementById('die1'),
         document.getElementById('die2'),
         document.getElementById('die3')
     ];
-    
+
     dice.forEach(die => die.classList.add('rolling'));
-    
+
     // Random kết quả trong khi lắc
     let rollCount = 0;
     const rollInterval = setInterval(() => {
@@ -1108,7 +1108,7 @@ document.getElementById('bcRoll')?.addEventListener('click', () => {
         rollCount++;
         if (rollCount > 20) {
             clearInterval(rollInterval);
-            
+
             // Kết quả cuối cùng - nai và cá có tỷ lệ cao hơn
             const results = [];
             const weightedItems = ['bau', 'cua', 'tom', 'ca', 'ca', 'ga', 'nai', 'nai'];
@@ -1118,7 +1118,7 @@ document.getElementById('bcRoll')?.addEventListener('click', () => {
                 die.textContent = bcIcons[result];
                 results.push(result);
             });
-            
+
             // Tính toán thắng thua
             calculateBCResult(results);
         }
@@ -1127,30 +1127,30 @@ document.getElementById('bcRoll')?.addEventListener('click', () => {
 
 function calculateBCResult(results) {
     let totalWin = 0;
-    
+
     // Đếm số lần xuất hiện của mỗi con
     const counts = {};
     results.forEach(r => {
         counts[r] = (counts[r] || 0) + 1;
     });
-    
+
     // Tính tiền thắng
     bcItems.forEach(item => {
         if (bcBets[item] > 0 && counts[item]) {
             totalWin += bcBets[item] * (counts[item] + 1); // Cược + thắng x số lần xuất hiện
-            
+
             // Highlight ô thắng
             document.querySelector(`.bc-item[data-item="${item}"]`).classList.add('winner');
         }
     });
-    
+
     // Cập nhật số dư
     bcBalance += totalWin;
-    
+
     // Hiển thị kết quả
     const totalBet = Object.values(bcBets).reduce((a, b) => a + b, 0);
     const profit = totalWin - totalBet;
-    
+
     if (profit > 0) {
         showBCMessage(`🎉 Thắng ${profit} xu! Tổng: +${totalWin} xu`, 'win');
         createBCConfetti();
@@ -1159,11 +1159,11 @@ function calculateBCResult(results) {
     } else {
         showBCMessage(`😢 Thua ${totalBet} xu! Chúc may mắn lần sau~`, 'lose');
     }
-    
+
     // Reset cược
     bcBets = { bau: 0, cua: 0, tom: 0, ca: 0, ga: 0, nai: 0 };
     updateBCDisplay();
-    
+
     setTimeout(() => {
         document.querySelectorAll('.bc-item').forEach(item => {
             item.classList.remove('selected');
@@ -1188,7 +1188,7 @@ function showBCMessage(msg, type) {
 function createBCConfetti() {
     const container = document.querySelector('.baucua-card');
     const emojis = ['🎉', '✨', '🪙', '💰', '🎊'];
-    
+
     for (let i = 0; i < 20; i++) {
         const confetti = document.createElement('div');
         confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
@@ -1223,16 +1223,16 @@ let wheelRotation = 0;
 
 document.getElementById('spinWheel')?.addEventListener('click', () => {
     if (wheelSpinning) return;
-    
+
     wheelSpinning = true;
     const wheel = document.getElementById('luckyWheel');
     const spinBtn = document.getElementById('spinWheel');
     const resultDiv = document.getElementById('wheelResult');
-    
+
     spinBtn.disabled = true;
     spinBtn.textContent = '🎰 Đang quay...';
     resultDiv.innerHTML = '';
-    
+
     // Random prize (JACKPOT có tỷ lệ thấp hơn)
     let prizeIndex;
     const rand = Math.random();
@@ -1241,26 +1241,26 @@ document.getElementById('spinWheel')?.addEventListener('click', () => {
     } else {
         prizeIndex = Math.floor(Math.random() * 7); // 95% các giải khác
     }
-    
+
     // Tính góc quay
     const segmentAngle = 360 / 8;
     const targetAngle = 360 - (prizeIndex * segmentAngle) - (segmentAngle / 2);
     const spins = 5 + Math.floor(Math.random() * 3); // 5-7 vòng
     const totalRotation = spins * 360 + targetAngle;
-    
+
     wheelRotation += totalRotation;
     wheel.style.transform = `rotate(${wheelRotation}deg)`;
-    
+
     // Hiển thị kết quả sau khi quay xong
     setTimeout(() => {
         const prize = wheelPrizes[prizeIndex];
-        
+
         resultDiv.innerHTML = `
             <div class="prize-icon">${prize.icon}</div>
             <div class="prize-text">${prize.name}</div>
             <div class="prize-message">${prize.message}</div>
         `;
-        
+
         // Hiệu ứng đặc biệt cho JACKPOT
         if (prize.type === 'jackpot') {
             createWheelConfetti();
@@ -1270,7 +1270,7 @@ document.getElementById('spinWheel')?.addEventListener('click', () => {
             resultDiv.style.background = 'rgba(255, 255, 255, 0.1)';
             resultDiv.style.border = 'none';
         }
-        
+
         spinBtn.disabled = false;
         spinBtn.textContent = '🎯 Quay Lại!';
         wheelSpinning = false;
@@ -1280,7 +1280,7 @@ document.getElementById('spinWheel')?.addEventListener('click', () => {
 function createWheelConfetti() {
     const container = document.querySelector('.wheel-card');
     const emojis = ['🎉', '✨', '🏆', '💰', '🎊', '⭐', '🌟'];
-    
+
     for (let i = 0; i < 40; i++) {
         const confetti = document.createElement('div');
         confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
@@ -1311,7 +1311,7 @@ let rpsPlaying = false;
 document.querySelectorAll('.rps-choice').forEach(btn => {
     btn.addEventListener('click', () => {
         if (rpsPlaying) return;
-        
+
         const playerChoice = btn.dataset.choice;
         playRPS(playerChoice);
     });
@@ -1319,39 +1319,39 @@ document.querySelectorAll('.rps-choice').forEach(btn => {
 
 function playRPS(playerChoice) {
     rpsPlaying = true;
-    
+
     const playerHand = document.getElementById('playerHand');
     const computerHand = document.getElementById('computerHand');
     const result = document.getElementById('rpsResult');
-    
+
     // Reset classes
     playerHand.className = 'rps-hand';
     computerHand.className = 'rps-hand';
     result.className = 'rps-result';
     result.textContent = '';
-    
+
     // Shake animation
     playerHand.classList.add('shake');
     computerHand.classList.add('shake');
     playerHand.textContent = '✊';
     computerHand.textContent = '✊';
-    
+
     // Computer random choice
     const choices = ['rock', 'scissors', 'paper'];
     const computerChoice = choices[Math.floor(Math.random() * choices.length)];
-    
+
     // Show result after shake
     setTimeout(() => {
         playerHand.classList.remove('shake');
         computerHand.classList.remove('shake');
-        
+
         playerHand.textContent = rpsChoices[playerChoice].emoji;
         computerHand.textContent = rpsChoices[computerChoice].emoji;
-        
+
         // Determine winner
         let resultText = '';
         let resultClass = '';
-        
+
         if (playerChoice === computerChoice) {
             resultText = '🤝 Hòa! Đấu lại nào~';
             resultClass = 'draw';
@@ -1370,15 +1370,15 @@ function playRPS(playerChoice) {
             computerHand.classList.add('winner');
             playerHand.classList.add('loser');
         }
-        
+
         result.textContent = resultText;
         result.classList.add(resultClass);
-        
+
         // Update score
         document.getElementById('rpsWin').textContent = rpsScore.win;
         document.getElementById('rpsLose').textContent = rpsScore.lose;
         document.getElementById('rpsDraw').textContent = rpsScore.draw;
-        
+
         rpsPlaying = false;
     }, 600);
 }
@@ -1386,7 +1386,7 @@ function playRPS(playerChoice) {
 function createRPSConfetti() {
     const container = document.querySelector('.rps-card');
     const emojis = ['🎉', '✨', '🏆', '⭐', '💫'];
-    
+
     for (let i = 0; i < 15; i++) {
         const confetti = document.createElement('div');
         confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
@@ -1488,7 +1488,7 @@ const napAmTable = {
 
 const elementColors = {
     'Kim': '#FFD700',
-    'Thủy': '#4FC3F7', 
+    'Thủy': '#4FC3F7',
     'Hỏa': '#FF5722',
     'Thổ': '#8D6E63',
     'Mộc': '#66BB6A'
@@ -1497,13 +1497,13 @@ const elementColors = {
 function calcZodiac(year) {
     const zodiacIndex = (year - 4) % 12;
     const canIndex = (year - 4) % 10;
-    
+
     const can = canChi[canIndex];
     const chi = zodiacAnimals[zodiacIndex].name;
     const canChiKey = `${can} ${chi}`;
-    
+
     const napAm = napAmTable[canChiKey] || { menh: 'Không xác định', tenMenh: '', desc: '' };
-    
+
     return {
         zodiac: zodiacAnimals[zodiacIndex],
         can: can,
@@ -1515,23 +1515,23 @@ function calcZodiac(year) {
 
 document.getElementById('calcZodiac')?.addEventListener('click', () => {
     const year = parseInt(document.getElementById('birthYear').value);
-    
+
     if (!year || year < 1900 || year > 2100) {
         alert('Vui lòng nhập năm sinh hợp lệ (1900-2100)');
         return;
     }
-    
+
     const result = calcZodiac(year);
     const resultDiv = document.getElementById('zodiacResult');
-    
-    // Tính tuổi âm năm 2026 (tuổi mụ = 2026 - năm sinh + 1)
-    const lunarAge = 2026 - year + 1;
-    
+
+    // Tính tuổi âm năm 2027 (tuổi mụ = 2027 - năm sinh + 1)
+    const lunarAge = 2027 - year + 1;
+
     document.getElementById('zodiacAnimal').textContent = result.zodiac.emoji;
     document.getElementById('zodiacName').textContent = `Tuổi ${result.canChi} (${result.zodiac.animal})`;
     document.getElementById('zodiacElement').innerHTML = `Mệnh <strong style="color:${elementColors[result.element.menh]}">${result.element.menh}</strong> - ${result.element.tenMenh} (${result.element.desc})`;
-    document.getElementById('zodiacDesc').innerHTML = `<strong>🎂 ${lunarAge} tuổi âm (năm 2026)</strong><br>Tính cách: ${result.zodiac.traits}`;
-    
+    document.getElementById('zodiacDesc').innerHTML = `<strong>🎂 ${lunarAge} tuổi âm (năm 2027)</strong><br>Tính cách: ${result.zodiac.traits}`;
+
     resultDiv.style.display = 'block';
 });
 
@@ -1539,11 +1539,11 @@ document.getElementById('birthYear')?.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') document.getElementById('calcZodiac').click();
 });
 
-// ===== XEM TỬ VI 2026 =====
-const horoscope2026 = {
+// ===== XEM TỬ VI 2027 =====
+const horoscope2027 = {
     ty: {
         icon: '🐭', name: 'Tý (Chuột)', rating: 4,
-        content: 'Năm 2026 mang đến nhiều cơ hội phát triển cho tuổi Tý. Công việc hanh thông, tài chính ổn định. Tuy nhiên cần cẩn thận trong các mối quan hệ và tránh đầu tư mạo hiểm.',
+        content: 'Năm 2027 mang đến nhiều cơ hội phát triển cho tuổi Tý. Công việc hanh thông, tài chính ổn định. Tuy nhiên cần cẩn thận trong các mối quan hệ và tránh đầu tư mạo hiểm.',
         money: '⭐⭐⭐⭐', love: '⭐⭐⭐', career: '⭐⭐⭐⭐⭐', health: '⭐⭐⭐⭐'
     },
     suu: {
@@ -1553,7 +1553,7 @@ const horoscope2026 = {
     },
     dan: {
         icon: '🐅', name: 'Dần (Hổ)', rating: 4,
-        content: 'Năm Bính Ngọ tương hợp với tuổi Dần, mang lại nhiều may mắn. Sự nghiệp thăng tiến, có quý nhân phù trợ. Tình duyên thuận lợi, người độc thân dễ gặp ý trung nhân.',
+        content: 'Năm Đinh Mùi tương hợp với tuổi Dần, mang lại nhiều may mắn. Sự nghiệp thăng tiến, có quý nhân phù trợ. Tình duyên thuận lợi, người độc thân dễ gặp ý trung nhân.',
         money: '⭐⭐⭐⭐', love: '⭐⭐⭐⭐⭐', career: '⭐⭐⭐⭐', health: '⭐⭐⭐⭐'
     },
     mao: {
@@ -1573,12 +1573,12 @@ const horoscope2026 = {
     },
     ngo: {
         icon: '🐴', name: 'Ngọ (Ngựa)', rating: 5,
-        content: 'Năm Bính Ngọ là năm bản mệnh! Đây là năm đặc biệt quan trọng. Cần cẩn thận đầu năm, nhưng cuối năm sẽ gặp nhiều may mắn. Nên đeo vật phẩm phong thủy để hóa giải.',
+        content: 'Năm Đinh Mùi, tuổi Ngọ được Lục Hợp với Mùi, vận may tăng cao. Công việc hanh thông, có quý nhân phù trợ. Tình duyên tốt đẹp, gia đình hạnh phúc.',
         money: '⭐⭐⭐⭐', love: '⭐⭐⭐⭐', career: '⭐⭐⭐⭐⭐', health: '⭐⭐⭐'
     },
     mui: {
         icon: '🐐', name: 'Mùi (Dê)', rating: 4,
-        content: 'Tuổi Mùi năm nay được Tam Hợp với Ngọ, vận may tăng cao. Công việc thuận lợi, có cơ hội thăng tiến. Tình duyên tốt đẹp, gia đình hạnh phúc.',
+        content: 'Năm Đinh Mùi là năm bản mệnh của tuổi Mùi! Đây là năm đặc biệt quan trọng. Cần cẩn thận đầu năm, nhưng cuối năm sẽ gặp nhiều may mắn. Nên đeo vật phẩm phong thủy để hóa giải.',
         money: '⭐⭐⭐⭐', love: '⭐⭐⭐⭐⭐', career: '⭐⭐⭐⭐', health: '⭐⭐⭐⭐'
     },
     than: {
@@ -1593,7 +1593,7 @@ const horoscope2026 = {
     },
     tuat: {
         icon: '🐕', name: 'Tuất (Chó)', rating: 4,
-        content: 'Năm 2026 mang lại nhiều điều tốt đẹp cho tuổi Tuất. Được Lục Hợp với Ngọ, công việc hanh thông. Tình duyên thuận lợi, có thể có tin vui về hôn nhân.',
+        content: 'Năm 2027 mang lại nhiều điều tốt đẹp cho tuổi Tuất. Công việc hanh thông, tài chính ổn định. Tình duyên thuận lợi, có thể có tin vui về hôn nhân.',
         money: '⭐⭐⭐⭐', love: '⭐⭐⭐⭐⭐', career: '⭐⭐⭐⭐', health: '⭐⭐⭐⭐'
     },
     hoi: {
@@ -1609,24 +1609,24 @@ document.getElementById('horoscopeZodiac')?.addEventListener('change', (e) => {
         document.getElementById('horoscopeResult').style.display = 'none';
         return;
     }
-    
-    const data = horoscope2026[zodiac];
+
+    const data = horoscope2027[zodiac];
     const resultDiv = document.getElementById('horoscopeResult');
-    
+
     document.getElementById('horoscopeIcon').textContent = data.icon;
-    document.getElementById('horoscopeTitle').textContent = data.name + ' - Năm 2026';
+    document.getElementById('horoscopeTitle').textContent = data.name + ' - Năm 2027';
     document.getElementById('horoscopeRating').textContent = '⭐'.repeat(data.rating) + '☆'.repeat(5 - data.rating);
     document.getElementById('horoscopeContent').textContent = data.content;
     document.getElementById('horoscopeMoney').textContent = data.money;
     document.getElementById('horoscopeLove').textContent = data.love;
     document.getElementById('horoscopeCareer').textContent = data.career;
     document.getElementById('horoscopeHealth').textContent = data.health;
-    
+
     resultDiv.style.display = 'block';
 });
 
 // ===== MEMORY CARD GAME =====
-const memoryIcons = ['🧧', '🏮', '🎊', '🌸', '🐴', '🎆'];
+const memoryIcons = ['🧧', '🏮', '🎊', '🌸', '�', '🎆'];
 let memoryCards = [];
 let flippedCards = [];
 let matchedPairs = 0;
@@ -1642,28 +1642,28 @@ function initMemoryGame() {
     memorySeconds = 0;
     flippedCards = [];
     memoryLocked = false;
-    
+
     if (memoryTimer) clearInterval(memoryTimer);
-    
+
     // Update display
     document.getElementById('memoryPairs').textContent = '0';
     document.getElementById('memoryMoves').textContent = '0';
     document.getElementById('memoryTime').textContent = '00:00';
     document.getElementById('memoryResult').style.display = 'none';
-    
+
     // Create cards (pairs)
     memoryCards = [...memoryIcons, ...memoryIcons];
-    
+
     // Shuffle
     for (let i = memoryCards.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [memoryCards[i], memoryCards[j]] = [memoryCards[j], memoryCards[i]];
     }
-    
+
     // Render board
     const board = document.getElementById('memoryBoard');
     board.innerHTML = '';
-    
+
     memoryCards.forEach((icon, index) => {
         const card = document.createElement('div');
         card.className = 'memory-card';
@@ -1676,7 +1676,7 @@ function initMemoryGame() {
         card.addEventListener('click', () => flipCard(card));
         board.appendChild(card);
     });
-    
+
     // Start timer
     memoryTimer = setInterval(() => {
         memorySeconds++;
@@ -1691,14 +1691,14 @@ function flipCard(card) {
     if (card.classList.contains('flipped')) return;
     if (card.classList.contains('matched')) return;
     if (flippedCards.length >= 2) return;
-    
+
     card.classList.add('flipped');
     flippedCards.push(card);
-    
+
     if (flippedCards.length === 2) {
         memoryMoves++;
         document.getElementById('memoryMoves').textContent = memoryMoves;
-        
+
         checkMatch();
     }
 }
@@ -1706,17 +1706,17 @@ function flipCard(card) {
 function checkMatch() {
     memoryLocked = true;
     const [card1, card2] = flippedCards;
-    
+
     if (card1.dataset.icon === card2.dataset.icon) {
         // Match!
         card1.classList.add('matched');
         card2.classList.add('matched');
         matchedPairs++;
         document.getElementById('memoryPairs').textContent = matchedPairs;
-        
+
         flippedCards = [];
         memoryLocked = false;
-        
+
         // Check win
         if (matchedPairs === memoryIcons.length) {
             clearInterval(memoryTimer);
@@ -1737,20 +1737,20 @@ function showMemoryResult() {
     const result = document.getElementById('memoryResult');
     const mins = Math.floor(memorySeconds / 60);
     const secs = memorySeconds % 60;
-    
+
     let rating = '';
     if (memoryMoves <= 10) rating = '🏆 Xuất sắc!';
     else if (memoryMoves <= 15) rating = '⭐ Giỏi lắm!';
     else if (memoryMoves <= 20) rating = '👍 Tốt!';
     else rating = '💪 Cố gắng hơn nhé!';
-    
+
     result.innerHTML = `
         <h4>🎉 Hoàn thành!</h4>
         <p>${rating}</p>
         <p>Thời gian: ${mins} phút ${secs} giây | Số lượt: ${memoryMoves}</p>
     `;
     result.style.display = 'block';
-    
+
     // Confetti
     createMemoryConfetti();
 }
@@ -1758,7 +1758,7 @@ function showMemoryResult() {
 function createMemoryConfetti() {
     const container = document.querySelector('.memory-card-game');
     const emojis = ['🎉', '✨', '🏆', '⭐', '🎊'];
-    
+
     for (let i = 0; i < 20; i++) {
         const confetti = document.createElement('div');
         confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
@@ -1801,24 +1801,24 @@ let scratchRevealed = false;
 function initScratchCard() {
     scratchCanvas = document.getElementById('scratchCanvas');
     if (!scratchCanvas) return;
-    
+
     scratchCtx = scratchCanvas.getContext('2d', { willReadFrequently: true });
     scratchRevealed = false;
-    
+
     // Set canvas size
     const container = document.getElementById('scratchContainer');
     scratchCanvas.width = container.offsetWidth;
     scratchCanvas.height = container.offsetHeight;
-    
+
     // Draw scratch layer with gradient
     const gradient = scratchCtx.createLinearGradient(0, 0, scratchCanvas.width, scratchCanvas.height);
     gradient.addColorStop(0, '#ef4444');
     gradient.addColorStop(0.5, '#dc2626');
     gradient.addColorStop(1, '#b91c1c');
-    
+
     scratchCtx.fillStyle = gradient;
     scratchCtx.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
-    
+
     // Draw decorative circles
     scratchCtx.globalAlpha = 0.2;
     for (let i = 0; i < 8; i++) {
@@ -1831,34 +1831,34 @@ function initScratchCard() {
         scratchCtx.fill();
     }
     scratchCtx.globalAlpha = 1;
-    
+
     // Draw text
     scratchCtx.fillStyle = '#fbbf24';
     scratchCtx.font = 'bold 28px Playfair Display, serif';
     scratchCtx.textAlign = 'center';
     scratchCtx.fillText('CÀO TẠI ĐÂY', scratchCanvas.width / 2, scratchCanvas.height / 2);
-    
+
     scratchCtx.fillStyle = '#fef3c7';
     scratchCtx.font = '14px Inter, sans-serif';
     scratchCtx.fillText('Scratch Here', scratchCanvas.width / 2, scratchCanvas.height / 2 + 25);
-    
+
     // Set random prize
     const prize = scratchPrizes[Math.floor(Math.random() * scratchPrizes.length)];
     document.getElementById('scratchPrize').textContent = prize.amount;
     document.getElementById('scratchMessage').textContent = prize.message;
-    
+
     // Show canvas
     scratchCanvas.style.opacity = '1';
 }
 
 function scratch(x, y) {
     if (scratchRevealed) return;
-    
+
     scratchCtx.globalCompositeOperation = 'destination-out';
     scratchCtx.beginPath();
     scratchCtx.arc(x, y, 18, 0, Math.PI * 2);
     scratchCtx.fill();
-    
+
     checkScratchProgress();
 }
 
@@ -1866,19 +1866,19 @@ function checkScratchProgress() {
     const imageData = scratchCtx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height);
     const pixels = imageData.data;
     let transparentPixels = 0;
-    
+
     for (let i = 3; i < pixels.length; i += 4) {
         if (pixels[i] === 0) transparentPixels++;
     }
-    
+
     const totalPixels = pixels.length / 4;
     const percentage = (transparentPixels / totalPixels) * 100;
-    
+
     if (percentage > 50 && !scratchRevealed) {
         scratchRevealed = true;
         scratchCanvas.style.transition = 'opacity 0.5s';
         scratchCanvas.style.opacity = '0';
-        
+
         // Celebration effect
         const prize = document.getElementById('scratchPrize').textContent;
         if (prize.includes('100.000') || prize.includes('50.000')) {
@@ -1890,7 +1890,7 @@ function checkScratchProgress() {
 function createScratchConfetti() {
     const container = document.querySelector('.scratch-card-wrapper');
     const emojis = ['🎉', '✨', '🪙', '💰', '🧧', '🎊'];
-    
+
     for (let i = 0; i < 15; i++) {
         const confetti = document.createElement('div');
         confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
@@ -1959,8 +1959,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ===== SOCIAL SHARE =====
 const pageUrl = encodeURIComponent(window.location.href);
-const pageTitle = encodeURIComponent('Tết Nguyên Đán 2026 - Khởi Đầu An Khang Thịnh Vượng');
-const pageDesc = encodeURIComponent('Khám phá Tết Việt 2026 - Năm Bính Ngọ với phong tục, món ăn, và lời chúc tốt đẹp!');
+const pageTitle = encodeURIComponent('Tết Nguyên Đán 2027 - Khởi Đầu An Khang Thịnh Vượng');
+const pageDesc = encodeURIComponent('Khám phá Tết Việt 2027 - Năm Đinh Mùi với phong tục, món ăn, và lời chúc tốt đẹp!');
 
 document.getElementById('shareFacebook')?.addEventListener('click', () => {
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`, '_blank', 'width=600,height=400');
@@ -2031,21 +2031,21 @@ updateActiveThemeOption(savedTheme);
 themeOptions.forEach(option => {
     option.addEventListener('click', () => {
         const theme = option.dataset.theme;
-        
+
         // Remove all theme classes
         document.body.classList.remove('theme-pink', 'theme-green');
-        
+
         // Add new theme if not default
         if (theme !== 'default') {
             document.body.classList.add(`theme-${theme}`);
         }
-        
+
         // Save preference
         localStorage.setItem('theme', theme);
-        
+
         // Update active state
         updateActiveThemeOption(theme);
-        
+
         // Close options
         themeSwitcher.classList.remove('active');
     });
@@ -2061,7 +2061,7 @@ function updateActiveThemeOption(theme) {
 function createPetal() {
     const container = document.getElementById('petalContainer');
     if (!container) return;
-    
+
     const petals = ['🌸', '🏮', '✨', '💮', '🎊'];
     const petal = document.createElement('span');
     petal.className = 'petal';
@@ -2070,9 +2070,9 @@ function createPetal() {
     petal.style.fontSize = (12 + Math.random() * 20) + 'px';
     petal.style.animationDuration = (5 + Math.random() * 5) + 's';
     petal.style.animationDelay = Math.random() * 2 + 's';
-    
+
     container.appendChild(petal);
-    
+
     // Remove after animation
     setTimeout(() => petal.remove(), 12000);
 }
@@ -2103,7 +2103,7 @@ const enterSiteBtn = document.getElementById('enterSite');
 enterSiteBtn?.addEventListener('click', () => {
     // Hide welcome overlay
     welcomeOverlay.classList.add('hidden');
-    
+
     // Play music
     if (bgMusic) {
         bgMusic.volume = 0.3;
@@ -2218,7 +2218,7 @@ if ('serviceWorker' in navigator) {
 // ===== LAZY LOADING IMAGES =====
 document.addEventListener('DOMContentLoaded', () => {
     const images = document.querySelectorAll('img[data-src]');
-    
+
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -2229,7 +2229,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, { rootMargin: '50px' });
-    
+
     images.forEach(img => imageObserver.observe(img));
 });
 
@@ -2315,7 +2315,7 @@ document.getElementById('drawFortune')?.addEventListener('click', () => {
         fortuneDrawn = false;
         return;
     }
-    
+
     // Animate sticks
     const sticks = document.querySelectorAll('.stick');
     sticks.forEach((stick, i) => {
@@ -2323,16 +2323,16 @@ document.getElementById('drawFortune')?.addEventListener('click', () => {
             stick.style.transform = `translateY(-${Math.random() * 20}px) rotate(${Math.random() * 10 - 5}deg)`;
         }, i * 100);
     });
-    
+
     // Select random stick after animation
     setTimeout(() => {
         const randomIndex = Math.floor(Math.random() * sticks.length);
         sticks[randomIndex].classList.add('selected');
-        
+
         // Show fortune
         const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
         showFortune(fortune);
-        
+
         document.getElementById('drawFortune').textContent = '🔄 Rút Lại';
         fortuneDrawn = true;
     }, 600);
@@ -2342,13 +2342,13 @@ document.getElementById('drawFortune')?.addEventListener('click', () => {
 document.querySelectorAll('.stick').forEach(stick => {
     stick.addEventListener('click', () => {
         if (fortuneDrawn) return;
-        
+
         document.querySelectorAll('.stick').forEach(s => s.classList.remove('selected'));
         stick.classList.add('selected');
-        
+
         const fortune = fortunes[Math.floor(Math.random() * fortunes.length)];
         showFortune(fortune);
-        
+
         document.getElementById('drawFortune').textContent = '🔄 Rút Lại';
         fortuneDrawn = true;
     });
@@ -2370,24 +2370,24 @@ function showFortune(fortune) {
 // ===== FAQ CHATBOT =====
 const faqData = {
     1: {
-        q: "Tết 2026 là ngày nào?",
-        a: "Tết Nguyên Đán 2026 (Tết Bính Ngọ) rơi vào <strong>Thứ Ba, ngày 17/02/2026</strong> dương lịch. Đây là ngày Mùng 1 Tết âm lịch. Giao thừa sẽ vào đêm 16/02/2026."
+        q: "Tết 2027 là ngày nào?",
+        a: "Tết Nguyên Đán 2027 (Tết Đinh Mùi) rơi vào <strong>Thứ Bảy, ngày 06/02/2027</strong> dương lịch. Đây là ngày Mùng 1 Tết âm lịch. Giao thừa sẽ vào đêm 05/02/2027."
     },
     2: {
         q: "Được nghỉ Tết mấy ngày?",
-        a: "Theo quy định, công chức được nghỉ <strong>9 ngày</strong> (từ 29 Tết đến hết Mùng 7). Lưu ý: Năm 2026 chỉ có 29 ngày tháng Chạp, không có ngày 30 Tết!"
+        a: "Theo quy định, công chức được nghỉ <strong>9 ngày</strong> (từ 29 Tết đến hết Mùng 7). Vui lòng theo dõi thông báo chính thức từ Chính phủ!"
     },
     3: {
-        q: "Năm 2026 là năm con gì?",
-        a: "Năm 2026 là năm <strong>Bính Ngọ</strong> - con Ngựa. Người tuổi Ngọ thường năng động, nhiệt huyết và yêu tự do. Năm nay hợp với tuổi Dần, Tuất, Mùi."
+        q: "Năm 2027 là năm con gì?",
+        a: "Năm 2027 là năm <strong>Đinh Mùi</strong> - con Dê. Người tuổi Mùi thường hiền lành, nhạy cảm và nghệ sĩ. Năm nay hợp với tuổi Hợi, Mão, Ngọ."
     },
     4: {
         q: "SV Duy Tân nghỉ Tết mấy ngày?",
-        a: "Sinh viên ĐH Duy Tân nghỉ Tết từ <strong>08/02/2026 (21 tháng Chạp)</strong> đến hết <strong>23/02/2026 (07 tháng Giêng)</strong>, tổng <strong>16 ngày</strong>.<br>• 24/02 - 01/03/2026: Học <strong>ONLINE</strong> theo lịch MyDTU<br>• Từ 02/03/2026: Học <strong>trực tiếp</strong> tại trường"
+        a: "Lịch nghỉ Tết Nguyên Đán 2027 của sinh viên ĐH Duy Tân sẽ được thông báo sau. Vui lòng theo dõi thông tin chính thức từ nhà trường trên MyDTU."
     },
     5: {
-        q: "Ngày thần tài 2026?",
-        a: "Ngày vía Thần Tài 2026 là <strong>Mùng 10 tháng Giêng</strong>, tức <strong>Thứ Năm 26/02/2026</strong>. Đây là ngày tốt để mua vàng cầu may mắn, tài lộc cả năm!"
+        q: "Ngày thần tài 2027?",
+        a: "Ngày vía Thần Tài 2027 là <strong>Mùng 10 tháng Giêng</strong>, tức <strong>Thứ Hai 15/02/2027</strong>. Đây là ngày tốt để mua vàng cầu may mắn, tài lộc cả năm!"
     },
     6: {
         q: "Kiêng kỵ gì ngày Tết?",
@@ -2400,7 +2400,7 @@ const faqData = {
 
     9: {
         q: "Giờ tốt xuất hành?",
-        a: "Giờ tốt xuất hành Mùng 1 Tết 2026:<br>• <strong>Giờ Mão (5-7h)</strong> - hướng Đông Nam<br>• <strong>Giờ Ngọ (11-13h)</strong> - hướng Nam<br>• <strong>Giờ Thân (15-17h)</strong> - hướng Tây Bắc"
+        a: "Giờ tốt xuất hành Mùng 1 Tết 2027:<br>• <strong>Giờ Mão (5-7h)</strong> - hướng Đông Nam<br>• <strong>Giờ Ngọ (11-13h)</strong> - hướng Nam<br>• <strong>Giờ Mùi (13-15h)</strong> - hướng Tây Nam"
     },
     10: {
         q: "Có nên dọn nhà ngày Tết?",
@@ -2408,7 +2408,7 @@ const faqData = {
     },
     11: {
         q: "Mặc màu gì may mắn?",
-        a: "Màu may mắn dịp Tết 2026:<br>• <strong>Đỏ:</strong> May mắn, thịnh vượng<br>• <strong>Vàng/Gold:</strong> Tài lộc, giàu sang<br>• <strong>Hồng:</strong> Tình duyên, hạnh phúc<br>Tránh: trắng, đen (tang tóc)"
+        a: "Màu may mắn dịp Tết 2027:<br>• <strong>Đỏ:</strong> May mắn, thịnh vượng<br>• <strong>Vàng/Gold:</strong> Tài lộc, giàu sang<br>• <strong>Hồng:</strong> Tình duyên, hạnh phúc<br>Tránh: trắng, đen (tang tóc)"
     },
     12: {
         q: "Ý nghĩa Tết Nguyên Đán?",
@@ -2420,7 +2420,7 @@ const faqData = {
     },
     14: {
         q: "Nên đi du lịch Tết không?",
-        a: "Du lịch Tết 2026 phù hợp nếu:<br>• Đã cúng ông bà xong<br>• Gia đình đồng ý<br>Điểm đến hot: Đà Lạt, Phú Quốc, Sapa, Hội An. Nên đặt sớm vì giá tăng cao!"
+        a: "Du lịch Tết 2027 phù hợp nếu:<br>• Đã cúng ông bà xong<br>• Gia đình đồng ý<br>Điểm đến hot: Đà Lạt, Phú Quốc, Sapa, Hội An. Nên đặt sớm vì giá tăng cao!"
     },
     15: {
         q: "Tết có từ bao giờ?",
@@ -2451,7 +2451,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.classList.contains('faq-btn')) {
             const qId = e.target.dataset.q;
             const data = faqData[qId];
-            
+
             if (data) {
                 // Add user question
                 const userMsg = document.createElement('div');
